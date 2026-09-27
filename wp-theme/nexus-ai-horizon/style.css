@@ -1,0 +1,16 @@
+/*
+Theme Name: Nexus AI Horizon
+Theme URI: https://nxaihorizon.com/
+Author: Nexus AI Horizon
+Description: Block theme for nxaihorizon.com. Light, product-led homepage with the call demonstration, built from the verified static design in the picked-up folder.
+Version: 1.1.0
+Requires at least: 6.6
+Tested up to: 7.0
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: nexus-ai-horizon
+*/
+
+/* The theme's styles are in assets/css/site.css and are enqueued from
+   functions.php. This file carries the theme header only. */

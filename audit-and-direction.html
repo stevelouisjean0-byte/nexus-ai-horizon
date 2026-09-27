@@ -1,0 +1,1030 @@
+<title>Ring to Revenue</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+:root{
+  --paper:#EDF0F4; --panel:#FFFFFF; --panel-2:#F5F7FA; --sunk:#E2E7ED;
+  --ink:#0A111C; --ink-2:#33404F; --slate:#5A6675; --faint:#8B96A5;
+  --rule:#D3DAE3; --rule-2:#C2CBD6;
+  --accent:#1B4DE4; --accent-soft:#E7ECFD; --accent-ink:#12379F;
+  --p1:#C7361A; --p1-soft:#FBEAE5;
+  --p2:#9A6206; --p2-soft:#FAF0DE;
+  --p3:#476070; --p3-soft:#E8EFF3;
+  --ok:#0B6E45; --ok-soft:#E2F2EA;
+  --shadow:0 1px 2px rgba(10,17,28,.05),0 8px 24px -12px rgba(10,17,28,.14);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0A0E15; --panel:#121924; --panel-2:#161E2A; --sunk:#0D131C;
+    --ink:#E9EDF3; --ink-2:#BAC4D1; --slate:#8E9BAA; --faint:#6B7787;
+    --rule:#232D3B; --rule-2:#2F3B4B;
+    --accent:#5B8DFF; --accent-soft:#16233F; --accent-ink:#9DBAFF;
+    --p1:#FF7A5C; --p1-soft:#2E1610;
+    --p2:#E0A648; --p2-soft:#2A2011;
+    --p3:#8FB0C2; --p3-soft:#151F26;
+    --ok:#4CC28C; --ok-soft:#0F241B;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -14px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0A0E15; --panel:#121924; --panel-2:#161E2A; --sunk:#0D131C;
+  --ink:#E9EDF3; --ink-2:#BAC4D1; --slate:#8E9BAA; --faint:#6B7787;
+  --rule:#232D3B; --rule-2:#2F3B4B;
+  --accent:#5B8DFF; --accent-soft:#16233F; --accent-ink:#9DBAFF;
+  --p1:#FF7A5C; --p1-soft:#2E1610;
+  --p2:#E0A648; --p2-soft:#2A2011;
+  --p3:#8FB0C2; --p3-soft:#151F26;
+  --ok:#4CC28C; --ok-soft:#0F241B;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -14px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);
+  font-family:"Source Serif 4",Georgia,"Times New Roman",serif;
+  font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4,.dsp{font-family:Archivo,"Helvetica Neue",Arial,sans-serif;text-wrap:balance}
+code,kbd,.mono,.log,.tag,.num{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace}
+a{color:var(--accent-ink)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px;display:grid;grid-template-columns:190px minmax(0,1fr);gap:56px;align-items:start}
+.col{max-width:74ch;min-width:0}
+@media(max-width:940px){.wrap{grid-template-columns:1fr;gap:0}.rail{display:none}}
+
+.mast{border-bottom:1px solid var(--rule);background:var(--panel)}
+.mast-in{max-width:1180px;margin:0 auto;padding:52px 28px 40px}
+.eyebrow{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--slate)}
+.mast h1{font-size:clamp(38px,6.2vw,68px);line-height:.98;letter-spacing:-.035em;font-weight:800;margin:18px 0 0}
+.mast h1 em{font-style:normal;color:var(--accent)}
+.deck{font-size:20px;color:var(--ink-2);margin:20px 0 0;max-width:62ch;line-height:1.5}
+.meta{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:30px;padding-top:22px;border-top:1px solid var(--rule);
+  font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--slate);letter-spacing:.02em}
+.meta b{color:var(--ink);font-weight:500}
+
+.rail{position:sticky;top:20px;padding:44px 0 0;font-family:Archivo,sans-serif}
+.rail ol{list-style:none;margin:0;padding:0;border-left:1px solid var(--rule)}
+.rail a{display:flex;gap:9px;padding:5px 0 5px 12px;margin-left:-1px;border-left:2px solid transparent;
+  color:var(--slate);text-decoration:none;font-size:12.5px;line-height:1.35}
+.rail a:hover{color:var(--ink)}
+.rail a.on{color:var(--ink);border-left-color:var(--accent);font-weight:600}
+.rail i{font-style:normal;font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--faint);padding-top:2px}
+
+section{padding:52px 0;border-bottom:1px solid var(--rule);scroll-margin-top:20px}
+section:last-of-type{border-bottom:0}
+.snum{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.18em;color:var(--accent);text-transform:uppercase}
+h2{font-size:clamp(27px,3.4vw,37px);line-height:1.06;letter-spacing:-.028em;font-weight:700;margin:12px 0 0}
+h3{font-size:20px;letter-spacing:-.014em;font-weight:700;margin:38px 0 10px}
+h4{font-size:13px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--slate);margin:30px 0 10px}
+p{margin:14px 0}
+.lede{font-size:19px;color:var(--ink-2);margin-top:16px;line-height:1.55}
+ul,ol{padding-left:20px;margin:14px 0}
+li{margin:7px 0}
+li::marker{color:var(--faint)}
+strong{font-weight:600}
+.small{font-size:15px;color:var(--slate)}
+
+.log{background:var(--sunk);border:1px solid var(--rule);border-radius:6px;padding:15px 17px;margin:18px 0;
+  font-size:12.5px;line-height:1.85;color:var(--ink-2);overflow-x:auto;white-space:pre}
+.log .k{color:var(--accent-ink)}
+.log .bad{color:var(--p1);font-weight:700}
+.log .good{color:var(--ok);font-weight:700}
+.log .c{color:var(--faint)}
+
+.alarm{border:1px solid var(--p1);border-left:5px solid var(--p1);background:var(--p1-soft);
+  border-radius:6px;padding:20px 22px;margin:26px 0}
+.alarm h3{margin:0 0 8px;font-size:19px;color:var(--p1)}
+.alarm p{margin:8px 0}
+.alarm p:last-child{margin-bottom:0}
+.note{border:1px solid var(--rule);border-left:5px solid var(--accent);background:var(--panel);
+  border-radius:6px;padding:18px 20px;margin:24px 0;font-size:15.5px}
+.note h3{margin:0 0 6px;font-size:16px}
+.note p:last-child{margin-bottom:0}
+
+.board{margin:26px 0;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:var(--panel);box-shadow:var(--shadow)}
+.board-hd{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;
+  padding:12px 16px;background:var(--panel-2);border-bottom:1px solid var(--rule)}
+.board-hd .t{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--slate)}
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.filters button{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.06em;cursor:pointer;
+  border:1px solid var(--rule-2);background:var(--panel);color:var(--slate);padding:4px 10px;border-radius:99px}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.row{display:grid;grid-template-columns:78px minmax(0,1fr);gap:0;border-top:1px solid var(--rule)}
+.row:first-of-type{border-top:0}
+.row .sev{padding:15px 12px 15px 16px;border-left:4px solid var(--p3);background:var(--p3-soft)}
+.row[data-sev="P1"] .sev{border-left-color:var(--p1);background:var(--p1-soft)}
+.row[data-sev="P2"] .sev{border-left-color:var(--p2);background:var(--p2-soft)}
+.row .tag{font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--p3)}
+.row[data-sev="P1"] .tag{color:var(--p1)}
+.row[data-sev="P2"] .tag{color:var(--p2)}
+.row .id{display:block;font-size:10px;color:var(--faint);margin-top:3px}
+.row .body{padding:15px 18px;min-width:0}
+.row h5{font-family:Archivo,sans-serif;font-size:16px;font-weight:700;margin:0 0 5px;letter-spacing:-.01em}
+.row p{margin:5px 0;font-size:15px;color:var(--ink-2)}
+.row .fix{font-size:14.5px;color:var(--ink);margin-top:9px;padding-top:9px;border-top:1px dashed var(--rule-2)}
+.row .fix b{font-family:Archivo,sans-serif;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:3px}
+.ev{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--slate);background:var(--sunk);
+  padding:2px 6px;border-radius:3px;display:inline-block;margin:2px 3px 2px 0;word-break:break-all}
+
+.tbl-w{overflow-x:auto;margin:22px 0;border:1px solid var(--rule);border-radius:8px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:520px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-family:Archivo,sans-serif;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--slate);background:var(--panel-2);font-weight:700;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.mono,th.mono{font-family:"JetBrains Mono",monospace;font-size:12.5px;word-break:break-all}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+
+.wf{border:1px solid var(--rule-2);border-radius:8px;background:var(--panel);padding:12px;margin:20px 0;box-shadow:var(--shadow)}
+.wf-scr{border:1px dashed var(--rule-2);border-radius:5px;overflow:hidden}
+.blk{border-bottom:1px dashed var(--rule-2);padding:13px 15px;background:var(--panel)}
+.blk:last-child{border-bottom:0}
+.blk .lb{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:5px}
+.blk .ti{font-family:Archivo,sans-serif;font-weight:700;font-size:15px;letter-spacing:-.01em}
+.blk .ds{font-size:14px;color:var(--slate);margin-top:3px;line-height:1.45}
+.blk.hero{background:var(--sunk);padding:22px 15px}
+.blk.hero .ti{font-size:20px}
+.bars{display:flex;gap:6px;margin-top:9px;flex-wrap:wrap}
+.bar{height:24px;border-radius:4px;background:var(--accent);color:#fff;font-family:Archivo,sans-serif;font-size:10.5px;
+  font-weight:700;display:flex;align-items:center;padding:0 11px;letter-spacing:.03em}
+.bar.ghost{background:transparent;border:1px solid var(--rule-2);color:var(--slate)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:760px){.two{grid-template-columns:1fr}}
+
+.sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:9px;margin:20px 0}
+.sw div{border:1px solid var(--rule);border-radius:6px;overflow:hidden;background:var(--panel)}
+.sw .chip{height:56px}
+.sw .lbl{padding:7px 9px;font-family:"JetBrains Mono",monospace;font-size:10.5px;line-height:1.5;color:var(--slate)}
+.sw .lbl b{display:block;color:var(--ink);font-weight:500;font-size:11px}
+
+.sb{border-left:2px solid var(--rule);margin:24px 0;padding-left:0}
+.beat{position:relative;padding:0 0 26px 26px}
+.beat::before{content:"";position:absolute;left:-6px;top:6px;width:10px;height:10px;border-radius:50%;
+  background:var(--accent);border:2px solid var(--paper)}
+.beat .st{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--accent)}
+.beat h5{font-family:Archivo,sans-serif;font-size:17px;font-weight:700;margin:4px 0 4px;letter-spacing:-.012em}
+.beat p{margin:4px 0;font-size:15px;color:var(--ink-2)}
+.beat .mo{font-size:13.5px;color:var(--slate);margin-top:6px;padding-left:11px;border-left:2px solid var(--rule-2)}
+
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--rule);border-radius:8px;overflow:hidden;margin:20px 0}
+.cmp>div{padding:15px 17px;min-width:0}
+.cmp .was{background:var(--p1-soft);border-right:1px solid var(--rule)}
+.cmp .now{background:var(--ok-soft)}
+.cmp .h{font-family:Archivo,sans-serif;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:7px}
+.cmp .was .h{color:var(--p1)}
+.cmp .now .h{color:var(--ok)}
+.cmp p{margin:6px 0;font-size:15px}
+@media(max-width:760px){.cmp{grid-template-columns:1fr}.cmp .was{border-right:0;border-bottom:1px solid var(--rule)}}
+
+.pill{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.06em;
+  padding:2px 8px;border-radius:99px;border:1px solid var(--rule-2);color:var(--slate);margin:0 4px 4px 0}
+.pill.v{color:var(--p2);border-color:var(--p2);background:var(--p2-soft)}
+.pill.k{color:var(--ok);border-color:var(--ok);background:var(--ok-soft)}
+
+footer{background:var(--panel);border-top:1px solid var(--rule)}
+.foot-in{max-width:1180px;margin:0 auto;padding:38px 28px 54px}
+.foot-in p{font-size:14.5px;color:var(--slate);max-width:70ch}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media print{.rail,.filters{display:none}section{break-inside:avoid}}
+</style>
+
+<header class="mast">
+  <div class="mast-in">
+    <div class="eyebrow">Nexus AI Horizon · Redesign proposal · For approval</div>
+    <h1>Ring to <em>Revenue</em></h1>
+    <p class="deck">An audit of nxaihorizon.com and the proposed cinematic rebuild — sitemap, visual direction, homepage structure, motion plan, content corrections, and technical approach.</p>
+    <div class="meta">
+      <span><b>Audited</b> 3 Sep 2026</span>
+      <span><b>Method</b> Read-only fetch of live HTML, sitemaps, robots.txt, assets</span>
+      <span><b>Scope</b> 91 pages · 21 posts</span>
+      <span><b>Changes made</b> none</span>
+      <span><b>Status</b> Awaiting approval</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+<nav class="rail" aria-label="Contents">
+  <ol id="toc">
+    <li><a href="#summary"><i>00</i>Summary</a></li>
+    <li><a href="#audit"><i>01</i>Site audit</a></li>
+    <li><a href="#risks"><i>02</i>Errors &amp; risks</a></li>
+    <li><a href="#sitemap"><i>03</i>Revised sitemap</a></li>
+    <li><a href="#wireframe"><i>04</i>Homepage wireframe</a></li>
+    <li><a href="#mobile"><i>05</i>Mobile wireframe</a></li>
+    <li><a href="#creative"><i>06</i>Creative direction</a></li>
+    <li><a href="#system"><i>07</i>Design system</a></li>
+    <li><a href="#copy"><i>08</i>Revised copy</a></li>
+    <li><a href="#motion"><i>09</i>Motion storyboard</a></li>
+    <li><a href="#tech"><i>10</i>Technical approach</a></li>
+    <li><a href="#seo"><i>11</i>SEO migration</a></li>
+    <li><a href="#quality"><i>12</i>Access &amp; performance</a></li>
+    <li><a href="#verify"><i>13</i>What I need</a></li>
+    <li><a href="#approve"><i>14</i>Approval gate</a></li>
+  </ol>
+</nav>
+
+<main class="col">
+<section id="summary">
+  <div class="snum">00 · Summary</div>
+  <h2>Three things outrank the redesign</h2>
+  <p class="lede">The cinematic rebuild is worth doing, and the creative direction is below. But the audit surfaced problems that cost money today, before any pixel changes.</p>
+
+  <div class="alarm">
+    <h3>1. Your primary call-to-action goes to a parked domain</h3>
+    <p>Eleven links on the homepage — including every <strong>“Book a strategy call”</strong> button — point at <span class="ev">nexusaihorizon.com</span>, not <span class="ev">nxaihorizon.com</span>. That domain is not your site. It serves a 114-byte page that redirects visitors to an advertising lander:</p>
+    <div class="log">$ curl -sSL https://nexusaihorizon.com/contact/
+<span class="c">&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;script&gt;</span>
+  window.location.href=<span class="bad">"/lander"</span>
+<span class="c">&lt;/script&gt;&lt;/head&gt;&lt;/html&gt;</span>
+
+<span class="k">HTTP</span> 200 · <span class="k">Content-Length</span> 114 · <span class="bad">not your website</span></div>
+    <p>Both published email addresses — <span class="ev">hello@nexusaihorizon.com</span> and <span class="ev">press@nexusaihorizon.com</span> — sit on that same parked domain. <strong>Assume inbound email is not being delivered.</strong> Please check whether anything has ever arrived at those addresses; that answer sets the urgency on everything else.</p>
+    <p>This is a same-day fix and does not need to wait for the redesign.</p>
+  </div>
+
+  <h3>2. Roughly twenty published numbers cannot be verified from outside</h3>
+  <p>The site states 31 active deployments, a 1.8-second average answer time, a 62% first-call booking rate, 97% of calls answered under three seconds, 4.2× more booked jobs, $312K average recovered revenue, $4.6M new AUM for a named-by-industry RIA client, and “SOC 2-ready · CCO-approved · TCPA compliant.” None of these carry a source, a method, or a date on the page.</p>
+  <p>I have not removed or altered any of them. <a href="#verify">Section 13</a> lists every claim I found so you can mark each one <em>verified</em>, <em>reworded</em>, or <em>removed</em>. Anything unverified at build time gets replaced with a demonstration rather than a number — the redesign is stronger for it, because a working demo outperforms a statistic a visitor has no reason to trust.</p>
+
+  <h3>3. The site is currently selling two different companies</h3>
+  <p>The homepage sells AI voice and SMS for four service industries. The 85 city pages sell enterprise AI consulting — “air-gapped intelligence libraries,” “single-tenant neural networks,” “supply chain and fleet logistics.” They share a domain, a nav, and nothing else. A visitor who lands on <span class="ev">/miami-fl/</span> from search and then clicks Home meets an unrelated business.</p>
+  <p>The redesign resolves this by making the homepage positioning the only positioning, and rebuilding the location layer as a genuine service-area directory.</p>
+
+  <div class="note">
+    <h3>What I did and did not do</h3>
+    <p>This audit was read-only: I fetched the live HTML, both sitemaps, robots.txt, and the image and CSS assets. <strong>Nothing on the site was changed, deleted, or published.</strong> Every finding below cites what I actually retrieved. Where I could not measure something from outside — Lighthouse scores, analytics, backlinks, CRM wiring — I say so rather than estimating.</p>
+  </div>
+</section>
+
+<section id="audit">
+  <div class="snum">01 · Existing website audit</div>
+  <h2>What is running today</h2>
+
+  <h4>Platform and stack</h4>
+  <div class="tbl-w">
+  <table>
+    <tr><th>Layer</th><th>Detected</th><th>Note</th></tr>
+    <tr><td>CMS</td><td class="mono">WordPress 7.0.3</td><td>Version exposed in a public generator tag</td></tr>
+    <tr><td>Builder</td><td class="mono">Elementor 4.2.2 + Elementor Pro</td><td>All layout and content is Elementor-authored</td></tr>
+    <tr><td>Theme</td><td class="mono">hello-elementor</td><td>Blank base theme, no child theme detected</td></tr>
+    <tr><td>SEO</td><td class="mono">Rank Math</td><td>Emits schema and <span class="ev">sitemap_index.xml</span></td></tr>
+    <tr><td>Performance</td><td class="mono">BlogVault Airlift</td><td>Delays all JS until user interaction — see F-12</td></tr>
+    <tr><td>Analytics</td><td class="mono">GA4 · G-CXCFXLRLKP</td><td>Present. No Tag Manager, no conversion events visible</td></tr>
+    <tr><td>Forms</td><td class="mono">Elementor Forms</td><td>No captcha, no consent field, no CRM connector visible</td></tr>
+  </table>
+  </div>
+  <p class="small">No booking tool, call-tracking, voice platform, or CRM script was detectable in the public source. If Calendly, HighLevel, Vapi, Retell, Twilio or similar are in use behind the forms, I need that confirmed — it changes the integration plan in <a href="#tech">Section 10</a>.</p>
+
+  <h4>Scale</h4>
+  <div class="tbl-w">
+  <table>
+    <tr><th>Item</th><th class="num">Count</th><th>Detail</th></tr>
+    <tr><td>Pages in Rank Math sitemap</td><td class="num">91</td><td>Of which <strong>85 are city pages</strong></td></tr>
+    <tr><td>Blog posts</td><td class="num">21</td><td>Includes <span class="ev">/hello-world/</span></td></tr>
+    <tr><td>Real service/company pages</td><td class="num">5</td><td>Home, About, Services, Contact, Emergency Home Services</td></tr>
+    <tr><td>Duplicate homepages, indexable</td><td class="num">2</td><td><span class="ev">/homepage/</span> and <span class="ev">/home-old1/</span></td></tr>
+    <tr><td>Conflicting XML sitemaps</td><td class="num">2</td><td>Rank Math + a stale xml-sitemaps.com file</td></tr>
+    <tr><td>Location links in the main nav</td><td class="num">79</td><td>Rendered <strong>twice</strong> in the DOM</td></tr>
+    <tr><td>Dead <span class="ev">href="#"</span> links on the homepage</td><td class="num">14</td><td>Includes all four “Read the playbook” links</td></tr>
+    <tr><td>Links to the parked domain</td><td class="num">11</td><td>7 × /contact/, 4 × site root</td></tr>
+  </table>
+  </div>
+
+  <h4>Measured performance signals</h4>
+  <p>I could not obtain a Lighthouse score — the public PageSpeed Insights API returned a quota error on both attempts, and I will not quote a number I did not measure. A keyed Lighthouse run is the first task after approval. What I <em>did</em> measure directly:</p>
+  <div class="tbl-w">
+  <table>
+    <tr><th>Metric</th><th class="num">Measured</th><th>Assessment</th></tr>
+    <tr><td>Homepage HTML</td><td class="num">372 KB</td><td>Very heavy — largely the 79-link nav duplicated</td></tr>
+    <tr><td>Stylesheets</td><td class="num">39 files</td><td>~482 KB uncompressed, render-blocking chain</td></tr>
+    <tr><td>Google Font families</td><td class="num">5</td><td>Instrument Sans, Instrument Serif, Inter, Open Sans, Poppins — each requesting all weights 100–900 plus italics</td></tr>
+    <tr><td>Homepage images</td><td class="num">~2.2 MB</td><td>Logo alone is a 212 KB PNG</td></tr>
+    <tr><td>TTFB (3 runs)</td><td class="num">0.50–0.64 s</td><td>Acceptable; not the bottleneck</td></tr>
+    <tr><td>Images with <span class="ev">loading="lazy"</span></td><td class="num">4 of 8</td><td>Half unoptimised</td></tr>
+  </table>
+  </div>
+  <p>Five font families at every weight is the single easiest win — the design system in <a href="#system">Section 7</a> uses two families and four weights. Filenames like <span class="ev">Screenshot-From-2026-05-02-11-25-27.png</span> and <span class="ev">ChatGPT-Image-Jun-1-2026-05_48_26-PM.png</span> are also shipping to production, which reads poorly to anyone who inspects and hurts image search.</p>
+</section>
+
+<section id="risks">
+  <div class="snum">02 · Errors and risks</div>
+  <h2>Findings register</h2>
+  <p class="lede">Every item was observed in the live source on 3 September 2026. Severity reflects business impact, not effort. P1 items should be fixed now, independently of the redesign.</p>
+
+  <div class="board">
+    <div class="board-hd">
+      <span class="t">Dispatch board · 24 findings</span>
+      <div class="filters" role="group" aria-label="Filter findings by severity">
+        <button type="button" data-f="all" aria-pressed="true">ALL</button>
+        <button type="button" data-f="P1" aria-pressed="false">P1</button>
+        <button type="button" data-f="P2" aria-pressed="false">P2</button>
+        <button type="button" data-f="P3" aria-pressed="false">P3</button>
+      </div>
+    </div>
+    <div id="rows">
+
+    <div class="row" data-sev="P1"><div class="sev"><span class="tag">P1</span><span class="id">F-01</span></div><div class="body">
+      <h5>Every primary CTA points to a parked domain</h5>
+      <p>11 links target <span class="ev">nexusaihorizon.com</span>, which returns a 114-byte JavaScript redirect to <span class="ev">/lander</span>. Visitors clicking “Book a strategy call” leave your site and land on parking ads.</p>
+      <div class="fix"><b>Fix</b>Repoint all 11 to <span class="ev">nxaihorizon.com/contact/</span>. Separately, decide whether to acquire the other domain or stop referencing it.</div></div></div>
+
+    <div class="row" data-sev="P1"><div class="sev"><span class="tag">P1</span><span class="id">F-02</span></div><div class="body">
+      <h5>Both published email addresses are on that parked domain</h5>
+      <p><span class="ev">hello@nexusaihorizon.com</span> appears in the footer of every page and on the contact page; <span class="ev">press@nexusaihorizon.com</span> on contact. Mail to a parked domain typically does not deliver.</p>
+      <div class="fix"><b>Fix</b>Confirm whether these mailboxes receive anything. Move to addresses on the live domain and test end-to-end.</div></div></div>
+
+    <div class="row" data-sev="P1"><div class="sev"><span class="tag">P1</span><span class="id">F-03</span></div><div class="body">
+      <h5>No privacy policy exists anywhere on the site</h5>
+      <p><span class="ev">/privacy-policy/</span>, <span class="ev">/privacy/</span> and <span class="ev">/terms/</span> all return 404. The contact form collects name, email, mobile and free text, and the site advertises SMS automation and states “TCPA compliant.” The form's own line “We never share your information” has no policy behind it.</p>
+      <div class="fix"><b>Fix</b>Publish a privacy policy and SMS/messaging terms before launch. This is a prerequisite for paid advertising on Google and Meta as well.</div></div></div>
+
+    <div class="row" data-sev="P1"><div class="sev"><span class="tag">P1</span><span class="id">F-04</span></div><div class="body">
+      <h5>Compliance claims published without visible substantiation</h5>
+      <p>The hero states <strong>“SOC 2-ready · CCO-approved · TCPA compliant.”</strong> The financial-services card repeats “SOC 2 · CCO-approved” and adds “Approved by your compliance officer in week one” — a promise about a third party you do not control.</p>
+      <div class="fix"><b>Fix</b>Remove or substantiate. “SOC 2-ready” is not a certification and reads as one here. Replace with what is literally true about your controls.</div></div></div>
+
+    <div class="row" data-sev="P1"><div class="sev"><span class="tag">P1</span><span class="id">F-05</span></div><div class="body">
+      <h5>Simulated call data presented as live operations</h5>
+      <p>The hero reads “Live · NYC dispatch · 04:11 EDT”; a badge reads “Live network · 1,247 calls this week”; borough counters read “412 calls / wk” and so on. The times are hard-coded, not live. The same “Calls this week 1,247” block appears identically on the New York, Yonkers, Albany and Miami pages.</p>
+      <div class="fix"><b>Fix</b>Either wire these to real data or label the module as an illustration. Identical “live” numbers across five pages is the kind of thing a prospect notices.</div></div></div>
+
+    <div class="row" data-sev="P1"><div class="sev"><span class="tag">P1</span><span class="id">F-06</span></div><div class="body">
+      <h5>Named-sounding client records in unlabelled transcripts</h5>
+      <p>The pipeline section shows “Caller-id · Marcus T. (existing customer)”, “Acme Plumbing”, “CRM · ServiceTitan · job created #41872”, and a customer SMS — styled as a live terminal with no demonstration label. The financial card cites “$4.6M new AUM in 90 days · single RIA client” and “Midtown RIA”, which is close to identifying.</p>
+      <div class="fix"><b>Fix</b>Label the whole module “Illustrative example — not a real customer record.” Confirm the RIA has approved that description, or anonymise it further.</div></div></div>
+
+    <div class="row" data-sev="P2"><div class="sev"><span class="tag">P2</span><span class="id">F-07</span></div><div class="body">
+      <h5>Implementation timeline contradicts itself across three pages</h5>
+      <p>Homepage: “Live in 14 days” (three times) — but its own section 06 is titled “21 days · Audit → Build → Scale” and “Three weeks.” About, principle 02: “Every engagement ships in 21 days.” Services: “Three weeks to live.”</p>
+      <div class="fix"><b>Fix</b>Confirm the real number. The proposed three-stage model in <a href="#copy">Section 8</a> is written to hold one timeline; I have left it blank pending your answer.</div></div></div>
+
+    <div class="row" data-sev="P2"><div class="sev"><span class="tag">P2</span><span class="id">F-08</span></div><div class="body">
+      <h5>An Elementor placeholder label is live on the homepage</h5>
+      <p>A statistic in the borough cluster is titled <strong>“Cool Number”</strong> — Elementor's default counter label, never changed. Its value is <span class="ev">to-value="96"</span> with a % suffix, so it renders “96%” of nothing. The same 96 appears on About as “of clients renew at the end of year one,” which is where it was copied from.</p>
+      <div class="fix"><b>Fix</b>Delete the widget. It is a duplicated stat with no label sitting between “calls this week” and “boroughs live.”</div></div></div>
+
+    <div class="row" data-sev="P2"><div class="sev"><span class="tag">P2</span><span class="id">F-09</span></div><div class="body">
+      <h5>Counters render as 0 until scripts run</h5>
+      <p>Five homepage counters and three About counters ship as <span class="ev">from-value="0"</span>. Combined with Airlift delaying all JS until user interaction, the page reads “calls this week 0 · boroughs live 0 · avg. lost / yr $0 · inbound unanswered 0%” to anyone who lands and does not immediately interact — and to crawlers.</p>
+      <div class="fix"><b>Fix</b>Render the final value in the HTML and animate from it, so the correct number is the fallback rather than zero.</div></div></div>
+
+    <div class="row" data-sev="P2"><div class="sev"><span class="tag">P2</span><span class="id">F-10</span></div><div class="body">
+      <h5>Albany page contains Syracuse copy</h5>
+      <p>The Albany page carries the paragraph “At Nexus AI, we partner with <strong>Syracuse</strong> organizations… Downtown Syracuse… University Hill hospitals… Clay and Liverpool” directly beneath its Albany paragraph. The same page also breaks the word “New York” across a line as “New Yor / k's Capital District.”</p>
+      <div class="fix"><b>Fix</b>Symptomatic of templated generation. Every location page needs a proofread before it survives the migration.</div></div></div>
+
+    <div class="row" data-sev="P2"><div class="sev"><span class="tag">P2</span><span class="id">F-11</span></div><div class="body">
+      <h5>Exact-match keyword phrases stuffed into body copy</h5>
+      <p>“AI Automation Services Miami FL” appears appended to six consecutive sentences on the Miami page. “AI Consulting Albany NY” four times on Albany. “AI Voice Agent Services Yonkers NY” five times on Yonkers. The homepage hero ends “No new hires AI Consulting Services USA .” — the phrase jammed mid-sentence with a stranded period.</p>
+      <div class="fix"><b>Fix</b>Remove all of it. This is the pattern Google's spam policies name directly, and it is the reason the hero currently fails the five-second comprehension test.</div></div></div>
+
+    <div class="row" data-sev="P2"><div class="sev"><span class="tag">P2</span><span class="id">F-12</span></div><div class="body">
+      <h5>All JavaScript is deferred until user interaction</h5>
+      <p>Airlift moves every script into a delayed queue fired by mousemove, click, keydown, wheel or touch. It flatters synthetic scores but means counters, menus and any interactive module are inert until the visitor touches the page — and stay inert for a crawler.</p>
+      <div class="fix"><b>Fix</b>Keep delay for genuinely non-critical scripts; exclude anything the first screen depends on. The cinematic build makes this decision load-bearing.</div></div></div>
+
+    <div class="row" data-sev="P2"><div class="sev"><span class="tag">P2</span><span class="id">F-13</span></div><div class="body">
+      <h5>Two duplicate homepages are indexable</h5>
+      <p><span class="ev">/homepage/</span> (“Homepage - Nexus Ai Horizon”) and <span class="ev">/home-old1/</span> (“Main Home (old)”) both return 200, both carry <span class="ev">index, follow</span>, and both self-canonicalise. <span class="ev">/home-old1/</span> is a near-copy of the live homepage, so it competes with your money page.</p>
+      <div class="fix"><b>Fix</b>301 both to <span class="ev">/</span>. Neither has a reason to be public.</div></div></div>
+
+    <div class="row" data-sev="P2"><div class="sev"><span class="tag">P2</span><span class="id">F-14</span></div><div class="body">
+      <h5>Two conflicting XML sitemaps are being served</h5>
+      <p>Rank Math serves <span class="ev">sitemap_index.xml</span> (robots.txt points here). A stale <span class="ev">/sitemap.xml</span> from xml-sitemaps.com also returns 200 with 127 URLs, including <span class="ev">/feed/</span>, <span class="ev">/comments/feed/</span> and 20 per-post feed URLs that should never be submitted.</p>
+      <div class="fix"><b>Fix</b>Delete the static file. Keep one generated sitemap.</div></div></div>
+
+    <div class="row" data-sev="P2"><div class="sev"><span class="tag">P2</span><span class="id">F-15</span></div><div class="body">
+      <h5>Unsupported superlatives in title tags</h5>
+      <p>About: “Nexus AI Horizon About Us | <strong>Best Top 10</strong> AI Voice Studio.” Albany: “AI Consulting Albany NY | <strong>Best Top 10</strong> AI Automation Agency.” Others use “4 Powerful Ways”, “7 Powerful Results”, and “Advanced AI Solutions 2026”, which dates itself.</p>
+      <div class="fix"><b>Fix</b>Rewrite every title. No ranking claim without a citable source, and no year in an evergreen title.</div></div></div>
+
+    <div class="row" data-sev="P2"><div class="sev"><span class="tag">P2</span><span class="id">F-16</span></div><div class="body">
+      <h5>Contact form has no consent, no privacy link, no spam protection</h5>
+      <p>Eight fields collect name, work email, mobile, company, industry, call volume and free text. Zero matches for reCAPTCHA, hCaptcha or Turnstile in the source; no consent checkbox; no link to a policy (which does not exist — F-03). The homepage form collects an email address only.</p>
+      <div class="fix"><b>Fix</b>Add explicit consent wording for calls and SMS, a privacy link, and bot protection. Add “preferred contact method” to complete the field set.</div></div></div>
+
+    <div class="row" data-sev="P2"><div class="sev"><span class="tag">P2</span><span class="id">F-17</span></div><div class="body">
+      <h5>Heading structure is not usable by screen readers</h5>
+      <p>Homepage: an <span class="ev">h4</span> appears before the only <span class="ev">h1</span>; there are 19 <span class="ev">h2</span>s, and <span class="ev">h5</span>/<span class="ev">h6</span> are used for visual sizing — the six pipeline stages are <span class="ev">h6</span> while their descriptions are <span class="ev">h3</span>. <strong>The Services page has no <span class="ev">h1</span> at all.</strong></p>
+      <div class="fix"><b>Fix</b>One h1 per page, no skipped levels. Statistics become text with a label, not headings.</div></div></div>
+
+    <div class="row" data-sev="P2"><div class="sev"><span class="tag">P2</span><span class="id">F-18</span></div><div class="body">
+      <h5>Response-time promise published in two places</h5>
+      <p>“We respond in under 4 business hours” on the homepage form; “Under 4 business hours, every weekday” on contact; “We respond within 4 business hours” under the submit button.</p>
+      <div class="fix"><b>Fix</b>Keep only if you consistently meet it. Otherwise state what happens next without a clock — the proposed copy does exactly that.</div></div></div>
+
+    <div class="row" data-sev="P3"><div class="sev"><span class="tag">P3</span><span class="id">F-19</span></div><div class="body">
+      <h5>Text defects in the missed-call ledger</h5>
+      <p>The 15:51 row “SMS −$3,200 · Lease inquiry · Fort Greene” is duplicated verbatim. A 21:18 row reads <strong>−$0</strong>. Two unrelated rows both read −$12,400. The Staten Island counter reads “<strong>78 calls / wkb</strong>”. The financial badge reads “Audit-<strong>read</strong>”, truncated from “Audit-ready”.</p>
+      <div class="fix"><b>Fix</b>Rebuild the ledger from a single data source so rows cannot drift.</div></div></div>
+
+    <div class="row" data-sev="P3"><div class="sev"><span class="tag">P3</span><span class="id">F-20</span></div><div class="body">
+      <h5>Character-encoding errors visible on the page</h5>
+      <p>An industry card renders literally as “Moving <span class="ev">&amp;#038;</span> Relocation”. The pipeline terminal blocks render literal <span class="ev">&amp;#8220;</span> and <span class="ev">&amp;#8217;</span> instead of quotation marks and apostrophes. The hero reads “Est<strong> . </strong>2023” with a space before the period.</p>
+      <div class="fix"><b>Fix</b>Double-encoded entities. Fixed at the source content, not with CSS.</div></div></div>
+
+    <div class="row" data-sev="P3"><div class="sev"><span class="tag">P3</span><span class="id">F-21</span></div><div class="body">
+      <h5>The same event is timestamped in two timezones</h5>
+      <p>The emergency card labels the call “02:14 EDT”; the pipeline terminal for the same scenario reads “02:14:03 <strong>EST</strong>”. The hero says “04:11 EDT”. All are hard-coded.</p>
+      <div class="fix"><b>Fix</b>One timezone, one source. The rebuilt demo derives its clock from a single timeline object.</div></div></div>
+
+    <div class="row" data-sev="P3"><div class="sev"><span class="tag">P3</span><span class="id">F-22</span></div><div class="body">
+      <h5>Navigation renders 79 location links twice</h5>
+      <p>The Location dropdown holds 79 city links and Blogs holds 19 post links; the whole menu is output twice (desktop and mobile) in the same HTML. That is the bulk of the 372 KB page weight, and it is the first thing a keyboard user has to tab through.</p>
+      <div class="fix"><b>Fix</b>Nav drops to eight items plus the CTA. Locations move to a service-area directory, linked from the footer.</div></div></div>
+
+    <div class="row" data-sev="P3"><div class="sev"><span class="tag">P3</span><span class="id">F-23</span></div><div class="body">
+      <h5>Metadata leaks and inconsistencies</h5>
+      <p>Twitter card credits “Written by <strong>Prasad P</strong>” and “Time to read: Less than a minute” on the homepage. Schema types the company as <span class="ev">["Person","Organization"]</span>. The site name is “Nexus <strong>Ai</strong> Horizon” in metadata but “Nexus AI Horizon” in copy. WordPress version is publicly exposed.</p>
+      <div class="fix"><b>Fix</b>Organization / ProfessionalService schema, consistent brand casing, author meta removed from pages.</div></div></div>
+
+    <div class="row" data-sev="P3"><div class="sev"><span class="tag">P3</span><span class="id">F-24</span></div><div class="body">
+      <h5>Default WordPress post still published</h5>
+      <p><span class="ev">/hello-world/</span> is in the sitemap. Its title tag is literally “Hello world! - Nexus Ai Horizon” while its body is a full article about Florida and Georgia operations. Nav also labels the section “Blogs” rather than “Blog” or “Resources”.</p>
+      <div class="fix"><b>Fix</b>Retitle, move to a real slug, 301 the old one.</div></div></div>
+
+    </div>
+  </div>
+  <p class="small">Not included above, because they need your data rather than mine: which pages actually earn traffic, which have backlinks, and whether any city page converts. Those answers come from Search Console and GA4 and they change the migration plan in <a href="#seo">Section 11</a>.</p>
+</section>
+<section id="sitemap">
+  <div class="snum">03 · Revised sitemap</div>
+  <h2>From 91 pages to a structure you can defend</h2>
+  <p class="lede">Eight nav items. Locations demoted out of the menu into a directory that has to earn its place. Case studies and resources built as real content types rather than one-off Elementor pages.</p>
+
+  <div class="log"><span class="k">/</span>                              Home — the cinematic sequence
+<span class="k">/solutions/</span>                    Overview of the four services
+  ├ /solutions/ai-voice-agents/
+  ├ /solutions/sms-follow-up/
+  ├ /solutions/booking-scheduling/
+  └ /solutions/workflow-crm-automation/
+<span class="k">/industries/</span>                   Overview of the four industries
+  ├ /industries/emergency-home-services/   <span class="c">← existing page redirects here</span>
+  ├ /industries/property-management/
+  ├ /industries/moving-relocation/
+  └ /industries/financial-services/
+<span class="k">/how-it-works/</span>                 Discover → Build &amp; Test → Launch &amp; Improve
+<span class="k">/case-studies/</span>                 Index + one page per approved study
+<span class="k">/about/</span>                        Team, approach, oversight, service area
+<span class="k">/resources/</span>                    Articles, integration guides, FAQ
+<span class="k">/contact/</span>                      Strategy call form
+<span class="k">/service-areas/</span>                <span class="bad">Directory — not in main nav</span>
+  └ /service-areas/&lt;region&gt;/&lt;city&gt;/       <span class="c">only where real local value exists</span>
+<span class="k">/privacy-policy/</span>  <span class="k">/sms-terms/</span>  <span class="k">/terms/</span>     <span class="bad">new — currently 404</span></div>
+
+  <h4>What happens to the 85 city pages</h4>
+  <p>I am not recommending a blanket deletion, and I cannot make this call from outside — it depends on traffic and links I cannot see. The decision rule I propose:</p>
+  <div class="tbl-w">
+  <table>
+    <tr><th>Condition</th><th>Action</th></tr>
+    <tr><td>Page has organic traffic, conversions, or referring domains</td><td><strong>Keep and rewrite</strong> to real local value</td></tr>
+    <tr><td>Page is in a market you genuinely serve and can write honestly about</td><td><strong>Keep and rewrite</strong></td></tr>
+    <tr><td>Page is templated, has no traffic, and no links</td><td><strong>301</strong> to its region hub in the directory</td></tr>
+    <tr><td>Page duplicates another city with only the name swapped</td><td><strong>301</strong> to region hub</td></tr>
+  </table>
+  </div>
+  <p>A rewritten location page has to carry service-area detail, the local industries you actually work with, regional contact information, local examples, and its own FAQ. If a page cannot carry those honestly, it should not exist — a smaller set of real pages will outperform 85 templated ones, and it removes the spam-pattern risk in F-11.</p>
+  <div class="note"><h3>One open question</h3><p>The homepage, About and footer all say Lower Manhattan, “Operating · Nationwide.” The city pages imply local presence in Birmingham, Charleston, Savannah, Tallahassee and 80 others. <strong>Which markets do you actually serve, and how do you want that described?</strong> The directory structure follows from that answer.</p></div>
+</section>
+
+<section id="wireframe">
+  <div class="snum">04 · Homepage wireframe</div>
+  <h2>Desktop structure</h2>
+  <p class="lede">One continuous story: a call comes in after hours, the agent handles it, the business keeps the revenue. Every section below advances that story or gets out of its way.</p>
+
+  <div class="wf"><div class="wf-scr">
+    <div class="blk"><span class="lb">Sticky header · 64px</span><div class="ti">Logo · Solutions · Industries · How It Works · Case Studies · About · Resources · Contact</div><div class="bars"><span class="bar">Book a Strategy Call</span><span class="bar ghost">AI Agent Online ●</span></div></div>
+
+    <div class="blk hero"><span class="lb">01 · Hero — full viewport</span>
+      <div class="ti">Capture Every Call. Convert Every Lead.</div>
+      <div class="ds">One supporting sentence. Not a paragraph. Understood in five seconds.</div>
+      <div class="bars"><span class="bar">Book a Strategy Call</span><span class="bar ghost">Experience the AI Agent</span></div>
+      <div class="ds" style="margin-top:10px">Background: slow-drifting network of routed call paths over a dark ground. Live waveform reacting as if mid-call. Call-status chip. Trust line beneath the buttons. Scroll cue at base.</div></div>
+
+    <div class="blk"><span class="lb">02 · Live demonstration — near the top, deliberately</span>
+      <div class="ti">Hear the agent take a call</div>
+      <div class="ds">Play a staged sample call. Transcript scrolls in sync. Intent, qualification, booking and confirmation light up beside it as they happen. Persistent “Demonstration — sample data” label. CTA: Request a live demonstration.</div>
+      <div class="bars"><span class="bar ghost">▶ Play sample call</span><span class="bar ghost">Transcript</span><span class="bar ghost">Request live demo</span></div></div>
+
+    <div class="blk"><span class="lb">03 · The Cost of Silence</span>
+      <div class="ti">What silence costs</div>
+      <div class="ds">Interactive calculator: monthly inbound calls · missed-call % · average job value · conversion rate. Returns a <strong>range</strong>, with the formula shown in full and an estimate disclaimer. Replaces the current fabricated ledger.</div></div>
+
+    <div class="blk"><span class="lb">04 · From Ring to Revenue — pinned sequence, 8 stages</span>
+      <div class="ti">Ring → Answer → Understand → Qualify → Route/Book → Update → Confirm → Follow Up</div>
+      <div class="ds">The centrepiece. One signal travels the pipeline as the visitor scrolls. Each stage: short headline, one sentence, one animation. Full storyboard in Section 9.</div></div>
+
+    <div class="blk"><span class="lb">05 · Solutions — four panels</span>
+      <div class="ti">Voice Agents · SMS Follow-Up · Booking &amp; Scheduling · Workflow &amp; CRM</div>
+      <div class="ds">Each panel: the business problem, the Nexus solution, the operational benefit, supported integrations, one CTA.</div></div>
+
+    <div class="blk"><span class="lb">06 · Industries — four environments</span>
+      <div class="ti">Emergency Home Services · Property Management · Moving &amp; Relocation · Financial Services</div>
+      <div class="ds">Distinct visual treatment per environment, each showing its own intake-to-outcome flow. No claim of legal, financial, medical or emergency advice.</div></div>
+
+    <div class="blk"><span class="lb">07 · Proof</span>
+      <div class="ti">Verified evidence only</div>
+      <div class="ds">Whatever survives Section 13. Each figure carries source, sample and period. Where a number cannot be verified, this space holds a demonstration, an anonymised study, or an integration example instead.</div></div>
+
+    <div class="blk"><span class="lb">08 · How it works — three stages</span>
+      <div class="ti">Discover → Build &amp; Test → Launch &amp; Improve</div>
+      <div class="ds">One timeline, stated once, sitewide. Includes the human-review standard.</div></div>
+
+    <div class="blk"><span class="lb">09 · Final CTA</span>
+      <div class="ti">Stop Letting Qualified Calls Reach Voicemail.</div>
+      <div class="bars"><span class="bar">Book a Strategy Call</span><span class="bar ghost">Request a Live Demonstration</span></div>
+      <div class="ds">Followed by the four-step “what happens after you submit”.</div></div>
+
+    <div class="blk"><span class="lb">10 · Footer</span><div class="ds">Solutions · Industries · Company · Resources · Service areas (directory link, not 79 links) · Privacy · SMS terms · Contact</div></div>
+  </div></div>
+</section>
+
+<section id="mobile">
+  <div class="snum">05 · Mobile wireframe</div>
+  <h2>Mobile is the primary device here</h2>
+  <p class="lede">Operators check their phone between jobs. The mobile build is not a squeezed desktop — the pinned sequence becomes a stepped card stack, and the heaviest background effects do not load at all.</p>
+
+  <div class="two">
+    <div class="wf"><div class="wf-scr">
+      <div class="blk"><span class="lb">Header</span><div class="ti">Logo · ☰</div><div class="ds">Sticky “Book a Strategy Call” bar pinned to the bottom of the viewport from section 02 onward.</div></div>
+      <div class="blk hero"><span class="lb">Hero · 100svh</span><div class="ti">Capture Every Call. Convert Every Lead.</div><div class="ds">Waveform reduced to a lightweight canvas strip. Network background replaced by a static gradient plus one still image. Buttons stack full-width, 48px minimum.</div></div>
+      <div class="blk"><span class="lb">Demo</span><div class="ti">Hear the agent take a call</div><div class="ds">Audio player, transcript below rather than beside. Same demonstration label.</div></div>
+      <div class="blk"><span class="lb">Calculator</span><div class="ds">Numeric inputs with a proper mobile keypad. Result and formula stack vertically.</div></div>
+    </div></div>
+    <div class="wf"><div class="wf-scr">
+      <div class="blk"><span class="lb">Ring to Revenue</span><div class="ti">8 stages, stepped</div><div class="ds">No pinning. Each stage is a full-width card that reveals on entry; a progress rail down the left shows position. Same content, no scroll hijack.</div></div>
+      <div class="blk"><span class="lb">Solutions</span><div class="ds">Four stacked cards. Integrations become a wrapped chip row.</div></div>
+      <div class="blk"><span class="lb">Industries</span><div class="ds">Horizontal snap-scroll carousel with visible dots and swipe affordance.</div></div>
+      <div class="blk"><span class="lb">Proof · How it works · CTA</span><div class="ds">Single column throughout. Form fields full-width with visible labels above each input.</div></div>
+      <div class="blk"><span class="lb">Footer</span><div class="ds">Accordion groups. Service-area directory as one link.</div></div>
+    </div></div>
+  </div>
+  <p class="small">Mobile budget: no more than one animation library, background canvases capped and paused off-screen, hero image served as AVIF at mobile dimensions, and every scroll-linked effect disabled under <span class="ev">prefers-reduced-motion</span>.</p>
+</section>
+
+<section id="creative">
+  <div class="snum">06 · Creative direction</div>
+  <h2>The operations room at 2am</h2>
+  <p class="lede">Not a chatbot startup, not a template. The reference point is the room where the calls are handled — dark, quiet, precise, with light used only where something is actually happening.</p>
+
+  <h3>The idea</h3>
+  <p>The site is built as a single continuous night shift. The visitor arrives at a dark operations surface, a call comes in, and they follow that one call all the way to a booked job and a confirmed customer. Everything else on the page is instrumentation around that call.</p>
+  <p>The discipline that keeps this from looking like every other dark AI site is <strong>restraint with light</strong>. The ground is genuinely dark and genuinely quiet. Accent colour is not decoration — it appears only where something is live: an active waveform, a signal in transit, a state that just changed, a call to action. If a colour is glowing, it means something. That rule alone will separate this from the category.</p>
+
+  <h3>What we are not doing</h3>
+  <ul>
+    <li>No purple-to-blue gradient hero. No neon grid floor. No glassmorphic cards stacked on a blurred blob.</li>
+    <li>No stock imagery of people wearing headsets, and no humanoid-robot illustration.</li>
+    <li>No animation that exists because it is possible. Every motion cue in Section 9 maps to a step in the call.</li>
+    <li>No number on screen without a source beneath it.</li>
+  </ul>
+
+  <h3>Texture and depth</h3>
+  <p>Surfaces are matte graphite, separated by hairline rules and very slight elevation rather than heavy shadow — closer to hardware than to software. Depth comes from layering: a slow parallax field of routed call paths well behind the content, a mid layer of interface panels, and type sitting crisply on top. Cursor movement shifts the deepest layer only, by a few pixels. On mobile that layer is a static image.</p>
+
+  <h3>The demonstration is the hero of the page</h3>
+  <p>Most sites in this category assert. This one plays a call and shows the work. Placing the sample call immediately after the hero is the single highest-conviction structural decision in this proposal: it is the fastest possible route from “what does this company do” to belief, and it does not depend on a statistic you have to defend.</p>
+</section>
+
+<section id="system">
+  <div class="snum">07 · Design system</div>
+  <h2>Tokens, type, and the rules that hold it together</h2>
+
+  <h4>Colour</h4>
+  <p>Adjusted from your brief after checking the live logo, which is a blue-cyan mark on transparent — the direction holds. I have deepened the ground slightly and desaturated the mid-greys toward blue so the accent stays the only saturated thing on screen.</p>
+  <div class="sw">
+    <div><div class="chip" style="background:#05070A"></div><div class="lbl"><b>#05070A</b>Ground</div></div>
+    <div><div class="chip" style="background:#0B1017"></div><div class="lbl"><b>#0B1017</b>Surface</div></div>
+    <div><div class="chip" style="background:#11151B"></div><div class="lbl"><b>#11151B</b>Graphite</div></div>
+    <div><div class="chip" style="background:#081525"></div><div class="lbl"><b>#081525</b>Deep navy</div></div>
+    <div><div class="chip" style="background:#1E8FFF"></div><div class="lbl"><b>#1E8FFF</b>Electric blue</div></div>
+    <div><div class="chip" style="background:#38D6E8"></div><div class="lbl"><b>#38D6E8</b>Cyan · live only</div></div>
+    <div><div class="chip" style="background:#F4F2ED"></div><div class="lbl"><b>#F4F2ED</b>Warm white</div></div>
+    <div><div class="chip" style="background:#98A2B3"></div><div class="lbl"><b>#98A2B3</b>Muted grey</div></div>
+    <div><div class="chip" style="background:#42D392"></div><div class="lbl"><b>#42D392</b>Success</div></div>
+    <div><div class="chip" style="background:#F5A524"></div><div class="lbl"><b>#F5A524</b>Urgent · P1</div></div>
+  </div>
+  <p class="small"><strong>Amber is an addition.</strong> Emergency routing needs a colour that reads as urgent, and cyan cannot carry both “live” and “urgent.” It is used only for escalation states.</p>
+  <p><strong>The one colour rule:</strong> cyan and green are reserved for live indicators, active workflow states and confirmations. Electric blue carries calls to action and links. Everything else is warm white, muted grey, and the dark ground. A section with no live state in it has no accent colour in it.</p>
+
+  <h4>Contrast, checked</h4>
+  <div class="tbl-w">
+  <table>
+    <tr><th>Pair</th><th class="num">Ratio</th><th>Verdict</th></tr>
+    <tr><td class="mono">#F4F2ED on #05070A</td><td class="num">18.03:1</td><td>Body text — passes AAA</td></tr>
+    <tr><td class="mono">#98A2B3 on #05070A</td><td class="num">7.83:1</td><td>Secondary text — passes AA</td></tr>
+    <tr><td class="mono">#1E8FFF on #05070A</td><td class="num">6.17:1</td><td>Links and buttons — passes AA</td></tr>
+    <tr><td class="mono">#38D6E8 on #05070A</td><td class="num">11.48:1</td><td>Live indicators — passes AAA</td></tr>
+    <tr><td class="mono">#05070A on #1E8FFF</td><td class="num">6.17:1</td><td>Dark label on blue button — passes AA</td></tr>
+  </table>
+  </div>
+  <p class="small">Ratios computed against the ground colour. Any accent used on the lighter graphite surface must be re-checked at build; the rule is that no interface text drops below 4.5:1 and no large display text below 3:1.</p>
+
+  <h4>Typography — two families, four weights</h4>
+  <p>Replacing the current five families at every weight. The pairing keeps a wide, confident display face against a neutral technical body face, with tabular figures wherever data is shown.</p>
+  <div class="tbl-w">
+  <table>
+    <tr><th>Role</th><th>Face</th><th>Setting</th></tr>
+    <tr><td>Display / H1–H2</td><td class="mono">Archivo Expanded 700</td><td>clamp(40px, 6vw, 84px) · -0.03em · line-height 0.98</td></tr>
+    <tr><td>Headings H3–H4</td><td class="mono">Archivo 600</td><td>20–32px · -0.015em</td></tr>
+    <tr><td>Body</td><td class="mono">Inter 400</td><td>17–18px · line-height 1.6 · max 68ch</td></tr>
+    <tr><td>Labels / eyebrows</td><td class="mono">Inter 500</td><td>11–12px · 0.16em tracking · uppercase</td></tr>
+    <tr><td>Data / transcripts / logs</td><td class="mono">Inter tabular-nums</td><td>13–15px · tabular figures, no exceptions</td></tr>
+  </table>
+  </div>
+  <p class="small">Inter is already loaded on the site, so this removes four families rather than adding one. Both are self-hosted as WOFF2 subsets with <span class="ev">font-display:swap</span> and preloaded for the hero — worth roughly 400 KB against today's load.</p>
+
+  <h4>Space, radius, elevation, timing</h4>
+  <div class="tbl-w">
+  <table>
+    <tr><th>Token</th><th>Value</th><th>Applied to</th></tr>
+    <tr><td class="mono">space</td><td class="mono">4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96 · 128</td><td>All gaps. Sections use 96 desktop, 64 mobile</td></tr>
+    <tr><td class="mono">radius</td><td class="mono">2 · 6 · 12 · 999</td><td>2 inputs · 6 cards · 12 panels · 999 pills</td></tr>
+    <tr><td class="mono">border</td><td class="mono">1px rgba(244,242,237,.09)</td><td>Hairline separation, never a hard grey</td></tr>
+    <tr><td class="mono">elevation</td><td class="mono">0 1px 0 inset, 0 24px 48px -24px #000</td><td>Panels only. Cards lift 2px on hover</td></tr>
+    <tr><td class="mono">duration</td><td class="mono">120 · 240 · 420 · 800 ms</td><td>Hover · reveal · transition · sequence beat</td></tr>
+    <tr><td class="mono">easing</td><td class="mono">cubic-bezier(.22,1,.36,1)</td><td>Everything entering. Linear only for scrubbed scroll</td></tr>
+  </table>
+  </div>
+
+  <h4>Component standards</h4>
+  <ul>
+    <li><strong>Buttons</strong> — primary is solid electric blue with dark label; secondary is hairline-outlined with warm white; both 48px minimum, 2px focus ring offset by 2px, and a label that names the outcome.</li>
+    <li><strong>Cards</strong> — graphite surface, hairline border, 12px radius, 24–32px padding, 2px lift and a brighter border on hover. Never nested more than one deep.</li>
+    <li><strong>Forms</strong> — visible label above every field, never placeholder-as-label. Error text below the field naming the problem and the fix. Success state replaces the form with the four-step “what happens next.”</li>
+    <li><strong>Data displays</strong> — every figure carries a label, a unit, and a source line. A statistic without a source line is not a valid instance of the component.</li>
+    <li><strong>Live indicators</strong> — 6px dot, cyan, slow pulse; paused entirely under reduced-motion, where it becomes a static dot with a text label.</li>
+    <li><strong>Media</strong> — every image and video has explicit width and height to hold layout; video carries a poster; audio carries a transcript.</li>
+  </ul>
+</section>
+<section id="copy">
+  <div class="snum">08 · Revised website copy</div>
+  <h2>Written to be believed</h2>
+  <p class="lede">Every claim below is either verifiable from your own systems or written so it does not need a statistic to work. Placeholders marked in amber need your input before they ship.</p>
+
+  <h4>Hero</h4>
+  <div class="cmp">
+    <div class="was"><div class="h">Currently live</div>
+      <p><strong>Capture every call. Convert every lead.</strong></p>
+      <p>Nexus AI Horizon builds AI voice agents and SMS workflows for service businesses. We answer every inbound call in under 2 seconds, qualify leads in 30, and book the job — 24/7, in your brand's voice. No new hires AI Consulting Services USA .</p>
+      <p class="small">Three unverified metrics, a keyword phrase mid-sentence, a stranded period, and a paragraph too long to read in five seconds.</p></div>
+    <div class="now"><div class="h">Proposed</div>
+      <p><strong>Capture Every Call. Convert Every Lead.</strong></p>
+      <p>Nexus AI Horizon builds AI voice, SMS, scheduling, and workflow systems that respond to customers, qualify opportunities, and book appointments 24 hours a day.</p>
+      <p><span class="pill k">Book a Strategy Call</span><span class="pill">Experience the AI Agent</span></p>
+      <p class="small">Trust line beneath: “Built for emergency home services, property management, moving, and financial-service firms.”</p></div>
+  </div>
+
+  <h4>Live demonstration</h4>
+  <p><strong>Hear the agent take a call.</strong><br>
+  Play a recorded sample call and follow the transcript as the system identifies the need, qualifies the caller, books the appointment, and sends the confirmation.</p>
+  <p class="small">Persistent label, present before playback and during: <em>“Demonstration using sample data. Not a recording of a real customer.”</em> Secondary action: <span class="pill">Request a live demonstration</span></p>
+
+  <h4>The Cost of Silence</h4>
+  <p><strong>The Cost of Silence</strong><br>
+  A missed call is not always a lost customer. But some of them are, and most businesses have never counted. Enter your numbers and see the range.</p>
+  <div class="log"><span class="c">Formula shown on the page, in full:</span>
+
+  missed calls   = monthly inbound × missed-call rate
+  lost jobs      = missed calls × conversion rate
+  <span class="k">low estimate</span>   = lost jobs × average job value × <span class="k">0.35</span>
+  <span class="k">high estimate</span>  = lost jobs × average job value × <span class="k">0.70</span>
+
+<span class="c">The 0.35–0.70 band assumes a share of missed callers call back
+or reach you another way. It is an assumption, and it is stated
+as one on the page.</span></div>
+  <p class="small">Displayed beneath the result: <em>“This is an estimate based on the figures you entered and the stated assumptions. It is not a prediction of revenue. Not every missed call would have become a paying customer.”</em> This replaces the current fabricated ledger of 18 invented lost calls entirely.</p>
+
+  <h4>Services — the pattern each of the four follows</h4>
+  <div class="tbl-w">
+  <table>
+    <tr><th>Slot</th><th>Example — AI Voice Agents</th></tr>
+    <tr><td><strong>Problem</strong></td><td>Calls arrive after hours, during jobs, and in bursts. Voicemail does not qualify anyone, and the caller moves on.</td></tr>
+    <tr><td><strong>Solution</strong></td><td>An AI voice agent answers inbound calls around the clock, collects the details you need, qualifies the caller, books standard appointments, routes urgent requests, and transfers to a person when the situation calls for one.</td></tr>
+    <tr><td><strong>Benefit</strong></td><td>Inbound calls are handled consistently, day and night, without adding headcount to cover the hours.</td></tr>
+    <tr><td><strong>Integrations</strong></td><td><span class="pill v">confirm list before publishing</span></td></tr>
+    <tr><td><strong>CTA</strong></td><td>See how voice agents would handle your calls →</td></tr>
+  </table>
+  </div>
+  <p class="small">The same four slots carry SMS Lead Follow-Up (respond, remind, continue an approved sequence, stop on reply or opt-out), Booking &amp; Scheduling Automation (book by voice, text, or form into the right slot), and Workflow &amp; CRM Automation (connect intake to scheduling, CRM, dispatch, notification and reporting). No claim of a specific answer time or booking rate appears in any of them.</p>
+
+  <h4>How it works</h4>
+  <div class="tbl-w">
+  <table>
+    <tr><th>Stage</th><th>What happens</th></tr>
+    <tr><td><strong>1 · Discover</strong></td><td>We review your call patterns, lead sources, scheduling rules, business hours, escalation needs, existing software, and what your customers expect. Output is a deployment plan you can challenge line by line.</td></tr>
+    <tr><td><strong>2 · Build &amp; Test</strong></td><td>We configure the voice agent, workflows, integrations, escalation rules, scripts and reporting, and run alongside your existing line so nothing breaks while we tune.</td></tr>
+    <tr><td><strong>3 · Launch &amp; Improve</strong></td><td>We deploy, review performance, correct problems, and keep improving the workflows. Every deployment includes human review of early calls before it runs unattended.</td></tr>
+  </table>
+  </div>
+  <p><span class="pill v">Timeline: blank pending your confirmation</span> The current site says 14 days three times and 21 days three times (F-07). One number, stated once, used everywhere. Tell me which is correct and I will set it sitewide.</p>
+
+  <h4>Final call to action</h4>
+  <p><strong>Stop Letting Qualified Calls Reach Voicemail.</strong><br>
+  See how Nexus AI Horizon can build an AI response and follow-up system around the tools your business already uses.</p>
+  <p><span class="pill k">Book a Strategy Call</span><span class="pill">Request a Live Demonstration</span></p>
+  <p class="small">Shown immediately after submission, replacing the form:</p>
+  <ol class="small">
+    <li>We review your request and your current intake setup.</li>
+    <li>A member of the team contacts you using the method you chose.</li>
+    <li>We identify where calls and leads are currently being lost.</li>
+    <li>We recommend an appropriate next step — which may be that we are not the right fit.</li>
+  </ol>
+  <p class="small">No response-time promise unless you confirm you meet it consistently (F-18).</p>
+
+  <h4>Copy the site should stop using</h4>
+  <p>Sitewide removal, on top of the specific fixes in Section 2: “Best,” “Top 10,” and “leading”; the phrase “AI Consulting Services USA” and all its city variants inside body sentences; “SOC 2-ready · CCO-approved · TCPA compliant” unless substantiated; “Approved by your compliance officer in week one”; and any unlabelled “Live” badge attached to a hard-coded number.</p>
+</section>
+
+<section id="motion">
+  <div class="snum">09 · Motion storyboard</div>
+  <h2>From Ring to Revenue</h2>
+  <p class="lede">One pinned sequence, eight stages, one signal travelling through all of them. Total scroll distance roughly three viewport heights, scrubbed — the visitor controls the pace and can stop anywhere.</p>
+
+  <div class="sb">
+    <div class="beat"><div class="st">Stage 01 · 0–12%</div><h5>Ring</h5>
+      <p>An inbound call enters the system.</p>
+      <div class="mo">A single point of light arrives at the left edge and pulses. Concentric rings expand once and fade. The waveform sits flat and silent. Everything downstream is dimmed to 20% opacity.</div></div>
+    <div class="beat"><div class="st">Stage 02 · 12–25%</div><h5>Answer</h5>
+      <p>The AI voice agent answers within the approved response standard.</p>
+      <div class="mo">The flat line breaks into an active waveform. The status chip flips from <em>Incoming</em> to <em>Connected</em> in cyan. The dimmed pipeline lifts to 40%.</div></div>
+    <div class="beat"><div class="st">Stage 03 · 25–38%</div><h5>Understand</h5>
+      <p>The agent identifies the caller's need, location, urgency, and intent.</p>
+      <div class="mo">Transcript lines type in beneath the waveform. Four field chips — need, location, urgency, intent — fill one at a time as the words that triggered them are briefly underlined.</div></div>
+    <div class="beat"><div class="st">Stage 04 · 38–50%</div><h5>Qualify</h5>
+      <p>The system confirms the caller meets the business's service requirements.</p>
+      <div class="mo">The chips consolidate into a single qualification card. A checkmark draws in green. The signal, which has been holding at the node, brightens and begins to move.</div></div>
+    <div class="beat"><div class="st">Stage 05 · 50–63%</div><h5>Route or Book</h5>
+      <p>Urgent requests are routed. Standard appointments are scheduled.</p>
+      <div class="mo">The path forks. One branch pulses amber toward <em>Dispatch</em>; the other runs blue into a calendar that opens and takes a slot. Only the branch that matches the demo call illuminates — the other stays hairline.</div></div>
+    <div class="beat"><div class="st">Stage 06 · 63–75%</div><h5>Update</h5>
+      <p>The lead, transcript, and appointment enter the company's approved CRM.</p>
+      <div class="mo">The signal enters a panel labelled with the CRM logo. A record assembles line by line: contact, job type, urgency, transcript attached. Held one beat longer than the other stages — this is the one that closes the loop for an operator.</div></div>
+    <div class="beat"><div class="st">Stage 07 · 75–88%</div><h5>Confirm</h5>
+      <p>The customer receives an SMS confirmation.</p>
+      <div class="mo">A message bubble rises into a phone frame at the right edge, with a delivery tick. The waveform settles back to flat — the call has ended.</div></div>
+    <div class="beat"><div class="st">Stage 08 · 88–100%</div><h5>Follow Up</h5>
+      <p>An approved follow-up sequence continues until the customer responds, books, or opts out.</p>
+      <div class="mo">Three scheduled touches appear on a small timeline, then two dim as an inbound reply arrives and the sequence stops. The final frame shows the completed path, lit end to end, with the CTA resolving beneath it.</div></div>
+  </div>
+
+  <h4>Motion rules</h4>
+  <ul>
+    <li><strong>One library.</strong> GSAP with ScrollTrigger, plus Lenis for smoothing. Nothing else. No Framer Motion alongside it, no second scroll library.</li>
+    <li><strong>Scrubbed, not triggered.</strong> The sequence is tied to scroll position, so scrolling back reverses it exactly. No autoplay, no scroll-jacking, no forced duration.</li>
+    <li><strong>Transform and opacity only.</strong> Nothing animates layout. Anything moving continuously gets <span class="ev">will-change</span> and gives it back when idle.</li>
+    <li><strong>Off-screen is paused.</strong> Canvas loops stop when their section leaves the viewport.</li>
+    <li><strong>Reduced motion is a real path, not a switch.</strong> Under <span class="ev">prefers-reduced-motion: reduce</span> the pin is released and all eight stages render as a static, fully readable list with the same words. Nothing is lost — the content was never carried by the animation alone.</li>
+    <li><strong>Mobile simplifies rather than shrinks.</strong> No pinning below 900px; stages become sequential cards revealed on entry.</li>
+  </ul>
+  <p class="small">Other approved motion elsewhere: hero headline mask-reveal on load, section transitions at 420ms, card lift on hover, number roll-ups that start from the final value in the HTML (F-09), and a background parallax layer that responds to cursor position by no more than 8px.</p>
+</section>
+
+<section id="tech">
+  <div class="snum">10 · Technical approach</div>
+  <h2>Rebuild on WordPress, not away from it</h2>
+  <p class="lede">The recommendation is to keep WordPress and rebuild the front end as a proper theme, rather than moving platforms or continuing in Elementor.</p>
+
+  <h3>Why this route</h3>
+  <p>Elementor is the source of most of what is wrong here: the 39 stylesheets, the 372 KB of markup, the duplicated navigation, the “Cool Number” placeholder, the broken heading levels. A cinematic scroll sequence built inside it would fight the builder the whole way and stay slow. Moving to a headless or Next.js stack, on the other hand, means rebuilding your editing workflow, your hosting, and your SEO surface all at once — a much larger project than this brief needs, and it would put the migration at risk.</p>
+  <p>The middle path: <strong>a custom block theme on the existing WordPress install.</strong> You keep the CMS, the URLs, Rank Math, GA4, and your ability to edit. You lose the builder bloat.</p>
+
+  <div class="tbl-w">
+  <table>
+    <tr><th>Layer</th><th>Proposed</th><th>Why</th></tr>
+    <tr><td>CMS</td><td class="mono">WordPress (retained)</td><td>No migration risk, no retraining</td></tr>
+    <tr><td>Front end</td><td class="mono">Custom block theme</td><td>Replaces Elementor + Hello. One stylesheet, no builder CSS</td></tr>
+    <tr><td>Content model</td><td class="mono">Blocks + ACF field groups</td><td>Headlines, stats, transcripts and stage copy all editable</td></tr>
+    <tr><td>Content types</td><td class="mono">Case Study · Industry · Solution · Service Area</td><td>Real post types instead of one-off pages</td></tr>
+    <tr><td>Motion</td><td class="mono">GSAP + ScrollTrigger + Lenis</td><td>One system, ~40 KB gzipped, loaded only where used</td></tr>
+    <tr><td>Forms</td><td class="mono">Gravity Forms or WPForms + Turnstile</td><td>Consent field, conditional logic, CRM webhook</td></tr>
+    <tr><td>SEO</td><td class="mono">Rank Math (retained)</td><td>Keeps existing config and sitemap</td></tr>
+    <tr><td>Performance</td><td class="mono">Reconfigure Airlift</td><td>Keep delay for third-party scripts, exclude critical path</td></tr>
+    <tr><td>Analytics</td><td class="mono">GA4 (retained) + GTM</td><td>Adds real conversion events, which do not exist today</td></tr>
+  </table>
+  </div>
+
+  <h3>Editable, not hard-coded</h3>
+  <p>Everything the business needs to change goes into fields: hero headline and subhead, all CTA labels and destinations, each of the eight stage titles and sentences, the demonstration transcript and its label, calculator defaults and assumption band, every proof figure <em>with its source and date as required fields</em>, service descriptions, integration lists, team members, and the implementation timeline — defined once and pulled everywhere, so F-07 cannot happen again.</p>
+  <div class="note"><h3>A structural safeguard</h3><p>The proof-statistic block will not save without a source and a date. That single constraint is what stops the site drifting back into unverifiable claims six months from now.</p></div>
+
+  <h3>Build sequence</h3>
+  <ol>
+    <li><strong>P1 hotfixes on the live site</strong> — repoint the 11 parked-domain links, fix the email addresses, publish a privacy policy. Days, not weeks, and independent of everything else.</li>
+    <li><strong>Staging clone</strong> — full backup, then build on a password-protected, <span class="ev">noindex</span> staging copy. The live site is untouched throughout.</li>
+    <li><strong>Theme foundation</strong> — tokens, typography, components, accessibility baseline.</li>
+    <li><strong>Homepage</strong> — hero, demonstration, calculator, pinned sequence.</li>
+    <li><strong>Inner pages</strong> — solutions, industries, how it works, case studies, about, contact, service areas.</li>
+    <li><strong>Content migration and correction</strong> — every finding in Section 2 resolved, every claim in Section 13 settled.</li>
+    <li><strong>QA</strong> — the device and browser matrix below.</li>
+    <li><strong>Launch</strong> — redirects live at cutover, sitemap resubmitted, Search Console watched daily for two weeks.</li>
+  </ol>
+
+  <h4>Test matrix</h4>
+  <div class="tbl-w">
+  <table>
+    <tr><th>Category</th><th>Coverage</th></tr>
+    <tr><td>Devices</td><td>Desktop 1440 &amp; 1920 · iPad · iPhone (current + one older) · mid-range Android</td></tr>
+    <tr><td>Browsers</td><td>Chrome · Safari (macOS + iOS) · Edge · Firefox</td></tr>
+    <tr><td>Function</td><td>Forms, buttons, navigation, audio playback, video, animation, keyboard-only path, screen reader</td></tr>
+    <tr><td>Integration</td><td>GA4 events, CRM routing, calendar booking, email delivery — each tested end to end with a real submission</td></tr>
+    <tr><td>Regression</td><td>Every redirect resolved once, no chains, no loops</td></tr>
+  </table>
+  </div>
+  <p class="small">I need hosting details, staging access, and the current CRM and calendar tooling before step 2. If a booking or voice platform is already connected behind the forms, it stays — nothing working gets replaced without your approval.</p>
+</section>
+<section id="seo">
+  <div class="snum">11 · SEO migration plan</div>
+  <h2>Protect what ranks, remove what risks</h2>
+  <p class="lede">The URL inventory is complete — 91 pages, 21 posts, 1 category. What I cannot see from outside is which of them matter. That gap closes the moment I have Search Console access.</p>
+
+  <h4>Before any URL changes</h4>
+  <div class="tbl-w">
+  <table>
+    <tr><th>Step</th><th>Status</th></tr>
+    <tr><td>Full URL inventory</td><td class="mono" style="color:var(--ok)">done — 113 URLs captured</td></tr>
+    <tr><td>Title tags and meta descriptions recorded</td><td class="mono" style="color:var(--ok)">done</td></tr>
+    <tr><td>Canonical tags reviewed</td><td class="mono" style="color:var(--ok)">done — all self-canonical, including the two duplicate homepages</td></tr>
+    <tr><td>robots.txt reviewed</td><td class="mono" style="color:var(--ok)">done — clean, points to the Rank Math sitemap</td></tr>
+    <tr><td>Structured data reviewed</td><td class="mono" style="color:var(--ok)">done — needs the Person/Organization fix (F-23)</td></tr>
+    <tr><td>Duplicate content identified</td><td class="mono" style="color:var(--ok)">done — 2 homepages, 85 templated city pages</td></tr>
+    <tr><td>Pages receiving traffic</td><td class="mono" style="color:var(--p2)">needs Search Console + GA4</td></tr>
+    <tr><td>Indexed page count</td><td class="mono" style="color:var(--p2)">needs Search Console</td></tr>
+    <tr><td>Backlink review</td><td class="mono" style="color:var(--p2)">needs Search Console or Ahrefs</td></tr>
+  </table>
+  </div>
+  <p><strong>No URL moves until the three amber rows are filled in.</strong> Redirecting a page that is quietly earning leads is the one migration mistake that is expensive and hard to reverse.</p>
+
+  <h4>Redirect list — the certain ones</h4>
+  <p>These do not depend on traffic data and can be issued at cutover:</p>
+  <div class="tbl-w">
+  <table>
+    <tr><th class="mono">From</th><th class="mono">To</th><th>Type</th><th>Reason</th></tr>
+    <tr><td class="mono">/homepage/</td><td class="mono">/</td><td>301</td><td>Duplicate homepage (F-13)</td></tr>
+    <tr><td class="mono">/home-old1/</td><td class="mono">/</td><td>301</td><td>Old homepage, indexable (F-13)</td></tr>
+    <tr><td class="mono">/services/</td><td class="mono">/solutions/</td><td>301</td><td>Renamed hub</td></tr>
+    <tr><td class="mono">/emergency-home-services/</td><td class="mono">/industries/emergency-home-services/</td><td>301</td><td>Moved under Industries</td></tr>
+    <tr><td class="mono">/hello-world/</td><td class="mono">/resources/&lt;new-slug&gt;/</td><td>301</td><td>Default WP slug (F-24)</td></tr>
+    <tr><td class="mono">/category/uncategorized/</td><td class="mono">/resources/</td><td>301</td><td>Default category</td></tr>
+    <tr><td class="mono">/sitemap.xml</td><td class="mono">—</td><td>410</td><td>Delete the stale static file (F-14)</td></tr>
+    <tr><td class="mono">/ai-consulting-in-buffalo-ny/</td><td class="mono">/service-areas/new-york/buffalo/</td><td>301</td><td>Slug normalisation — 7 pages use the long form</td></tr>
+    <tr><td class="mono">&lt;city&gt;-&lt;st&gt;/ ×85</td><td class="mono">/service-areas/&lt;region&gt;/&lt;city&gt;/ or region hub</td><td>301</td><td>Per the keep/redirect rule in Section 3</td></tr>
+    <tr><td class="mono">/*/feed/</td><td class="mono">—</td><td>noindex</td><td>20 feed URLs currently in the stale sitemap</td></tr>
+  </table>
+  </div>
+  <p class="small">Rules: one hop only, no chains, no loops. Every redirect tested before cutover and again after. Old URLs stay redirected permanently, not for a season.</p>
+
+  <h4>At and after cutover</h4>
+  <ul>
+    <li>Regenerate and resubmit the Rank Math sitemap; confirm the stale one returns 410.</li>
+    <li>Rewrite every title and description — removing “Best Top 10”, the numeral hooks, and the hard-coded year (F-15).</li>
+    <li>Replace <span class="ev">["Person","Organization"]</span> schema with Organization / ProfessionalService, plus Service and FAQ schema where genuinely applicable. No Review or AggregateRating schema unless real reviews exist.</li>
+    <li>Strip all exact-match keyword insertions from body copy (F-11). No hidden text, no stuffing — the current pattern is a spam-policy risk, not just a style problem.</li>
+    <li>Fix the positioning split: the meta description says NYC while 85 pages target six states. Homepage targets the service, location pages target the place.</li>
+    <li>Watch Search Console daily for two weeks, then weekly for a quarter: coverage errors, 404 spikes, impression and click movement per URL group.</li>
+  </ul>
+  <div class="note"><h3>Setting expectations honestly</h3><p>Consolidating 85 thin pages will likely reduce total indexed pages and may reduce raw impressions. That is the intended outcome, not a regression — impressions from templated pages that do not convert are not worth the spam risk they carry. The metric to hold me to is <strong>qualified strategy calls</strong>, which the site currently cannot even measure, because no conversion events are configured in GA4.</p></div>
+</section>
+
+<section id="quality">
+  <div class="snum">12 · Accessibility and performance</div>
+  <h2>The standard the build is held to</h2>
+
+  <h3>Accessibility — WCAG 2.2 AA</h3>
+  <div class="tbl-w">
+  <table>
+    <tr><th>Requirement</th><th>Today</th><th>In the rebuild</th></tr>
+    <tr><td>Heading order</td><td style="color:var(--p1)">h4 before h1; Services has no h1</td><td>One h1 per page, no skipped levels</td></tr>
+    <tr><td>Keyboard navigation</td><td style="color:var(--p1)">237 links on the page, most of them the duplicated menu</td><td>Skip link, 8 nav items, logical tab order</td></tr>
+    <tr><td>Focus states</td><td style="color:var(--p2)">Browser default only</td><td>2px visible ring, 2px offset, on every control</td></tr>
+    <tr><td>Contrast</td><td style="color:var(--p2)">Unverified</td><td>Checked and documented — Section 7</td></tr>
+    <tr><td>Alt text</td><td style="color:var(--ok)">All 8 images have alt</td><td>Maintained; decorative images get empty alt</td></tr>
+    <tr><td>Form labels</td><td style="color:var(--p2)">Present but visually minimal</td><td>Visible label above every field</td></tr>
+    <tr><td>Audio and video</td><td style="color:var(--p1)">Demo has no transcript</td><td>Synchronised transcript, captions on video</td></tr>
+    <tr><td>Reduced motion</td><td style="color:var(--p1)">Not honoured in page CSS</td><td>Full static path through the whole sequence</td></tr>
+    <tr><td>Error and success messages</td><td style="color:var(--p2)">Generic</td><td>Names the problem and the fix; announced to screen readers</td></tr>
+  </table>
+  </div>
+  <p class="small">Verified with axe and a manual keyboard-and-screen-reader pass, not an automated score alone. Target: accessibility score ≥ 95, with the manual pass as the real gate.</p>
+
+  <h3>Performance</h3>
+  <p>Targets: LCP under 2.5s, CLS under 0.1, INP under 200ms, and Lighthouse performance ≥ 90 where practical on a cinematic page. Best practices and SEO ≥ 95.</p>
+  <div class="tbl-w">
+  <table>
+    <tr><th>Lever</th><th>Change</th><th>Expected</th></tr>
+    <tr><td>Fonts</td><td>5 families, all weights → 2 families, 4 weights, self-hosted WOFF2</td><td>~400 KB saved, no third-party connection</td></tr>
+    <tr><td>CSS</td><td>39 files → 1 theme stylesheet, critical CSS inlined</td><td>Removes the render-blocking chain</td></tr>
+    <tr><td>HTML</td><td>372 KB → target under 80 KB</td><td>Nav rendered once, 79 links moved out</td></tr>
+    <tr><td>Images</td><td>AVIF/WebP, responsive <span class="ev">srcset</span>, width and height on every image, lazy below the fold</td><td>Protects CLS and cuts ~1.5 MB</td></tr>
+    <tr><td>Logo</td><td>212 KB PNG → SVG</td><td>~210 KB saved on every page</td></tr>
+    <tr><td>Video</td><td>Compressed, poster image, never autoplay with audio</td><td>Poster becomes the LCP element</td></tr>
+    <tr><td>Scripts</td><td>One animation library, deferred, code-split per section</td><td>Protects INP</td></tr>
+    <tr><td>Mobile</td><td>Canvas backgrounds replaced by static assets; no pinning</td><td>The main risk on mid-range Android</td></tr>
+  </table>
+  </div>
+  <p class="small">A baseline Lighthouse run on the current site is the first task after approval, so improvement is measured rather than asserted. I did not include one here because the API refused both attempts and I will not publish a score I did not take.</p>
+</section>
+
+<section id="verify">
+  <div class="snum">13 · What I need from you</div>
+  <h2>Claims to verify, remove, or reword</h2>
+  <p class="lede">Every performance, compliance and client claim currently published. Mark each one. Anything not verified by build time gets replaced with a demonstration or an anonymised example — which is a stronger page, not a weaker one.</p>
+
+  <div class="tbl-w">
+  <table>
+    <tr><th>#</th><th>Published claim</th><th>Where</th><th>Needed to keep it</th></tr>
+    <tr><td class="mono">C-01</td><td>31 active deployments</td><td>Hero, Proof</td><td>Current count, as of a date</td></tr>
+    <tr><td class="mono">C-02</td><td>Avg. answer time 1.8s</td><td>Hero, pipeline</td><td>Platform report, sample size, period</td></tr>
+    <tr><td class="mono">C-03</td><td>First-call booking rate 62%</td><td>Hero, emergency card</td><td>Definition of “first-call booking”, source</td></tr>
+    <tr><td class="mono">C-04</td><td>97% of calls answered under 3 seconds</td><td>Proof</td><td>Source across the stated 31 deployments / 90 days</td></tr>
+    <tr><td class="mono">C-05</td><td>4.2× more booked jobs in 60 days</td><td>Proof</td><td>Baseline definition and how it was measured</td></tr>
+    <tr><td class="mono">C-06</td><td>$312K recovered revenue, average client</td><td>Proof</td><td>Currently labelled both “self-reported” <em>and</em> “audited” — which is it?</td></tr>
+    <tr><td class="mono">C-07</td><td>$4.6M new AUM in 90 days · single RIA client</td><td>Financial card</td><td>Written client approval, or further anonymisation</td></tr>
+    <tr><td class="mono">C-08</td><td>4× lease tour booking rate · 1,200-unit operator</td><td>Property card</td><td>Client approval; “1,200 units” is identifying</td></tr>
+    <tr><td class="mono">C-09</td><td>3.2× quote-to-booking · 60-day window</td><td>Moving card</td><td>Source and baseline</td></tr>
+    <tr><td class="mono">C-10</td><td>Response time 14 min → 11 sec</td><td>Industry rail</td><td>Source and period</td></tr>
+    <tr><td class="mono">C-11</td><td>1,247 calls this week · borough split</td><td>Home + 4 city pages</td><td>Live data feed, or relabel as illustrative (F-05)</td></tr>
+    <tr><td class="mono">C-12</td><td>96% renewal at end of year one</td><td>About</td><td>Cohort and period</td></tr>
+    <tr><td class="mono">C-13</td><td>SOC 2-ready</td><td>Hero, financial card</td><td>Auditor, stage, date — or removal (F-04)</td></tr>
+    <tr><td class="mono">C-14</td><td>CCO-approved</td><td>Hero, financial card</td><td>Whose CCO, and did they approve the wording</td></tr>
+    <tr><td class="mono">C-15</td><td>TCPA compliant</td><td>Hero</td><td>Counsel sign-off, or reword to describe your practices</td></tr>
+    <tr><td class="mono">C-16</td><td>Approved by your compliance officer in week one</td><td>Financial card</td><td>A promise about a third party — recommend removal</td></tr>
+    <tr><td class="mono">C-17</td><td>Under 4 business hours response</td><td>Home, Contact ×2</td><td>Do you meet this consistently? (F-18)</td></tr>
+    <tr><td class="mono">C-18</td><td>38% industry average missed calls · $400/job · $146,000/yr</td><td>Cost of Silence</td><td>Citable source for the 38%, or switch to the calculator</td></tr>
+    <tr><td class="mono">C-19</td><td>Live in 14 days / 21 days</td><td>6 places</td><td>Which is correct (F-07)</td></tr>
+    <tr><td class="mono">C-20</td><td>Human review of the first 200 calls</td><td>About</td><td>Confirm — this is a strong differentiator worth featuring</td></tr>
+    <tr><td class="mono">C-21</td><td>ServiceTitan, Housecall Pro, Jobber, AppFolio, Buildium, Wealthbox, Salesforce</td><td>Pipeline, industry cards</td><td>Which are actually built and tested</td></tr>
+    <tr><td class="mono">C-22</td><td>Est. 2023 / “Three years in”</td><td>Hero, About</td><td>Confirm founding year</td></tr>
+  </table>
+  </div>
+
+  <h4>Also needed before build</h4>
+  <ul>
+    <li><strong>Access</strong> — Search Console, GA4, WordPress admin, hosting/staging, DNS (for the domain question in F-01/F-02).</li>
+    <li><strong>Systems</strong> — which CRM, calendar, and voice/SMS platforms are actually in use, and where form submissions currently go.</li>
+    <li><strong>People</strong> — leadership names, roles, and photographs. There is currently no named person anywhere on the site; the only name in the source is a metadata author tag reading “Prasad P” (F-23). A serious automation partner needs a face.</li>
+    <li><strong>Contact</strong> — a working phone number. The site has none, which is a notable omission for a company selling call handling.</li>
+    <li><strong>Case studies</strong> — one to three clients willing to be named or anonymised, with approval in writing.</li>
+    <li><strong>Demo asset</strong> — a sample call recording cleared for public use, or approval to script and record a staged one.</li>
+    <li><strong>Service area</strong> — the markets you genuinely serve.</li>
+  </ul>
+</section>
+
+<section id="approve">
+  <div class="snum">14 · Approval gate</div>
+  <h2>What I am asking you to approve</h2>
+  <p class="lede">Nothing has been changed on the live site. These are the decisions that unblock the build.</p>
+  <ol>
+    <li><strong>The P1 hotfixes proceed immediately</strong> — repoint the 11 parked-domain links, resolve the email addresses, publish a privacy policy. Independent of the redesign. This is the one item I would start today.</li>
+    <li><strong>The sitemap in Section 3</strong>, including moving 85 location pages out of the main navigation into a service-area directory, subject to the traffic check.</li>
+    <li><strong>The creative direction in Section 6</strong> — dark operations surface, accent colour reserved for live states, demonstration placed immediately below the hero.</li>
+    <li><strong>The design system in Section 7</strong> — the palette with amber added for urgency, and two font families replacing five.</li>
+    <li><strong>The homepage structure in Sections 4 and 5</strong>, and the eight-stage motion sequence in Section 9.</li>
+    <li><strong>The technical approach in Section 10</strong> — custom block theme on the existing WordPress install, replacing Elementor, with GSAP as the only animation library.</li>
+    <li><strong>The claims table in Section 13</strong>, returned with each row marked verified, reworded, or removed.</li>
+  </ol>
+  <p>Once items 1 and 7 come back, the rest of the sequence — wireframes to prototype to build — runs without further blocking questions. Item 7 is the long pole: it needs your records, not my time.</p>
+  <div class="note"><h3>On the approach</h3><p>The brief asked for a site that shows how the technology works instead of relying on general claims. That is also the answer to the credibility problem the audit found: a working demonstration of a call being answered, qualified, booked and confirmed is more persuasive than “97% answered in under 3 seconds,” and it is something you can publish today without waiting on anyone's sign-off.</p></div>
+</section>
+</main>
+</div>
+
+<footer>
+  <div class="foot-in">
+    <p><strong>Audit method.</strong> All findings were observed on 3 September 2026 by fetching the live HTML of the homepage, About, Services, Contact, Emergency Home Services, <span class="ev">/homepage/</span>, <span class="ev">/home-old1/</span>, <span class="ev">/hello-world/</span> and six sample city pages, plus <span class="ev">robots.txt</span>, both XML sitemaps, and the linked CSS and image assets. Timings are the median of three runs from a single location. The site was not modified in any way.</p>
+    <p style="margin-top:14px">Two things I could not determine from outside and have not guessed at: Lighthouse scores, because the PageSpeed API returned a quota error on both attempts; and which pages earn traffic or links, which needs Search Console access.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var rows=document.getElementById('rows');
+  var btns=document.querySelectorAll('.filters button');
+  btns.forEach(function(b){
+    b.addEventListener('click',function(){
+      var f=b.dataset.f;
+      btns.forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});
+      rows.querySelectorAll('.row').forEach(function(r){
+        r.hidden = !(f==='all' || r.dataset.sev===f);
+      });
+    });
+  });
+  var links=Array.prototype.slice.call(document.querySelectorAll('#toc a'));
+  var secs=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1))}).filter(Boolean);
+  if('IntersectionObserver' in window && secs.length){
+    var seen={};
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){seen[e.target.id]=e.isIntersecting});
+      for(var i=0;i<secs.length;i++){
+        if(seen[secs[i].id]){
+          links.forEach(function(l){l.classList.remove('on')});
+          links[i].classList.add('on');
+          break;
+        }
+      }
+    },{rootMargin:'-10% 0px -70% 0px'});
+    secs.forEach(function(s){io.observe(s)});
+  }
+})();
+</script>

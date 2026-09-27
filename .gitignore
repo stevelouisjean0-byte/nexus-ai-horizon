@@ -1,0 +1,13 @@
+node_modules/
+wp-theme/playground.log
+*.output
+Thumbs.db
+.DS_Store
+
+# verification screenshots (tens of MB); the audit summaries are kept
+picked-up/shots/*
+!picked-up/shots/audit.json
+wp-theme/shots-wp/*
+!wp-theme/shots-wp/audit.json
+while-you-were-out/shots/*
+!while-you-were-out/shots/audit.json

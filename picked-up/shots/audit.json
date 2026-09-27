@@ -1,0 +1,342 @@
+{
+  "desktop": {
+    "label": "desktop",
+    "scrollWidth": 1425,
+    "clientWidth": 1425,
+    "h1": 1,
+    "headings": [
+      "H1 The phone rings. It gets answered.",
+      "H2 What happens on every call.",
+      "H3 Booked into your calendar.",
+      "H3 Answered on the number you already publish.",
+      "H3 It says it is automated, in the first senten",
+      "H3 Confirmation texted to the caller.",
+      "H3 Urgent calls go to the on-call phone.",
+      "H3 Written to your CRM.",
+      "H2 Calls arrive after hours, during jobs, and i",
+      "H2 Four industries. Nothing else.",
+      "H3 Emergency home services",
+      "H3 Property management",
+      "H3 Moving and relocation",
+      "H3 Financial services",
+      "H2 168 hours in a week. The office answers 50.",
+      "H2 A person reviews the early calls.",
+      "H2 Book a strategy call."
+    ],
+    "emDashes": 0,
+    "hashLinks": 0,
+    "fontsLoaded": true,
+    "nonGeist": [
+      "INPUT."
+    ],
+    "badSpans": [],
+    "images": [
+      {
+        "src": "logo.png",
+        "w": 583,
+        "h": 211,
+        "complete": true
+      },
+      {
+        "src": "street-poster.jpg",
+        "w": 1600,
+        "h": 1067,
+        "complete": true
+      },
+      {
+        "src": "studio-street.jpg",
+        "w": 1200,
+        "h": 1800,
+        "complete": true
+      },
+      {
+        "src": "logo-lockup.png",
+        "w": 585,
+        "h": 383,
+        "complete": true
+      }
+    ],
+    "uppercaseLabels": [],
+    "smallTargets": [
+      "Pexels 38",
+      "consent 18",
+      "privacy policy 36"
+    ],
+    "heroCtaBottom": 563,
+    "deviceTop": 423,
+    "bentoFill": 0.96,
+    "errors": [],
+    "scrollHeight": 11229,
+    "deviceState": "ring",
+    "sceneAtAct4": {
+      "act": [
+        "act-0",
+        "is-past",
+        "is-past",
+        "is-past",
+        "is-active"
+      ],
+      "state": "call",
+      "shifted": true,
+      "captions": 4,
+      "chips": 7
+    },
+    "demoPlaying": true,
+    "chipsShown": 0,
+    "galleryMoved": true,
+    "transcriptOpen": true,
+    "focused": "How it works",
+    "reducedMotionStatic": true,
+    "contrastFails": [],
+    "contrastMin": "4.53"
+  },
+  "laptop": {
+    "label": "laptop",
+    "scrollWidth": 1265,
+    "clientWidth": 1265,
+    "h1": 1,
+    "headings": [
+      "H1 The phone rings. It gets answered.",
+      "H2 What happens on every call.",
+      "H3 Booked into your calendar.",
+      "H3 Answered on the number you already publish.",
+      "H3 It says it is automated, in the first senten",
+      "H3 Confirmation texted to the caller.",
+      "H3 Urgent calls go to the on-call phone.",
+      "H3 Written to your CRM.",
+      "H2 Calls arrive after hours, during jobs, and i",
+      "H2 Four industries. Nothing else.",
+      "H3 Emergency home services",
+      "H3 Property management",
+      "H3 Moving and relocation",
+      "H3 Financial services",
+      "H2 168 hours in a week. The office answers 50.",
+      "H2 A person reviews the early calls.",
+      "H2 Book a strategy call."
+    ],
+    "emDashes": 0,
+    "hashLinks": 0,
+    "fontsLoaded": true,
+    "nonGeist": [
+      "INPUT."
+    ],
+    "badSpans": [],
+    "images": [
+      {
+        "src": "logo.png",
+        "w": 583,
+        "h": 211,
+        "complete": true
+      },
+      {
+        "src": "street-poster.jpg",
+        "w": 1600,
+        "h": 1067,
+        "complete": true
+      },
+      {
+        "src": "studio-street.jpg",
+        "w": 1200,
+        "h": 1800,
+        "complete": true
+      },
+      {
+        "src": "logo-lockup.png",
+        "w": 585,
+        "h": 383,
+        "complete": true
+      }
+    ],
+    "uppercaseLabels": [],
+    "smallTargets": [
+      "Pexels 38",
+      "consent 18",
+      "privacy policy 36"
+    ],
+    "heroCtaBottom": 554,
+    "deviceTop": 413,
+    "bentoFill": 0.96,
+    "errors": [],
+    "scrollHeight": 10032,
+    "deviceState": "ring",
+    "sceneAtAct4": {
+      "act": [
+        "act-0",
+        "is-past",
+        "is-past",
+        "is-past",
+        "is-active"
+      ],
+      "state": "call",
+      "shifted": true,
+      "captions": 4,
+      "chips": 7
+    },
+    "demoPlaying": true,
+    "chipsShown": 0,
+    "contrastFails": [],
+    "contrastMin": "4.53"
+  },
+  "tablet": {
+    "label": "tablet",
+    "scrollWidth": 805,
+    "clientWidth": 805,
+    "h1": 1,
+    "headings": [
+      "H1 The phone rings. It gets answered.",
+      "H2 What happens on every call.",
+      "H3 Booked into your calendar.",
+      "H3 Answered on the number you already publish.",
+      "H3 It says it is automated, in the first senten",
+      "H3 Confirmation texted to the caller.",
+      "H3 Urgent calls go to the on-call phone.",
+      "H3 Written to your CRM.",
+      "H2 Calls arrive after hours, during jobs, and i",
+      "H2 Four industries. Nothing else.",
+      "H3 Emergency home services",
+      "H3 Property management",
+      "H3 Moving and relocation",
+      "H3 Financial services",
+      "H2 168 hours in a week. The office answers 50.",
+      "H2 A person reviews the early calls.",
+      "H2 Book a strategy call."
+    ],
+    "emDashes": 0,
+    "hashLinks": 0,
+    "fontsLoaded": true,
+    "nonGeist": [
+      "INPUT."
+    ],
+    "badSpans": [],
+    "images": [
+      {
+        "src": "logo.png",
+        "w": 583,
+        "h": 211,
+        "complete": true
+      },
+      {
+        "src": "street-poster.jpg",
+        "w": 1600,
+        "h": 1067,
+        "complete": true
+      },
+      {
+        "src": "studio-street.jpg",
+        "w": 1200,
+        "h": 1800,
+        "complete": true
+      },
+      {
+        "src": "logo-lockup.png",
+        "w": 585,
+        "h": 383,
+        "complete": true
+      }
+    ],
+    "uppercaseLabels": [],
+    "smallTargets": [
+      "Pexels 38",
+      "consent 18",
+      "privacy policy 36"
+    ],
+    "heroCtaBottom": 460,
+    "deviceTop": 515,
+    "bentoFill": 0.96,
+    "errors": [],
+    "scrollHeight": 8569,
+    "deviceState": "call",
+    "sceneAtAct4": {
+      "act": [
+        "act-0",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "state": "call",
+      "shifted": false,
+      "captions": 4,
+      "chips": 2
+    },
+    "demoPlaying": true,
+    "chipsShown": 3,
+    "contrastFails": [],
+    "contrastMin": "4.53"
+  },
+  "mobile": {
+    "label": "mobile",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "h1": 1,
+    "headings": [
+      "H1 The phone rings. It gets answered.",
+      "H2 What happens on every call.",
+      "H3 Booked into your calendar.",
+      "H3 Answered on the number you already publish.",
+      "H3 It says it is automated, in the first senten",
+      "H3 Confirmation texted to the caller.",
+      "H3 Urgent calls go to the on-call phone.",
+      "H3 Written to your CRM.",
+      "H2 Calls arrive after hours, during jobs, and i",
+      "H2 Four industries. Nothing else.",
+      "H3 Emergency home services",
+      "H3 Property management",
+      "H3 Moving and relocation",
+      "H3 Financial services",
+      "H2 168 hours in a week. The office answers 50.",
+      "H2 A person reviews the early calls.",
+      "H2 Book a strategy call."
+    ],
+    "emDashes": 0,
+    "hashLinks": 0,
+    "fontsLoaded": true,
+    "nonGeist": [
+      "INPUT."
+    ],
+    "badSpans": [],
+    "images": [
+      {
+        "src": "logo.png",
+        "w": 583,
+        "h": 211,
+        "complete": true
+      },
+      {
+        "src": "street-poster.jpg",
+        "w": 1600,
+        "h": 1067,
+        "complete": true
+      },
+      {
+        "src": "studio-street.jpg",
+        "w": 1200,
+        "h": 1800,
+        "complete": true
+      },
+      {
+        "src": "logo-lockup.png",
+        "w": 585,
+        "h": 383,
+        "complete": true
+      }
+    ],
+    "uppercaseLabels": [],
+    "smallTargets": [
+      "Pexels 38",
+      "consent 18",
+      "privacy policy 36"
+    ],
+    "heroCtaBottom": 486,
+    "deviceTop": 561,
+    "bentoFill": 0.96,
+    "errors": [],
+    "scrollHeight": 9637,
+    "deviceState": "call",
+    "demoPlaying": true,
+    "chipsShown": 2,
+    "invalidCount": 8,
+    "contrastFails": [],
+    "contrastMin": "4.53"
+  }
+}

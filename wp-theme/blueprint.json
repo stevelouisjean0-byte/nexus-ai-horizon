@@ -1,0 +1,13 @@
+{
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "landingPage": "/",
+  "preferredVersions": { "php": "8.2", "wp": "latest" },
+  "features": { "networking": true },
+  "steps": [
+    { "step": "activateTheme", "themeFolderName": "nexus-ai-horizon" },
+    {
+      "step": "runPHP",
+      "code": "<?php require_once '/wordpress/wp-load.php'; update_option('blogname', 'Nexus AI Horizon'); update_option('blogdescription', 'AI voice and SMS systems for New York service businesses'); update_option('permalink_structure', '/%postname%/'); update_option('timezone_string', 'America/New_York'); foreach (array('privacy-policy' => 'Privacy policy', 'sms-terms' => 'SMS terms', 'terms' => 'Terms of service') as $slug => $title) { $existing = get_page_by_path($slug, OBJECT, 'page'); $content = '<!-- wp:paragraph --><p>Draft pending legal review. The draft text is in picked-up/legal/' . $slug . '.html.</p><!-- /wp:paragraph -->'; if ($existing) { $id = wp_update_post(array('ID' => $existing->ID, 'post_status' => 'publish', 'post_title' => $title, 'post_content' => $content)); } else { $id = wp_insert_post(array('post_type' => 'page', 'post_status' => 'publish', 'post_title' => $title, 'post_name' => $slug, 'post_content' => $content)); } if ($id && !is_wp_error($id)) { update_post_meta($id, '_wp_page_template', 'page-legal'); } } $wp_rewrite->set_permalink_structure('/%postname%/'); flush_rewrite_rules(); echo 'setup done';"
+    }
+  ]
+}

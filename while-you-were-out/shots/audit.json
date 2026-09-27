@@ -1,0 +1,261 @@
+{
+  "desktop": {
+    "label": "desktop",
+    "scrollWidth": 1425,
+    "clientWidth": 1425,
+    "h1": 1,
+    "headings": [
+      "H1 While you were out, we booked it.",
+      "H2 The call that filled it in.",
+      "H2 Four industries. Four different calls.",
+      "H2 On every call.",
+      "H2 Open 50 hours a week. Reachable 168.",
+      "H2 A person reads the first calls.",
+      "H2 Leave a message. A person calls you back."
+    ],
+    "emDashes": 0,
+    "hashLinks": 0,
+    "fontsLoaded": true,
+    "fontFamilies": [
+      "\"Libre Franklin\"",
+      "Arial"
+    ],
+    "nonFranklin": [
+      "INPUT."
+    ],
+    "badSpans": [],
+    "images": [
+      {
+        "src": "assets/logo.png",
+        "w": 583,
+        "h": 211,
+        "complete": true
+      },
+      {
+        "src": "assets/night-street.jpg",
+        "w": 1440,
+        "h": 1789,
+        "complete": true
+      },
+      {
+        "src": "assets/logo.png",
+        "w": 583,
+        "h": 211,
+        "complete": true
+      }
+    ],
+    "uppercaseLabels": [
+      "While you were out",
+      "While you were out",
+      "While you were out",
+      "While you were out",
+      "While you were out",
+      "Message for Nexus AI Horizon"
+    ],
+    "smallTargets": [
+      "consent 18",
+      "privacy policy 37"
+    ],
+    "heroCtaBottom": 622,
+    "errors": [],
+    "scrollHeight": 8239,
+    "heroFilled": true,
+    "focused": "Industries",
+    "reducedMotionFilledImmediately": true,
+    "contrastFails": [],
+    "contrastMin": "5.01"
+  },
+  "laptop": {
+    "label": "laptop",
+    "scrollWidth": 1265,
+    "clientWidth": 1265,
+    "h1": 1,
+    "headings": [
+      "H1 While you were out, we booked it.",
+      "H2 The call that filled it in.",
+      "H2 Four industries. Four different calls.",
+      "H2 On every call.",
+      "H2 Open 50 hours a week. Reachable 168.",
+      "H2 A person reads the first calls.",
+      "H2 Leave a message. A person calls you back."
+    ],
+    "emDashes": 0,
+    "hashLinks": 0,
+    "fontsLoaded": true,
+    "fontFamilies": [
+      "\"Libre Franklin\"",
+      "Arial"
+    ],
+    "nonFranklin": [
+      "INPUT."
+    ],
+    "badSpans": [],
+    "images": [
+      {
+        "src": "assets/logo.png",
+        "w": 583,
+        "h": 211,
+        "complete": true
+      },
+      {
+        "src": "assets/night-street.jpg",
+        "w": 1280,
+        "h": 1590,
+        "complete": true
+      },
+      {
+        "src": "assets/logo.png",
+        "w": 583,
+        "h": 211,
+        "complete": true
+      }
+    ],
+    "uppercaseLabels": [
+      "While you were out",
+      "While you were out",
+      "While you were out",
+      "While you were out",
+      "While you were out",
+      "Message for Nexus AI Horizon"
+    ],
+    "smallTargets": [
+      "consent 18",
+      "privacy policy 37"
+    ],
+    "heroCtaBottom": 673,
+    "errors": [],
+    "scrollHeight": 8111,
+    "heroFilled": true,
+    "contrastFails": [],
+    "contrastMin": "5.01"
+  },
+  "tablet": {
+    "label": "tablet",
+    "scrollWidth": 805,
+    "clientWidth": 805,
+    "h1": 1,
+    "headings": [
+      "H1 While you were out, we booked it.",
+      "H2 The call that filled it in.",
+      "H2 Four industries. Four different calls.",
+      "H2 On every call.",
+      "H2 Open 50 hours a week. Reachable 168.",
+      "H2 A person reads the first calls.",
+      "H2 Leave a message. A person calls you back."
+    ],
+    "emDashes": 0,
+    "hashLinks": 0,
+    "fontsLoaded": true,
+    "fontFamilies": [
+      "\"Libre Franklin\"",
+      "Arial"
+    ],
+    "nonFranklin": [
+      "INPUT."
+    ],
+    "badSpans": [],
+    "images": [
+      {
+        "src": "assets/logo.png",
+        "w": 583,
+        "h": 211,
+        "complete": true
+      },
+      {
+        "src": "assets/night-street.jpg",
+        "w": 820,
+        "h": 1018,
+        "complete": true
+      },
+      {
+        "src": "assets/logo.png",
+        "w": 583,
+        "h": 211,
+        "complete": true
+      }
+    ],
+    "uppercaseLabels": [
+      "While you were out",
+      "While you were out",
+      "While you were out",
+      "While you were out",
+      "While you were out",
+      "Message for Nexus AI Horizon"
+    ],
+    "smallTargets": [
+      "consent 18",
+      "privacy policy 37"
+    ],
+    "heroCtaBottom": 407,
+    "errors": [],
+    "scrollHeight": 8917,
+    "heroFilled": true,
+    "contrastFails": [],
+    "contrastMin": "5.01"
+  },
+  "mobile": {
+    "label": "mobile",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "h1": 1,
+    "headings": [
+      "H1 While you were out, we booked it.",
+      "H2 The call that filled it in.",
+      "H2 Four industries. Four different calls.",
+      "H2 On every call.",
+      "H2 Open 50 hours a week. Reachable 168.",
+      "H2 A person reads the first calls.",
+      "H2 Leave a message. A person calls you back."
+    ],
+    "emDashes": 0,
+    "hashLinks": 0,
+    "fontsLoaded": true,
+    "fontFamilies": [
+      "\"Libre Franklin\"",
+      "Arial"
+    ],
+    "nonFranklin": [
+      "INPUT."
+    ],
+    "badSpans": [],
+    "images": [
+      {
+        "src": "assets/logo.png",
+        "w": 583,
+        "h": 211,
+        "complete": true
+      },
+      {
+        "src": "assets/night-street.jpg",
+        "w": 390,
+        "h": 484,
+        "complete": true
+      },
+      {
+        "src": "assets/logo.png",
+        "w": 583,
+        "h": 211,
+        "complete": true
+      }
+    ],
+    "uppercaseLabels": [
+      "While you were out",
+      "While you were out",
+      "While you were out",
+      "While you were out",
+      "While you were out",
+      "Message for Nexus AI Horizon"
+    ],
+    "smallTargets": [
+      "consent 18",
+      "privacy policy 36"
+    ],
+    "heroCtaBottom": 381,
+    "errors": [],
+    "scrollHeight": 11376,
+    "heroFilled": true,
+    "invalidCount": 8,
+    "contrastFails": [],
+    "contrastMin": "5.01"
+  }
+}

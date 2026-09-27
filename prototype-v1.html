@@ -1,0 +1,1311 @@
+<title>Nexus AI Horizon Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{
+  --ground:#05070A; --surface:#0B1017; --graphite:#11151B; --navy:#081525;
+  --blue:#1E8FFF; --cyan:#38D6E8; --white:#F4F2ED; --grey:#98A2B3;
+  --green:#42D392; --amber:#F5A524;
+  --line:rgba(244,242,237,.09); --line-2:rgba(244,242,237,.16);
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px; --s9:96px; --s10:128px;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--ground);color:var(--white);margin:0;
+  font-family:Inter,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4,.dsp{font-family:Archivo,"Helvetica Neue",Arial,sans-serif;text-wrap:balance;margin:0}
+.num,.tab{font-variant-numeric:tabular-nums}
+a{color:var(--blue);text-decoration:none}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:2px;border-radius:2px}
+img,svg{max-width:100%}
+.shell{max-width:1240px;margin:0 auto;padding:0 var(--s5)}
+.eyebrow{font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--grey)}
+.lede{font-size:19px;color:var(--grey);line-height:1.55;max-width:62ch}
+.skip{position:absolute;left:-9999px;top:0;background:var(--blue);color:var(--ground);padding:12px 18px;
+  font-weight:600;z-index:200;border-radius:0 0 6px 0}
+.skip:focus{left:0}
+
+/* ============ buttons ============ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:48px;padding:0 22px;
+  border-radius:6px;font-family:Archivo,sans-serif;font-size:14.5px;font-weight:700;letter-spacing:.01em;
+  cursor:pointer;border:1px solid transparent;transition:transform .12s var(--ease),background .12s,border-color .12s;
+  text-align:center}
+.btn-p{background:var(--blue);color:#04121F;border-color:var(--blue)}
+.btn-p:hover{background:#48A5FF;transform:translateY(-1px)}
+.btn-s{background:transparent;color:var(--white);border-color:var(--line-2)}
+.btn-s:hover{border-color:var(--white);transform:translateY(-1px)}
+.btn-sm{min-height:40px;padding:0 16px;font-size:13px}
+
+/* ============ header ============ */
+header.site{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;
+  background:rgba(5,7,10,.72);backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
+header.site.stuck{border-bottom-color:var(--line);background:rgba(5,7,10,.92)}
+.nav{height:64px;display:flex;align-items:center;gap:var(--s5);max-width:1240px;margin:0 auto;padding:0 var(--s5)}
+.brand{font-family:Archivo,sans-serif;font-weight:800;font-size:16px;letter-spacing:-.02em;color:var(--white);
+  display:flex;align-items:center;gap:9px;white-space:nowrap}
+.brand .mk{width:20px;height:20px;border-radius:4px;background:linear-gradient(135deg,var(--blue),var(--cyan));flex:none}
+.nav ul{list-style:none;display:flex;gap:var(--s5);margin:0;padding:0;flex:1}
+.nav ul a{color:var(--grey);font-size:14px;font-weight:500;transition:color .12s;white-space:nowrap}
+.nav ul a:hover{color:var(--white)}
+.status{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--grey);white-space:nowrap;
+  border:1px solid var(--line);border-radius:99px;padding:5px 12px}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);flex:none;animation:pulse 2.4s var(--ease) infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(56,214,232,.5)}50%{opacity:.65;box-shadow:0 0 0 5px rgba(56,214,232,0)}}
+.burger{display:none;background:none;border:1px solid var(--line-2);border-radius:6px;color:var(--white);
+  width:42px;height:42px;cursor:pointer;font-size:17px;align-items:center;justify-content:center}
+@media(max-width:1100px){.nav ul,.status{display:none}.burger{display:flex}.nav{justify-content:space-between}}
+.mobnav{display:none;position:fixed;inset:64px 0 0;background:var(--ground);z-index:99;padding:var(--s5);overflow-y:auto}
+.mobnav.open{display:block}
+.mobnav a{display:block;padding:15px 0;border-bottom:1px solid var(--line);color:var(--white);
+  font-family:Archivo,sans-serif;font-size:19px;font-weight:600}
+
+/* ============ sections ============ */
+section{position:relative;padding:var(--s9) 0}
+@media(max-width:760px){section{padding:var(--s8) 0}}
+.sechd{margin-bottom:var(--s7)}
+.sechd h2{font-size:clamp(30px,4.4vw,52px);line-height:1.02;letter-spacing:-.03em;font-weight:700;margin:var(--s3) 0 var(--s4)}
+.rule{height:1px;background:var(--line);border:0;margin:0}
+
+/* ============ hero ============ */
+.hero{min-height:100svh;display:flex;align-items:center;padding-top:64px;overflow:hidden}
+#net{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:.5}
+.hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(120% 80% at 50% 40%,transparent 25%,rgba(5,7,10,.75) 70%,var(--ground) 100%)}
+.hero .shell{position:relative;z-index:2;width:100%}
+.hero-chip{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line-2);border-radius:99px;
+  padding:6px 14px;font-size:12px;color:var(--grey);margin-bottom:var(--s5)}
+.hero h1{font-size:clamp(42px,7.4vw,88px);line-height:.96;letter-spacing:-.038em;font-weight:800;max-width:16ch}
+.hero h1 .ln{display:block;overflow:hidden}
+.hero h1 .ln>span{display:block;transform:translateY(105%)}
+.hero p.sub{font-size:clamp(17px,2vw,21px);color:var(--grey);max-width:56ch;margin:var(--s5) 0 0;line-height:1.5}
+.hero .acts{display:flex;gap:var(--s3);margin-top:var(--s6);flex-wrap:wrap}
+.hero .trust{margin-top:var(--s5);font-size:13.5px;color:var(--grey);max-width:54ch}
+.reveal{opacity:0;transform:translateY(18px)}
+.hero-panel{margin-top:var(--s7);border:1px solid var(--line);border-radius:12px;background:rgba(11,16,23,.66);
+  backdrop-filter:blur(8px);padding:var(--s4) var(--s5);display:flex;align-items:center;gap:var(--s5);flex-wrap:wrap}
+.hero-panel .lbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey)}
+.hero-panel .val{font-family:Archivo,sans-serif;font-size:15px;font-weight:700;margin-top:2px;display:flex;align-items:center;gap:7px}
+#wave{flex:1;min-width:180px;height:44px}
+.scrollcue{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:2;display:flex;
+  flex-direction:column;align-items:center;gap:7px;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--grey)}
+.scrollcue .ln{width:1px;height:34px;background:linear-gradient(var(--grey),transparent)}
+@media(max-width:760px){.scrollcue{display:none}.hero-panel{gap:var(--s4)}}
+
+/* ============ demo ============ */
+.demo-wrap{border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden}
+.demo-bar{display:flex;align-items:center;justify-content:space-between;gap:var(--s4);flex-wrap:wrap;
+  padding:var(--s4) var(--s5);background:var(--graphite);border-bottom:1px solid var(--line)}
+.demolabel{display:inline-flex;align-items:center;gap:8px;background:rgba(245,165,36,.13);border:1px solid rgba(245,165,36,.42);
+  color:var(--amber);font-size:11.5px;font-weight:600;letter-spacing:.05em;padding:5px 12px;border-radius:99px}
+.demo-grid{display:grid;grid-template-columns:1.25fr 1fr}
+@media(max-width:860px){.demo-grid{grid-template-columns:1fr}}
+.demo-left{padding:var(--s5);border-right:1px solid var(--line);min-width:0}
+@media(max-width:860px){.demo-left{border-right:0;border-bottom:1px solid var(--line)}}
+.player{display:flex;align-items:center;gap:var(--s4);margin-bottom:var(--s5)}
+.playbtn{width:52px;height:52px;border-radius:50%;background:var(--blue);color:#04121F;border:0;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;flex:none;transition:transform .12s var(--ease)}
+.playbtn:hover{transform:scale(1.06)}
+.playbtn svg{width:19px;height:19px;fill:currentColor}
+.ptime{font-size:12.5px;color:var(--grey);font-variant-numeric:tabular-nums;flex:none;min-width:74px}
+.ptrack{flex:1;height:4px;background:var(--line);border-radius:99px;overflow:hidden}
+.ptrack i{display:block;height:100%;width:0;background:var(--cyan);border-radius:99px}
+.script{height:262px;overflow-y:auto;padding-right:var(--s3);scrollbar-width:thin}
+.line{display:flex;gap:var(--s3);padding:9px 0;opacity:.25;transition:opacity .35s var(--ease)}
+.line.on{opacity:1}
+.line .who{font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;flex:none;width:64px;padding-top:3px}
+.line.agent .who{color:var(--cyan)}
+.line.caller .who{color:var(--grey)}
+.line p{margin:0;font-size:15px;line-height:1.5}
+.line .t{font-size:11px;color:var(--grey);font-variant-numeric:tabular-nums;flex:none;padding-top:4px}
+.demo-right{padding:var(--s5);background:var(--ground);min-width:0}
+.dstep{border:1px solid var(--line);border-radius:8px;padding:var(--s4);margin-bottom:var(--s3);
+  opacity:.3;transition:opacity .4s var(--ease),border-color .4s,background .4s}
+.dstep.on{opacity:1;border-color:rgba(56,214,232,.42);background:rgba(56,214,232,.05)}
+.dstep .h{display:flex;align-items:center;justify-content:space-between;gap:var(--s3)}
+.dstep .n{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--grey)}
+.dstep.on .n{color:var(--cyan)}
+.dstep .v{font-family:Archivo,sans-serif;font-size:15px;font-weight:700;margin-top:5px;letter-spacing:-.01em}
+.dstep .tick{width:16px;height:16px;flex:none;opacity:0;transition:opacity .3s}
+.dstep.on .tick{opacity:1}
+/* ============ calculator ============ */
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:var(--s7);align-items:start}
+@media(max-width:860px){.calc{grid-template-columns:1fr;gap:var(--s6)}}
+.field{margin-bottom:var(--s5)}
+.field label{display:block;font-size:13px;font-weight:500;color:var(--white);margin-bottom:7px}
+.field .hint{font-size:12.5px;color:var(--grey);margin-bottom:9px}
+.field input[type=range]{width:100%;accent-color:var(--blue);height:22px}
+.field .rowv{display:flex;align-items:baseline;justify-content:space-between;gap:var(--s3);margin-bottom:4px}
+.field .rowv b{font-family:Archivo,sans-serif;font-size:22px;font-weight:700;color:var(--white);font-variant-numeric:tabular-nums}
+.result{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:var(--s6);position:sticky;top:88px}
+.result .cap{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--grey)}
+.result .big{font-family:Archivo,sans-serif;font-size:clamp(30px,4.6vw,46px);font-weight:800;letter-spacing:-.03em;
+  margin:var(--s3) 0;color:var(--white);font-variant-numeric:tabular-nums;line-height:1.05}
+.result .big .to{color:var(--grey);font-weight:500;font-size:.55em;padding:0 4px}
+.formula{background:var(--ground);border:1px solid var(--line);border-radius:8px;padding:var(--s4);margin-top:var(--s5);
+  font-size:12.5px;line-height:1.9;color:var(--grey);overflow-x:auto;
+  font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;white-space:pre}
+.formula b{color:var(--cyan);font-weight:500}
+.disc{font-size:12.5px;color:var(--grey);margin-top:var(--s4);line-height:1.55;border-left:2px solid var(--line-2);padding-left:var(--s3)}
+
+/* ============ pinned sequence ============ */
+.seq-outer{position:relative}
+.seq{height:100svh;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+.rail{position:relative;margin:0 0 var(--s7);height:56px}
+.rail .track{position:absolute;top:26px;left:0;right:0;height:2px;background:var(--line)}
+.rail .fill{position:absolute;top:26px;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--blue),var(--cyan))}
+.rail .signal{position:absolute;top:20px;left:0;width:14px;height:14px;border-radius:50%;background:var(--cyan);
+  margin-left:-7px;box-shadow:0 0 0 5px rgba(56,214,232,.18),0 0 24px rgba(56,214,232,.85)}
+.nodes{position:relative;display:flex;justify-content:space-between;height:56px}
+.node{display:flex;flex-direction:column;align-items:center;gap:9px;flex:none;width:12.5%}
+.node .pt{width:11px;height:11px;border-radius:50%;background:var(--graphite);border:2px solid var(--line-2);
+  margin-top:21px;transition:background .3s,border-color .3s,transform .3s var(--ease)}
+.node.done .pt{background:var(--cyan);border-color:var(--cyan);transform:scale(1.18)}
+.node .nm{font-family:Archivo,sans-serif;font-size:11.5px;font-weight:600;color:var(--grey);transition:color .3s;white-space:nowrap}
+.node.done .nm{color:var(--white)}
+@media(max-width:760px){.node .nm{font-size:9px}}
+.stagebox{display:grid;grid-template-columns:1fr 1fr;gap:var(--s7);align-items:center;min-height:300px}
+@media(max-width:860px){.stagebox{grid-template-columns:1fr;gap:var(--s5);min-height:0}}
+.stage{display:none}
+.stage.on{display:block}
+.stage .st{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan)}
+.stage h3{font-size:clamp(26px,3.6vw,40px);line-height:1.05;letter-spacing:-.03em;font-weight:700;margin:var(--s3) 0 var(--s4)}
+.stage p{color:var(--grey);font-size:17px;margin:0;max-width:46ch}
+.viz{border:1px solid var(--line);border-radius:12px;background:var(--surface);height:300px;position:relative;
+  overflow:hidden;display:flex;align-items:center;justify-content:center;padding:var(--s5)}
+@media(max-width:860px){.viz{height:220px}}
+.viz .mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;color:var(--grey);line-height:1.85}
+.viz .mono b{color:var(--cyan);font-weight:500}
+.viz .mono .g{color:var(--green)}
+.viz .mono .a{color:var(--amber)}
+
+/* motifs */
+.m-ring{width:120px;height:120px;position:relative;display:flex;align-items:center;justify-content:center}
+.m-ring i{position:absolute;border:1px solid var(--cyan);border-radius:50%;inset:0;opacity:0}
+.on .m-ring i{animation:ring 2.6s var(--ease) infinite}
+.on .m-ring i:nth-child(2){animation-delay:.85s}
+.on .m-ring i:nth-child(3){animation-delay:1.7s}
+@keyframes ring{0%{transform:scale(.28);opacity:.9}100%{transform:scale(1);opacity:0}}
+.m-ring .core{width:26px;height:26px;border-radius:50%;background:var(--cyan);box-shadow:0 0 28px var(--cyan)}
+.chips{display:flex;flex-wrap:wrap;gap:9px;max-width:330px}
+.chips span{border:1px solid var(--line-2);border-radius:6px;padding:8px 13px;font-size:13px;color:var(--grey);
+  opacity:.3;transition:all .4s var(--ease)}
+.on .chips span{animation:fillchip .5s var(--ease) forwards}
+.on .chips span:nth-child(2){animation-delay:.35s}
+.on .chips span:nth-child(3){animation-delay:.7s}
+.on .chips span:nth-child(4){animation-delay:1.05s}
+@keyframes fillchip{to{opacity:1;border-color:rgba(56,214,232,.5);background:rgba(56,214,232,.07);color:var(--white)}}
+.m-check{width:96px;height:96px}
+.m-check circle,.m-check path{fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.m-check circle{stroke:rgba(66,211,146,.24)}
+.m-check path{stroke:var(--green);stroke-dasharray:48;stroke-dashoffset:48}
+.on .m-check path{animation:draw .7s var(--ease) .25s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.fork{display:flex;gap:var(--s5);align-items:center}
+.fork .br{border:1px solid var(--line);border-radius:8px;padding:var(--s4);flex:1;text-align:center;transition:all .5s var(--ease)}
+.fork .br .k{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--grey)}
+.fork .br .w{font-family:Archivo,sans-serif;font-weight:700;font-size:15px;margin-top:6px}
+.on .fork .br.hot{border-color:rgba(245,165,36,.55);background:rgba(245,165,36,.08)}
+.on .fork .br.hot .k{color:var(--amber)}
+.rec{width:100%;max-width:330px}
+.rec .r{display:flex;justify-content:space-between;gap:var(--s4);padding:9px 0;border-bottom:1px solid var(--line);
+  font-size:13.5px;opacity:0;transform:translateY(6px)}
+.on .rec .r{animation:rowin .45s var(--ease) forwards}
+.on .rec .r:nth-child(2){animation-delay:.18s}
+.on .rec .r:nth-child(3){animation-delay:.36s}
+.on .rec .r:nth-child(4){animation-delay:.54s}
+@keyframes rowin{to{opacity:1;transform:none}}
+.rec .r span:first-child{color:var(--grey)}
+.rec .r span:last-child{font-weight:500;text-align:right}
+.phone{width:210px;border:1px solid var(--line-2);border-radius:16px;padding:var(--s4);background:var(--graphite)}
+.bub{background:var(--navy);border:1px solid rgba(30,143,255,.3);border-radius:12px 12px 12px 3px;padding:11px 13px;
+  font-size:13.5px;line-height:1.45;opacity:0;transform:translateY(10px)}
+.on .bub{animation:rowin .5s var(--ease) .3s forwards}
+.bub .dl{font-size:10.5px;color:var(--green);margin-top:7px;display:flex;align-items:center;gap:5px}
+.touches{width:100%;max-width:340px}
+.touch{display:flex;align-items:center;gap:var(--s3);padding:10px 0;border-bottom:1px solid var(--line);font-size:13.5px;
+  opacity:0;transform:translateX(-8px)}
+.on .touch{animation:tin .4s var(--ease) forwards}
+.on .touch:nth-child(2){animation-delay:.2s}
+.on .touch:nth-child(3){animation-delay:.4s}
+.on .touch:nth-child(4){animation-delay:.6s}
+@keyframes tin{to{opacity:1;transform:none}}
+.touch.stopped{opacity:.3!important}
+.touch .d{width:7px;height:7px;border-radius:50%;background:var(--blue);flex:none}
+.touch.stopped .d{background:var(--grey)}
+.touch .tag{margin-left:auto;font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--green)}
+
+/* static fallback for reduced motion / mobile */
+.seq-static{display:none}
+.seq-static .item{border-left:2px solid var(--line);padding:0 0 var(--s5) var(--s5);position:relative}
+.seq-static .item::before{content:"";position:absolute;left:-5px;top:7px;width:8px;height:8px;border-radius:50%;background:var(--cyan)}
+.seq-static h3{font-size:20px;margin:var(--s1) 0 var(--s2);font-weight:700}
+.seq-static p{color:var(--grey);font-size:15.5px;margin:0}
+
+/* ============ cards / panels ============ */
+.panels{display:grid;gap:var(--s4)}
+.panel{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:var(--s6);
+  display:grid;grid-template-columns:180px 1fr 240px;gap:var(--s6);align-items:start;
+  transition:transform .18s var(--ease),border-color .18s}
+.panel:hover{transform:translateY(-2px);border-color:var(--line-2)}
+@media(max-width:960px){.panel{grid-template-columns:1fr;gap:var(--s4);padding:var(--s5)}}
+.panel .idx{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--grey)}
+.panel h3{font-size:23px;font-weight:700;letter-spacing:-.02em;margin-top:var(--s2)}
+.panel .q{font-size:13.5px;color:var(--grey);margin:var(--s3) 0 0;line-height:1.5}
+.panel dl{margin:0}
+.panel dt{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--grey);margin-top:var(--s4)}
+.panel dt:first-child{margin-top:0}
+.panel dd{margin:6px 0 0;font-size:15.5px;line-height:1.55}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.tags span{border:1px solid var(--line);border-radius:5px;padding:4px 9px;font-size:11.5px;color:var(--grey)}
+.verify{border:1px dashed rgba(245,165,36,.5);color:var(--amber);background:rgba(245,165,36,.06);
+  border-radius:5px;padding:4px 10px;font-size:11.5px;display:inline-flex;align-items:center;gap:6px;font-weight:500}
+
+/* ============ industries ============ */
+.inds{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s4)}
+@media(max-width:1000px){.inds{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.inds{grid-template-columns:1fr}}
+.ind{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface);
+  transition:transform .18s var(--ease),border-color .18s;display:flex;flex-direction:column}
+.ind:hover{transform:translateY(-3px);border-color:var(--line-2)}
+.ind .top{height:112px;position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.ind .top canvas{position:absolute;inset:0;width:100%;height:100%}
+.ind .bd{padding:var(--s5);flex:1;display:flex;flex-direction:column}
+.ind .k{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey)}
+.ind h3{font-size:18px;font-weight:700;margin:var(--s2) 0 var(--s3);letter-spacing:-.015em}
+.ind p{font-size:14.5px;color:var(--grey);margin:0 0 var(--s4);line-height:1.5;flex:1}
+.flow{display:flex;flex-direction:column;gap:7px;border-top:1px solid var(--line);padding-top:var(--s4)}
+.flow i{font-style:normal;font-size:12.5px;color:var(--grey);display:flex;align-items:center;gap:8px}
+.flow i::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--blue);flex:none}
+
+/* ============ proof / how ============ */
+.proof{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
+@media(max-width:860px){.proof{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:var(--s6)}
+.pc .slot{border:1px dashed rgba(245,165,36,.45);border-radius:8px;background:rgba(245,165,36,.05);
+  padding:var(--s5);text-align:center;margin-bottom:var(--s4)}
+.pc .slot .code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;color:var(--amber);letter-spacing:.06em}
+.pc .slot .msg{font-size:12.5px;color:var(--grey);margin-top:7px;line-height:1.5}
+.pc h3{font-size:16px;font-weight:700;margin-bottom:var(--s2)}
+.pc p{font-size:14.5px;color:var(--grey);margin:0;line-height:1.55}
+.pc .src{font-size:11.5px;color:var(--grey);margin-top:var(--s4);padding-top:var(--s3);border-top:1px solid var(--line)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
+@media(max-width:860px){.steps{grid-template-columns:1fr}}
+.step{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:var(--s6);position:relative}
+.step .n{font-family:Archivo,sans-serif;font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--blue);text-transform:uppercase}
+.step h3{font-size:21px;font-weight:700;margin:var(--s3) 0;letter-spacing:-.02em}
+.step p{font-size:15px;color:var(--grey);margin:0;line-height:1.55}
+
+/* ============ cta / form ============ */
+.cta{border-top:1px solid var(--line);background:linear-gradient(180deg,var(--ground),var(--navy))}
+.cta h2{font-size:clamp(32px,5.2vw,60px);line-height:1.02;letter-spacing:-.035em;font-weight:800;max-width:17ch}
+.ctagrid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s9)}
+@media(max-width:960px){.ctagrid{grid-template-columns:1fr;gap:var(--s7)}}
+.after{list-style:none;padding:0;margin:var(--s6) 0 0;counter-reset:a}
+.after li{counter-increment:a;position:relative;padding:0 0 var(--s4) 40px;font-size:15.5px;color:var(--grey)}
+.after li::before{content:counter(a);position:absolute;left:0;top:0;width:26px;height:26px;border-radius:50%;
+  border:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;
+  font-family:Archivo,sans-serif;font-size:12px;font-weight:700;color:var(--white)}
+form{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:var(--s6)}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4)}
+@media(max-width:620px){.fg{grid-template-columns:1fr}}
+.f{margin-bottom:var(--s4)}
+.f label{display:block;font-size:12.5px;font-weight:500;margin-bottom:6px;color:var(--white)}
+.f .req{color:var(--amber)}
+.f input,.f select,.f textarea{width:100%;background:var(--ground);border:1px solid var(--line-2);border-radius:2px;
+  color:var(--white);font-family:inherit;font-size:15px;padding:12px 13px;min-height:46px}
+.f textarea{min-height:88px;resize:vertical}
+.f input:focus,.f select:focus,.f textarea:focus{border-color:var(--blue);outline:none;box-shadow:0 0 0 3px rgba(30,143,255,.16)}
+.f .err{color:var(--amber);font-size:12.5px;margin-top:5px;display:none}
+.f.bad input,.f.bad select{border-color:var(--amber)}
+.f.bad .err{display:block}
+.consent{display:flex;gap:11px;align-items:flex-start;font-size:12.5px;color:var(--grey);line-height:1.5;margin:var(--s5) 0}
+.consent input{width:17px;height:17px;flex:none;margin-top:2px;accent-color:var(--blue)}
+.sent{display:none;text-align:center;padding:var(--s6) 0}
+.sent .ic{width:48px;height:48px;border-radius:50%;background:rgba(66,211,146,.13);border:1px solid rgba(66,211,146,.4);
+  display:flex;align-items:center;justify-content:center;margin:0 auto var(--s4);color:var(--green);font-size:22px}
+form.done .fields{display:none}
+form.done .sent{display:block}
+
+footer.site{border-top:1px solid var(--line);background:var(--ground);padding:var(--s8) 0 var(--s7)}
+.fgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:var(--s6);margin-bottom:var(--s7)}
+@media(max-width:860px){.fgrid{grid-template-columns:1fr 1fr;gap:var(--s5)}}
+footer h4{font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--grey);margin-bottom:var(--s4)}
+footer ul{list-style:none;padding:0;margin:0}
+footer li{margin-bottom:10px}
+footer a{color:var(--grey);font-size:14px}
+footer a:hover{color:var(--white)}
+.fbot{border-top:1px solid var(--line);padding-top:var(--s5);display:flex;justify-content:space-between;
+  gap:var(--s4);flex-wrap:wrap;font-size:12.5px;color:var(--grey)}
+.protonote{background:rgba(245,165,36,.07);border:1px solid rgba(245,165,36,.28);border-radius:8px;
+  padding:var(--s4) var(--s5);font-size:13px;color:var(--grey);line-height:1.6;margin-top:var(--s5)}
+.protonote b{color:var(--amber)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+  .reveal{opacity:1!important;transform:none!important}
+  .hero h1 .ln>span{transform:none!important}
+  .seq-outer .seq{display:none}
+  .seq-static{display:block}
+  .line{opacity:1}
+  .dstep{opacity:1}
+}
+</style>
+<a class="skip" href="#main">Skip to main content</a>
+
+<header class="site" id="hdr">
+  <nav class="nav" aria-label="Main">
+    <a class="brand" href="#"><span class="mk" aria-hidden="true"></span>Nexus AI Horizon</a>
+    <ul>
+      <li><a href="#solutions">Solutions</a></li>
+      <li><a href="#industries">Industries</a></li>
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#proof">Case Studies</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#resources">Resources</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <span class="status"><span class="dot" aria-hidden="true"></span>AI Agent Online</span>
+    <a class="btn btn-p btn-sm" href="#contact">Book a Strategy Call</a>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobnav">☰</button>
+  </nav>
+</header>
+<div class="mobnav" id="mobnav">
+  <a href="#solutions">Solutions</a><a href="#industries">Industries</a><a href="#how">How It Works</a>
+  <a href="#proof">Case Studies</a><a href="#about">About</a><a href="#resources">Resources</a>
+  <a href="#contact">Contact</a>
+  <a href="#contact" class="btn btn-p" style="margin-top:24px;width:100%">Book a Strategy Call</a>
+</div>
+
+<main id="main">
+
+<!-- ============ HERO ============ -->
+<section class="hero" aria-labelledby="h1">
+  <canvas id="net" aria-hidden="true"></canvas>
+  <div class="shell">
+    <span class="hero-chip reveal"><span class="dot" aria-hidden="true"></span>Inbound call handling · 24 hours a day</span>
+    <h1 id="h1">
+      <span class="ln"><span>Capture Every Call.</span></span>
+      <span class="ln"><span>Convert Every Lead.</span></span>
+    </h1>
+    <p class="sub reveal">Nexus AI Horizon builds AI voice, SMS, scheduling, and workflow systems that respond to customers, qualify opportunities, and book appointments 24 hours a day.</p>
+    <div class="acts reveal">
+      <a class="btn btn-p" href="#contact">Book a Strategy Call</a>
+      <a class="btn btn-s" href="#demo">Experience the AI Agent</a>
+    </div>
+    <p class="trust reveal">Built for emergency home services, property management, moving and relocation, and financial-service firms.</p>
+
+    <div class="hero-panel reveal">
+      <div>
+        <div class="lbl">Call status</div>
+        <div class="val"><span class="dot" aria-hidden="true"></span><span id="callstate">Connected</span></div>
+      </div>
+      <canvas id="wave" aria-hidden="true"></canvas>
+      <div>
+        <div class="lbl">Handling</div>
+        <div class="val">Voice · SMS · Booking</div>
+      </div>
+    </div>
+  </div>
+  <div class="scrollcue" aria-hidden="true"><span>Scroll</span><span class="ln"></span></div>
+</section>
+
+<hr class="rule">
+
+<!-- ============ DEMO ============ -->
+<section id="demo" aria-labelledby="h-demo">
+  <div class="shell">
+    <div class="sechd">
+      <span class="eyebrow">01 · Live demonstration</span>
+      <h2 id="h-demo">Hear the agent take a call</h2>
+      <p class="lede">Follow a call from the first ring to a booked job. The transcript, the qualification, the calendar and the confirmation all update as the call runs.</p>
+    </div>
+
+    <div class="demo-wrap">
+      <div class="demo-bar">
+        <span class="demolabel">◆ Demonstration — scripted sample, not a real customer</span>
+        <a class="btn btn-s btn-sm" href="#contact">Request a live demonstration</a>
+      </div>
+      <div class="demo-grid">
+        <div class="demo-left">
+          <div class="player">
+            <button class="playbtn" id="play" aria-label="Play the sample call">
+              <svg viewBox="0 0 24 24" id="playicon" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <span class="ptime" id="ptime">0:00 / 0:52</span>
+            <div class="ptrack"><i id="pfill"></i></div>
+          </div>
+          <div class="script" id="script" aria-live="polite">
+            <div class="line agent" data-at="0"><span class="t">0:02</span><span class="who">Agent</span><p>Thanks for calling Brightwater Plumbing, this is the after-hours line. What's happening?</p></div>
+            <div class="line caller" data-at="6"><span class="t">0:06</span><span class="who">Caller</span><p>There's water coming through my kitchen ceiling. It's getting worse.</p></div>
+            <div class="line agent" data-at="12"><span class="t">0:12</span><span class="who">Agent</span><p>That sounds urgent. Is the water still running, and do you know where your shut-off valve is?</p></div>
+            <div class="line caller" data-at="18"><span class="t">0:18</span><span class="who">Caller</span><p>Still running. I don't know where the valve is.</p></div>
+            <div class="line agent" data-at="23"><span class="t">0:23</span><span class="who">Agent</span><p>I'll walk you through that in a moment. Can I get the service address and a callback number?</p></div>
+            <div class="line caller" data-at="30"><span class="t">0:30</span><span class="who">Caller</span><p>412 Harrow Street, apartment 3B. Number's 555-0147.</p></div>
+            <div class="line agent" data-at="37"><span class="t">0:37</span><span class="who">Agent</span><p>You're inside our service area and this qualifies as an emergency call-out. I'm dispatching a technician now.</p></div>
+            <div class="line agent" data-at="45"><span class="t">0:45</span><span class="who">Agent</span><p>A technician is on the way and you'll get a text with their name and arrival window. Let's find that valve — is there a cabinet under your sink?</p></div>
+          </div>
+        </div>
+        <div class="demo-right">
+          <div class="dstep" data-at="10">
+            <div class="h"><span class="n">Intent</span><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="#42D392" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <div class="v" id="v-intent">Listening…</div>
+          </div>
+          <div class="dstep" data-at="20">
+            <div class="h"><span class="n">Urgency</span><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="#42D392" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <div class="v" id="v-urgency">—</div>
+          </div>
+          <div class="dstep" data-at="33">
+            <div class="h"><span class="n">Qualification</span><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="#42D392" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <div class="v" id="v-qual">—</div>
+          </div>
+          <div class="dstep" data-at="40">
+            <div class="h"><span class="n">CRM record</span><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="#42D392" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <div class="v" id="v-crm">—</div>
+          </div>
+          <div class="dstep" data-at="47" style="margin-bottom:0">
+            <div class="h"><span class="n">Confirmation SMS</span><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="#42D392" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <div class="v" id="v-sms">—</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="protonote"><b>Prototype note.</b> This module is a scripted demonstration with no audio attached. In the production build it plays a cleared recording with a synchronised transcript and captions. The business, address and phone number above are fictional — no real customer record is shown anywhere on this page.</p>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============ CALCULATOR ============ -->
+<section id="cost" aria-labelledby="h-cost">
+  <div class="shell">
+    <div class="sechd">
+      <span class="eyebrow">02 · The cost of silence</span>
+      <h2 id="h-cost">What silence costs</h2>
+      <p class="lede">A missed call is not always a lost customer. But some of them are, and most businesses have never counted. Enter your numbers and see the range.</p>
+    </div>
+
+    <div class="calc">
+      <div>
+        <div class="field">
+          <div class="rowv"><label for="i-calls">Monthly inbound calls</label><b id="o-calls">600</b></div>
+          <input type="range" id="i-calls" min="50" max="5000" step="50" value="600">
+        </div>
+        <div class="field">
+          <div class="rowv"><label for="i-miss">Estimated missed-call rate</label><b id="o-miss">22%</b></div>
+          <input type="range" id="i-miss" min="1" max="60" step="1" value="22">
+        </div>
+        <div class="field">
+          <div class="rowv"><label for="i-val">Average job value</label><b id="o-val">$420</b></div>
+          <input type="range" id="i-val" min="50" max="10000" step="10" value="420">
+        </div>
+        <div class="field">
+          <div class="rowv"><label for="i-conv">Estimated conversion rate</label><b id="o-conv">35%</b></div>
+          <input type="range" id="i-conv" min="1" max="100" step="1" value="35">
+          <div class="hint">The share of answered, qualified calls that become paying jobs.</div>
+        </div>
+      </div>
+
+      <div class="result">
+        <div class="cap">Estimated annual opportunity</div>
+        <div class="big"><span id="o-low">$0</span><span class="to">to</span><span id="o-high">$0</span></div>
+        <div class="cap" style="color:var(--grey)"><span id="o-missed">0</span> missed calls a year · <span id="o-lost">0</span> potential jobs</div>
+        <div class="formula">missed calls  = <b id="f-calls">600</b> × 12 × <b id="f-miss">22%</b>
+lost jobs     = missed calls × <b id="f-conv">35%</b>
+low estimate  = lost jobs × <b id="f-val">$420</b> × <b>0.35</b>
+high estimate = lost jobs × <b id="f-val2">$420</b> × <b>0.70</b></div>
+        <p class="disc">The 0.35–0.70 band assumes some missed callers call back or reach you another way. It is an assumption, and it is stated as one. This is an estimate based on the figures you entered — not a prediction of revenue, and not a claim that every missed call would have become a paying customer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+<!-- ============ RING TO REVENUE ============ -->
+<section id="sequence" class="seq-outer" aria-labelledby="h-seq">
+  <div class="shell" style="padding-bottom:var(--s6)">
+    <div class="sechd" style="margin-bottom:0">
+      <span class="eyebrow">03 · The system</span>
+      <h2 id="h-seq">From ring to revenue</h2>
+      <p class="lede">One call, eight stages, start to finish. Scroll to move the call through the pipeline.</p>
+    </div>
+  </div>
+
+  <div class="seq" id="seq">
+    <div class="shell">
+      <div class="rail" aria-hidden="true">
+        <div class="track"></div><div class="fill" id="railfill"></div>
+        <div class="nodes" id="nodes">
+          <div class="node"><span class="pt"></span><span class="nm">Ring</span></div>
+          <div class="node"><span class="pt"></span><span class="nm">Answer</span></div>
+          <div class="node"><span class="pt"></span><span class="nm">Understand</span></div>
+          <div class="node"><span class="pt"></span><span class="nm">Qualify</span></div>
+          <div class="node"><span class="pt"></span><span class="nm">Route</span></div>
+          <div class="node"><span class="pt"></span><span class="nm">Update</span></div>
+          <div class="node"><span class="pt"></span><span class="nm">Confirm</span></div>
+          <div class="node"><span class="pt"></span><span class="nm">Follow up</span></div>
+        </div>
+        <div class="signal" id="signal"></div>
+      </div>
+
+      <div class="stagebox" id="stages">
+        <div class="stage on">
+          <div><span class="st">Stage 01 · Ring</span>
+            <h3>An inbound call enters the system.</h3>
+            <p>The call arrives on the number you already publish. Nothing is ported and nothing is replaced.</p></div>
+          <div class="viz"><div class="m-ring"><i></i><i></i><i></i><span class="core"></span></div></div>
+        </div>
+
+        <div class="stage">
+          <div><span class="st">Stage 02 · Answer</span>
+            <h3>The AI voice agent answers.</h3>
+            <p>The agent picks up within the response standard agreed for your account, in a voice trained on your brand.</p></div>
+          <div class="viz"><canvas id="wave2" style="width:100%;height:120px"></canvas></div>
+        </div>
+
+        <div class="stage">
+          <div><span class="st">Stage 03 · Understand</span>
+            <h3>It identifies what the caller needs.</h3>
+            <p>Need, location, urgency and intent are captured from the conversation as it happens.</p></div>
+          <div class="viz"><div class="chips"><span>Need · water leak</span><span>Location · in service area</span><span>Urgency · escalating</span><span>Intent · book now</span></div></div>
+        </div>
+
+        <div class="stage">
+          <div><span class="st">Stage 04 · Qualify</span>
+            <h3>It confirms the caller is a fit.</h3>
+            <p>The system checks the request against your service requirements before anything is booked or dispatched.</p></div>
+          <div class="viz"><svg class="m-check" viewBox="0 0 48 48"><circle cx="24" cy="24" r="21"/><path d="M15 24.5 21.5 31 34 18"/></svg></div>
+        </div>
+
+        <div class="stage">
+          <div><span class="st">Stage 05 · Route or book</span>
+            <h3>Urgent goes out. Standard gets scheduled.</h3>
+            <p>Emergencies route to your on-call process. Everything else is booked into an available slot.</p></div>
+          <div class="viz"><div class="fork">
+            <div class="br hot"><div class="k">Urgent</div><div class="w">Route to dispatch</div></div>
+            <div class="br"><div class="k">Standard</div><div class="w">Book a slot</div></div>
+          </div></div>
+        </div>
+
+        <div class="stage">
+          <div><span class="st">Stage 06 · Update</span>
+            <h3>The record lands in your CRM.</h3>
+            <p>Lead, transcript and appointment are written to the system your team already works in.</p></div>
+          <div class="viz"><div class="rec">
+            <div class="r"><span>Contact</span><span>Created</span></div>
+            <div class="r"><span>Job type</span><span>Emergency call-out</span></div>
+            <div class="r"><span>Priority</span><span style="color:var(--amber)">Urgent</span></div>
+            <div class="r"><span>Transcript</span><span style="color:var(--green)">Attached</span></div>
+          </div></div>
+        </div>
+
+        <div class="stage">
+          <div><span class="st">Stage 07 · Confirm</span>
+            <h3>The customer gets a confirmation.</h3>
+            <p>An SMS goes out with what was booked and how to change it, so nobody has to call back to check.</p></div>
+          <div class="viz"><div class="phone"><div class="bub">Your technician is on the way. You'll get a text when they're close. Reply RESCHEDULE to change this.<div class="dl">✓ Delivered</div></div></div></div>
+        </div>
+
+        <div class="stage">
+          <div><span class="st">Stage 08 · Follow up</span>
+            <h3>The sequence runs until they respond.</h3>
+            <p>An approved follow-up continues until the customer replies, books, or opts out — then it stops.</p></div>
+          <div class="viz"><div class="touches">
+            <div class="touch"><span class="d"></span>Day 0 · confirmation<span class="tag">Sent</span></div>
+            <div class="touch"><span class="d"></span>Day 1 · reminder<span class="tag">Sent</span></div>
+            <div class="touch stopped"><span class="d"></span>Day 3 · check-in<span class="tag" style="color:var(--grey)">Stopped</span></div>
+            <div class="touch stopped"><span class="d"></span>Day 5 · final<span class="tag" style="color:var(--grey)">Stopped</span></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shell seq-static">
+    <div class="item"><h3>Ring</h3><p>An inbound call enters the system, on the number you already publish.</p></div>
+    <div class="item"><h3>Answer</h3><p>The AI voice agent answers within the response standard agreed for your account.</p></div>
+    <div class="item"><h3>Understand</h3><p>Need, location, urgency and intent are captured from the conversation.</p></div>
+    <div class="item"><h3>Qualify</h3><p>The request is checked against your service requirements before anything is booked.</p></div>
+    <div class="item"><h3>Route or book</h3><p>Emergencies route to your on-call process. Everything else is booked into a slot.</p></div>
+    <div class="item"><h3>Update</h3><p>Lead, transcript and appointment are written to your CRM.</p></div>
+    <div class="item"><h3>Confirm</h3><p>The customer receives an SMS confirmation of what was booked.</p></div>
+    <div class="item" style="border-color:transparent"><h3>Follow up</h3><p>An approved sequence continues until the customer replies, books, or opts out.</p></div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============ SOLUTIONS ============ -->
+<section id="solutions" aria-labelledby="h-sol">
+  <div class="shell">
+    <div class="sechd">
+      <span class="eyebrow">04 · Solutions</span>
+      <h2 id="h-sol">Four systems behind your phone, your inbox, and your calendar</h2>
+    </div>
+    <div class="panels">
+
+      <article class="panel">
+        <div><span class="idx">Service 01</span><h3>AI Voice Agents</h3>
+          <p class="q">Calls arrive after hours, during jobs, and in bursts. Voicemail does not qualify anyone.</p></div>
+        <dl>
+          <dt>What it does</dt>
+          <dd>Answers inbound calls around the clock, collects the details you need, qualifies the caller, books standard appointments, routes urgent requests, and transfers to a person when the situation calls for one.</dd>
+          <dt>Operational benefit</dt>
+          <dd>Inbound calls are handled consistently, day and night, without adding headcount to cover the hours.</dd>
+        </dl>
+        <div><dt style="font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--grey)">Integrations</dt>
+          <div class="tags"><span class="verify">◆ Confirm supported list</span></div>
+          <a class="btn btn-s btn-sm" style="margin-top:16px" href="#contact">See how this handles your calls</a></div>
+      </article>
+
+      <article class="panel">
+        <div><span class="idx">Service 02</span><h3>SMS Lead Follow-Up</h3>
+          <p class="q">New leads go cold overnight, and manual follow-up stops after the first attempt.</p></div>
+        <dl>
+          <dt>What it does</dt>
+          <dd>Responds to new leads by text, sends appointment reminders, and continues an approved follow-up sequence — stopping the moment the customer replies, books, or opts out.</dd>
+          <dt>Operational benefit</dt>
+          <dd>Every enquiry gets a reply, and follow-up happens without anyone remembering to send it.</dd>
+        </dl>
+        <div><dt style="font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--grey)">Integrations</dt>
+          <div class="tags"><span class="verify">◆ Confirm supported list</span></div>
+          <a class="btn btn-s btn-sm" style="margin-top:16px" href="#contact">Map your follow-up sequence</a></div>
+      </article>
+
+      <article class="panel">
+        <div><span class="idx">Service 03</span><h3>Booking &amp; Scheduling</h3>
+          <p class="q">Booking requires a person, business hours, and a back-and-forth that loses people.</p></div>
+        <dl>
+          <dt>What it does</dt>
+          <dd>Lets qualified customers book themselves by voice, text, or online form — into a slot that matches your availability rules, job types, and travel windows.</dd>
+          <dt>Operational benefit</dt>
+          <dd>Appointments are made outside office hours, and the calendar reflects what the team can actually service.</dd>
+        </dl>
+        <div><dt style="font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--grey)">Integrations</dt>
+          <div class="tags"><span class="verify">◆ Confirm supported list</span></div>
+          <a class="btn btn-s btn-sm" style="margin-top:16px" href="#contact">Review your booking rules</a></div>
+      </article>
+
+      <article class="panel">
+        <div><span class="idx">Service 04</span><h3>Workflow &amp; CRM Automation</h3>
+          <p class="q">Intake, dispatch, notification and reporting are joined together by hand.</p></div>
+        <dl>
+          <dt>What it does</dt>
+          <dd>Connects customer intake to your approved scheduling, CRM, dispatch, notification and reporting systems, so a call becomes a record, a job, and a report without a re-key.</dd>
+          <dt>Operational benefit</dt>
+          <dd>Less repetitive administrative work, and fewer hand-offs where information gets lost.</dd>
+        </dl>
+        <div><dt style="font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--grey)">Integrations</dt>
+          <div class="tags"><span class="verify">◆ Confirm supported list</span></div>
+          <a class="btn btn-s btn-sm" style="margin-top:16px" href="#contact">Map your workflow</a></div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============ INDUSTRIES ============ -->
+<section id="industries" aria-labelledby="h-ind">
+  <div class="shell">
+    <div class="sechd">
+      <span class="eyebrow">05 · Industries</span>
+      <h2 id="h-ind">Built around how each business actually runs</h2>
+    </div>
+    <div class="inds">
+
+      <article class="ind">
+        <div class="top"><canvas class="indcv" data-mode="emergency" aria-hidden="true"></canvas></div>
+        <div class="bd">
+          <span class="k">Environment 01</span>
+          <h3>Emergency Home Services</h3>
+          <p>Plumbing, HVAC, electrical and restoration work that does not wait for business hours.</p>
+          <div class="flow"><i>Late-night call intake</i><i>Severity triage</i><i>Route to on-call</i><i>Customer update</i></div>
+        </div>
+      </article>
+
+      <article class="ind">
+        <div class="top"><canvas class="indcv" data-mode="property" aria-hidden="true"></canvas></div>
+        <div class="bd">
+          <span class="k">Environment 02</span>
+          <h3>Property Management</h3>
+          <p>Tenant maintenance requests, photo intake, and leasing enquiries across a portfolio.</p>
+          <div class="flow"><i>Tenant reports an issue</i><i>Photo submitted by SMS</i><i>Work order raised</i><i>Status update sent</i></div>
+        </div>
+      </article>
+
+      <article class="ind">
+        <div class="top"><canvas class="indcv" data-mode="moving" aria-hidden="true"></canvas></div>
+        <div class="bd">
+          <span class="k">Environment 03</span>
+          <h3>Moving &amp; Relocation</h3>
+          <p>Quote requests that arrive at the weekend and need answering before the customer moves on.</p>
+          <div class="flow"><i>Move details captured</i><i>Estimate prepared</i><i>Consultation booked</i><i>Follow-up until answered</i></div>
+        </div>
+      </article>
+
+      <article class="ind">
+        <div class="top"><canvas class="indcv" data-mode="financial" aria-hidden="true"></canvas></div>
+        <div class="bd">
+          <span class="k">Environment 04</span>
+          <h3>Financial Services</h3>
+          <p>Controlled intake and qualification, with records kept to your retention policy.</p>
+          <div class="flow"><i>Controlled intake</i><i>Lead qualification</i><i>Appointment scheduled</i><i>Consent and records stored</i></div>
+        </div>
+      </article>
+
+    </div>
+    <p class="protonote" style="margin-top:32px"><b>Scope note.</b> These systems handle intake, scheduling and routing. They do not provide legal, financial, medical, or emergency advice, and they are not a substitute for emergency services.</p>
+  </div>
+</section>
+
+<hr class="rule">
+<!-- ============ PROOF ============ -->
+<section id="proof" aria-labelledby="h-proof">
+  <div class="shell">
+    <div class="sechd">
+      <span class="eyebrow">06 · Proof</span>
+      <h2 id="h-proof">Evidence, once it is verified</h2>
+      <p class="lede">This section is built but deliberately unfilled. Each slot below accepts a figure only alongside its source, sample size and period — the component will not publish without them.</p>
+    </div>
+
+    <div class="proof">
+      <div class="pc">
+        <div class="slot"><div class="code">C-04 · PENDING</div><div class="msg">Answer-time figure held until the platform report and sample period are supplied.</div></div>
+        <h3>Answer performance</h3>
+        <p>Until then, the live demonstration above shows the behaviour directly — which is the stronger proof in any case.</p>
+        <div class="src">Source · Sample · Period — all required</div>
+      </div>
+      <div class="pc">
+        <div class="slot"><div class="code">C-05 · PENDING</div><div class="msg">Booking-rate comparison held until the baseline definition is confirmed.</div></div>
+        <h3>Booking outcomes</h3>
+        <p>A documented before-and-after from one approved client will carry more weight than a multiple with no baseline attached.</p>
+        <div class="src">Source · Sample · Period — all required</div>
+      </div>
+      <div class="pc">
+        <div class="slot"><div class="code">C-13 · PENDING</div><div class="msg">Security and compliance posture held pending auditor, stage and date.</div></div>
+        <h3>Security posture</h3>
+        <p>Replaced in the interim with a plain description of the controls actually in place — encryption, retention, audit logging, and human review.</p>
+        <div class="src">Auditor · Stage · Date — all required</div>
+      </div>
+    </div>
+
+    <p class="protonote" style="margin-top:32px"><b>Why this section is empty.</b> The current site publishes roughly twenty performance and compliance figures with no source attached. Rather than carry them across, the rebuild holds each slot until it is substantiated. An empty, honest proof section next to a working demonstration converts better than numbers a prospect has no reason to believe.</p>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============ HOW IT WORKS ============ -->
+<section id="how" aria-labelledby="h-how">
+  <div class="shell">
+    <div class="sechd">
+      <span class="eyebrow">07 · How it works</span>
+      <h2 id="h-how">Three stages, one timeline</h2>
+      <p class="lede">Stated once and used everywhere, so the site cannot contradict itself.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="n">Stage 01</span><h3>Discover</h3>
+        <p>We review your call patterns, lead sources, scheduling rules, business hours, escalation needs, existing software, and what your customers expect. You get a deployment plan you can challenge line by line.</p>
+      </div>
+      <div class="step">
+        <span class="n">Stage 02</span><h3>Build &amp; Test</h3>
+        <p>We configure the voice agent, workflows, integrations, escalation rules, scripts and reporting, running alongside your existing line so nothing breaks while we tune.</p>
+      </div>
+      <div class="step">
+        <span class="n">Stage 03</span><h3>Launch &amp; Improve</h3>
+        <p>We deploy, review performance, correct problems, and keep improving the workflows. Every deployment includes human review of early calls before it runs unattended.</p>
+      </div>
+    </div>
+    <p style="margin-top:28px"><span class="verify">◆ C-19 · Timeline pending confirmation</span></p>
+    <p class="protonote"><b>Unresolved conflict.</b> The current site states “Live in 14 days” three times and “21 days / three weeks” three times, across the homepage, About and Services. The rebuild pulls this from a single field so it appears identically everywhere — but the number itself is deliberately blank until you confirm which is correct.</p>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============ ABOUT ============ -->
+<section id="about" aria-labelledby="h-about">
+  <div class="shell">
+    <div class="sechd">
+      <span class="eyebrow">08 · About</span>
+      <h2 id="h-about">Who builds this</h2>
+    </div>
+    <div class="calc" style="align-items:start">
+      <div>
+        <p>Nexus AI Horizon designs and deploys AI response and follow-up systems for service businesses that depend on inbound calls, lead follow-up, scheduling and dispatch.</p>
+        <p style="color:var(--grey)">The work is operational rather than experimental: we start from how the business already runs, connect to the tools already in use, and keep a person in the loop while the system is learning your rules.</p>
+        <h3 style="font-size:15px;margin-top:32px;letter-spacing:.13em;text-transform:uppercase;color:var(--grey);font-weight:600">Human oversight standard</h3>
+        <p style="margin-top:12px">Early calls on every deployment are reviewed by a person before the system runs unattended. Escalation rules are agreed before launch, and any call the agent cannot handle is handed to a human rather than improvised.</p>
+      </div>
+      <div class="result" style="position:static">
+        <div class="cap">Required before this section ships</div>
+        <ul style="list-style:none;padding:0;margin:20px 0 0">
+          <li style="padding:11px 0;border-bottom:1px solid var(--line);font-size:14.5px"><span class="verify">◆</span> &nbsp;Leadership names, roles, photographs</li>
+          <li style="padding:11px 0;border-bottom:1px solid var(--line);font-size:14.5px"><span class="verify">◆</span> &nbsp;Founding year <span style="color:var(--grey)">(C-22)</span></li>
+          <li style="padding:11px 0;border-bottom:1px solid var(--line);font-size:14.5px"><span class="verify">◆</span> &nbsp;Geographic service area</li>
+          <li style="padding:11px 0;border-bottom:1px solid var(--line);font-size:14.5px"><span class="verify">◆</span> &nbsp;A working phone number</li>
+          <li style="padding:11px 0;font-size:14.5px"><span class="verify">◆</span> &nbsp;Contact address on the live domain</li>
+        </ul>
+        <p class="disc" style="margin-top:20px">There is currently no named person anywhere on the site. For a company selling call handling, a face and a phone number are load-bearing trust signals.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============ CTA ============ -->
+<section class="cta" id="contact" aria-labelledby="h-cta">
+  <div class="shell">
+    <div class="ctagrid">
+      <div>
+        <span class="eyebrow">09 · Start here</span>
+        <h2 id="h-cta" style="margin:16px 0 20px">Stop Letting Qualified Calls Reach Voicemail.</h2>
+        <p class="lede">See how Nexus AI Horizon can build an AI response and follow-up system around the tools your business already uses.</p>
+        <h3 style="font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--grey);margin-top:48px;font-weight:600">What happens after you submit</h3>
+        <ol class="after">
+          <li>We review your request and your current intake setup.</li>
+          <li>A member of the team contacts you using the method you chose.</li>
+          <li>We identify where calls and leads are currently being lost.</li>
+          <li>We recommend an appropriate next step — which may be that we are not the right fit.</li>
+        </ol>
+      </div>
+
+      <form id="form" novalidate>
+        <div class="fields">
+          <div class="fg">
+            <div class="f"><label for="f-name">Name <span class="req">*</span></label>
+              <input id="f-name" name="name" type="text" autocomplete="name" required>
+              <div class="err">Please enter your name.</div></div>
+            <div class="f"><label for="f-co">Company <span class="req">*</span></label>
+              <input id="f-co" name="company" type="text" autocomplete="organization" required>
+              <div class="err">Please enter your company name.</div></div>
+          </div>
+          <div class="fg">
+            <div class="f"><label for="f-email">Business email <span class="req">*</span></label>
+              <input id="f-email" name="email" type="email" autocomplete="email" required>
+              <div class="err">Please enter a valid email address.</div></div>
+            <div class="f"><label for="f-phone">Phone number <span class="req">*</span></label>
+              <input id="f-phone" name="phone" type="tel" autocomplete="tel" required>
+              <div class="err">Please enter a phone number we can reach you on.</div></div>
+          </div>
+          <div class="fg">
+            <div class="f"><label for="f-ind">Industry <span class="req">*</span></label>
+              <select id="f-ind" name="industry" required>
+                <option value="">Select one</option>
+                <option>Emergency home services</option>
+                <option>Property management</option>
+                <option>Moving and relocation</option>
+                <option>Financial services</option>
+                <option>Other service business</option>
+              </select>
+              <div class="err">Please choose an industry.</div></div>
+            <div class="f"><label for="f-vol">Monthly inbound calls</label>
+              <select id="f-vol" name="volume">
+                <option value="">Select one</option>
+                <option>Under 500</option><option>500 – 1,500</option>
+                <option>1,500 – 5,000</option><option>More than 5,000</option>
+              </select></div>
+          </div>
+          <div class="f"><label for="f-pref">Preferred contact method <span class="req">*</span></label>
+            <select id="f-pref" name="preferred" required>
+              <option value="">Select one</option>
+              <option>Phone call</option><option>Text message</option><option>Email</option>
+            </select>
+            <div class="err">Please choose how you would like to be contacted.</div></div>
+          <div class="f"><label for="f-prob">Main operational problem</label>
+            <textarea id="f-prob" name="problem" placeholder="Missed calls after hours, slow follow-up, manual scheduling…"></textarea></div>
+
+          <label class="consent"><input type="checkbox" id="f-consent" required>
+            <span>I agree to be contacted by Nexus AI Horizon about my enquiry using the method I selected, and I have read the <a href="#privacy">privacy policy</a>. Message and data rates may apply. Reply STOP to opt out of texts at any time.</span></label>
+          <div class="f" id="consent-err" style="display:none"><div class="err" style="display:block">Please confirm you agree to be contacted.</div></div>
+
+          <button class="btn btn-p" type="submit" style="width:100%">Book a Strategy Call</button>
+          <p style="font-size:12.5px;color:var(--grey);margin:16px 0 0;text-align:center">
+            Protected by bot filtering. We do not sell or share your information.
+          </p>
+        </div>
+
+        <div class="sent" role="status">
+          <div class="ic">✓</div>
+          <h3 style="font-size:21px;margin-bottom:12px">Request received</h3>
+          <p style="color:var(--grey);font-size:15px;max-width:38ch;margin:0 auto">We will review your intake setup and contact you using the method you selected. The four steps on the left are what happens next.</p>
+          <p class="protonote" style="margin-top:24px;text-align:left"><b>Prototype.</b> Nothing was sent. In production this submits to your CRM, sends an email notification, and fires a GA4 conversion event — none of which exist on the current site.</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="site" id="resources">
+  <div class="shell">
+    <div class="fgrid">
+      <div>
+        <a class="brand" href="#" style="margin-bottom:16px"><span class="mk" aria-hidden="true"></span>Nexus AI Horizon</a>
+        <p style="font-size:14px;color:var(--grey);max-width:34ch;margin:0">AI voice, SMS, scheduling and workflow systems for service businesses that run on inbound calls.</p>
+      </div>
+      <div><h4>Solutions</h4><ul>
+        <li><a href="#solutions">AI voice agents</a></li><li><a href="#solutions">SMS lead follow-up</a></li>
+        <li><a href="#solutions">Booking &amp; scheduling</a></li><li><a href="#solutions">Workflow &amp; CRM</a></li></ul></div>
+      <div><h4>Industries</h4><ul>
+        <li><a href="#industries">Emergency home services</a></li><li><a href="#industries">Property management</a></li>
+        <li><a href="#industries">Moving &amp; relocation</a></li><li><a href="#industries">Financial services</a></li></ul></div>
+      <div><h4>Company</h4><ul>
+        <li><a href="#about">About</a></li><li><a href="#how">How it works</a></li>
+        <li><a href="#proof">Case studies</a></li><li><a href="#contact">Contact</a></li>
+        <li><a href="#" id="areas">Service areas</a></li></ul></div>
+    </div>
+    <div class="fbot">
+      <span>© 2026 Nexus AI Horizon</span>
+      <span><a href="#privacy">Privacy policy</a> · <a href="#sms">SMS terms</a> · <a href="#terms">Terms</a></span>
+    </div>
+    <p class="protonote"><b>Prototype scope.</b> This is a design prototype of the homepage, built to the approved direction. Location pages sit behind a single “Service areas” directory link rather than 79 links in the main navigation. Privacy policy, SMS terms and Terms are linked because they are required before launch — none of them exist on the current site.</p>
+  </div>
+</footer>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+"use strict";
+var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var C = {blue:'#1E8FFF', cyan:'#38D6E8', grey:'#98A2B3', amber:'#F5A524', green:'#42D392'};
+
+/* ---------- header ---------- */
+var hdr = document.getElementById('hdr');
+addEventListener('scroll', function(){ hdr.classList.toggle('stuck', scrollY > 12); }, {passive:true});
+
+var burger = document.getElementById('burger'), mobnav = document.getElementById('mobnav');
+burger.addEventListener('click', function(){
+  var open = mobnav.classList.toggle('open');
+  burger.setAttribute('aria-expanded', String(open));
+  burger.textContent = open ? '✕' : '☰';
+});
+mobnav.addEventListener('click', function(e){
+  if(e.target.tagName === 'A'){ mobnav.classList.remove('open'); burger.textContent='☰'; burger.setAttribute('aria-expanded','false'); }
+});
+
+/* ---------- canvas helper: only run while visible ---------- */
+function liveCanvas(cv, draw){
+  if(!cv) return;
+  var ctx = cv.getContext('2d'), raf = null, on = false, t = 0;
+  function size(){
+    var r = cv.getBoundingClientRect(), d = Math.min(devicePixelRatio||1, 2);
+    if(!r.width || !r.height) return;
+    cv.width = r.width*d; cv.height = r.height*d;
+    ctx.setTransform(d,0,0,d,0,0);
+    cv._w = r.width; cv._h = r.height;
+  }
+  function loop(){ t += 1; draw(ctx, cv._w, cv._h, t); raf = requestAnimationFrame(loop); }
+  size(); addEventListener('resize', size, {passive:true});
+  if(RM){ draw(ctx, cv._w, cv._h, 0); return; }
+  new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting && !on){ on = true; loop(); }
+      else if(!e.isIntersecting && on){ on = false; cancelAnimationFrame(raf); }
+    });
+  },{rootMargin:'80px'}).observe(cv);
+}
+
+/* ---------- hero: routed call network ---------- */
+(function(){
+  var cv = document.getElementById('net'); if(!cv) return;
+  var nodes = [], links = [], pulses = [], built = 0;
+  function build(w,h){
+    nodes = []; links = []; pulses = [];
+    var n = w < 700 ? 16 : 34;
+    for(var i=0;i<n;i++) nodes.push({x:Math.random()*w, y:Math.random()*h, r:Math.random()*1.4+0.7, p:Math.random()*6.28});
+    for(var i=0;i<n;i++) for(var j=i+1;j<n;j++){
+      var d = Math.hypot(nodes[i].x-nodes[j].x, nodes[i].y-nodes[j].y);
+      if(d < (w<700?170:210)) links.push({a:i,b:j,d:d});
+    }
+    for(var k=0;k<(w<700?3:7);k++) pulses.push({l:Math.floor(Math.random()*links.length), t:Math.random()});
+    built = w;
+  }
+  liveCanvas(cv, function(ctx,w,h,t){
+    if(!w||!h) return;
+    if(built !== w) build(w,h);
+    ctx.clearRect(0,0,w,h);
+    ctx.lineWidth = 1;
+    for(var i=0;i<links.length;i++){
+      var L = links[i], A = nodes[L.a], B = nodes[L.b];
+      ctx.strokeStyle = 'rgba(30,143,255,' + (0.10*(1-L.d/220)).toFixed(3) + ')';
+      ctx.beginPath(); ctx.moveTo(A.x,A.y); ctx.lineTo(B.x,B.y); ctx.stroke();
+    }
+    for(var i=0;i<nodes.length;i++){
+      var N = nodes[i], tw = 0.35 + 0.3*Math.sin(t*0.012 + N.p);
+      ctx.fillStyle = 'rgba(152,162,179,' + tw.toFixed(3) + ')';
+      ctx.beginPath(); ctx.arc(N.x,N.y,N.r,0,6.2832); ctx.fill();
+    }
+    for(var i=0;i<pulses.length;i++){
+      var P = pulses[i], L = links[P.l]; if(!L) continue;
+      var A = nodes[L.a], B = nodes[L.b];
+      P.t += 0.0035; if(P.t > 1){ P.t = 0; P.l = Math.floor(Math.random()*links.length); }
+      var x = A.x + (B.x-A.x)*P.t, y = A.y + (B.y-A.y)*P.t;
+      var g = ctx.createRadialGradient(x,y,0,x,y,7);
+      g.addColorStop(0,'rgba(56,214,232,.85)'); g.addColorStop(1,'rgba(56,214,232,0)');
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x,y,7,0,6.2832); ctx.fill();
+    }
+  });
+})();
+
+/* ---------- waveform ---------- */
+function waveform(id, amp){
+  var cv = document.getElementById(id); if(!cv) return;
+  liveCanvas(cv, function(ctx,w,h,t){
+    if(!w||!h) return;
+    ctx.clearRect(0,0,w,h);
+    var bars = Math.max(10, Math.floor(w/6)), mid = h/2;
+    for(var i=0;i<bars;i++){
+      var x = i*(w/bars)+1;
+      var e = Math.sin(i*0.42 + t*0.055) * Math.sin(i*0.13 + t*0.021) * Math.sin(t*0.009+i*0.06);
+      var bh = Math.max(2, Math.abs(e)*h*amp);
+      var near = Math.abs(i-bars/2)/(bars/2);
+      ctx.fillStyle = 'rgba(56,214,232,' + (0.85-near*0.5).toFixed(2) + ')';
+      ctx.fillRect(x, mid-bh/2, (w/bars)-2, bh);
+    }
+  });
+}
+waveform('wave', 0.75); waveform('wave2', 0.85);
+
+/* ---------- industry mini-canvases ---------- */
+document.querySelectorAll('.indcv').forEach(function(cv){
+  var mode = cv.dataset.mode, seed = Math.random()*100;
+  liveCanvas(cv, function(ctx,w,h,t){
+    if(!w||!h) return;
+    ctx.clearRect(0,0,w,h);
+    var i,x,y;
+    if(mode === 'emergency'){
+      for(i=0;i<3;i++){
+        var r = ((t*0.7 + i*36) % 108);
+        ctx.strokeStyle = 'rgba(245,165,36,' + Math.max(0,(0.5 - r/216)).toFixed(3) + ')';
+        ctx.lineWidth = 1.4; ctx.beginPath(); ctx.arc(w/2,h/2,r,0,6.2832); ctx.stroke();
+      }
+      ctx.fillStyle = C.amber; ctx.beginPath(); ctx.arc(w/2,h/2,4,0,6.2832); ctx.fill();
+    } else if(mode === 'property'){
+      var cols = 9, rows = 4, cw = w/cols, ch = h/rows;
+      for(i=0;i<cols*rows;i++){
+        x = (i%cols)*cw; y = Math.floor(i/cols)*ch;
+        var lit = (Math.sin(i*2.3 + seed + t*0.016) > 0.45);
+        ctx.fillStyle = lit ? 'rgba(30,143,255,.5)' : 'rgba(152,162,179,.11)';
+        ctx.fillRect(x+cw*0.22, y+ch*0.22, cw*0.56, ch*0.56);
+      }
+    } else if(mode === 'moving'){
+      ctx.strokeStyle = 'rgba(152,162,179,.16)'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(0,h*0.72); ctx.bezierCurveTo(w*0.3,h*0.30,w*0.62,h*0.92,w,h*0.36); ctx.stroke();
+      var p = (t*0.0045) % 1;
+      var bx = w*p, by = h*0.72 + Math.sin(p*Math.PI*2)*h*0.2;
+      ctx.strokeStyle = 'rgba(30,143,255,.75)'; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(0,h*0.72); ctx.bezierCurveTo(w*0.3,h*0.30,w*0.62,h*0.92,bx,by); ctx.stroke();
+      ctx.fillStyle = C.cyan; ctx.beginPath(); ctx.arc(bx,by,3.5,0,6.2832); ctx.fill();
+    } else {
+      for(i=0;i<7;i++){
+        var bh = (0.25 + 0.55*Math.abs(Math.sin(i*0.9 + seed + t*0.012))) * h * 0.62;
+        x = w*0.14 + i*(w*0.72/7);
+        ctx.fillStyle = i===6 ? 'rgba(66,211,146,.75)' : 'rgba(30,143,255,.34)';
+        ctx.fillRect(x, h*0.78-bh, w*0.72/7-6, bh);
+      }
+    }
+  });
+});
+/* ---------- hero reveal ---------- */
+if(!RM && window.gsap){
+  gsap.set('.hero h1 .ln>span', {yPercent:105});
+  var tl = gsap.timeline({delay:.15});
+  tl.to('.hero h1 .ln>span', {yPercent:0, duration:.9, stagger:.09, ease:'power3.out'})
+    .to('.hero-chip.reveal', {opacity:1, y:0, duration:.5, ease:'power2.out'}, 0)
+    .to('.hero .sub, .hero .acts, .hero .trust, .hero-panel', {opacity:1, y:0, duration:.6, stagger:.09, ease:'power2.out'}, .45);
+} else {
+  document.querySelectorAll('.reveal').forEach(function(e){ e.style.opacity=1; e.style.transform='none'; });
+  document.querySelectorAll('.hero h1 .ln>span').forEach(function(e){ e.style.transform='none'; });
+}
+
+/* ---------- demo player ---------- */
+(function(){
+  var DUR = 52;
+  var play = document.getElementById('play'), icon = document.getElementById('playicon');
+  var fill = document.getElementById('pfill'), time = document.getElementById('ptime');
+  var lines = [].slice.call(document.querySelectorAll('.line'));
+  var steps = [].slice.call(document.querySelectorAll('.dstep'));
+  var script = document.getElementById('script');
+  var vals = {
+    10:['v-intent','Water leak · residential'],
+    20:['v-urgency','Escalating — active leak'],
+    33:['v-qual','In service area · emergency call-out'],
+    40:['v-crm','Job created · transcript attached'],
+    47:['v-sms','Sent · technician name and window']
+  };
+  var t = 0, running = false, last = 0, rafId = null;
+  var PLAY = 'M8 5v14l11-7z', PAUSE = 'M6 5h4v14H6zM14 5h4v14h-4z';
+
+  function fmt(s){ return Math.floor(s/60) + ':' + String(Math.floor(s%60)).padStart(2,'0'); }
+  function render(){
+    fill.style.width = (t/DUR*100) + '%';
+    time.textContent = fmt(t) + ' / ' + fmt(DUR);
+    var activeLine = null;
+    lines.forEach(function(l){
+      var on = t >= +l.dataset.at;
+      l.classList.toggle('on', on);
+      if(on) activeLine = l;
+    });
+    steps.forEach(function(s){
+      var at = +s.dataset.at, on = t >= at;
+      s.classList.toggle('on', on);
+      var v = vals[at];
+      if(v) document.getElementById(v[0]).textContent = on ? v[1] : (v[0]==='v-intent' ? 'Listening…' : '—');
+    });
+    if(activeLine && running){
+      var top = activeLine.offsetTop - script.clientHeight/2 + activeLine.clientHeight/2;
+      script.scrollTo({top:Math.max(0,top), behavior: RM ? 'auto' : 'smooth'});
+    }
+  }
+  function tick(now){
+    if(!running) return;
+    if(!last) last = now;
+    t += (now-last)/1000; last = now;
+    if(t >= DUR){ t = DUR; stop(); render(); return; }
+    render(); rafId = requestAnimationFrame(tick);
+  }
+  function start(){
+    if(t >= DUR){ t = 0; }
+    running = true; last = 0;
+    icon.setAttribute('d', PAUSE);
+    play.setAttribute('aria-label','Pause the sample call');
+    rafId = requestAnimationFrame(tick);
+  }
+  function stop(){
+    running = false; cancelAnimationFrame(rafId);
+    icon.setAttribute('d', PLAY);
+    play.setAttribute('aria-label','Play the sample call');
+  }
+  play.addEventListener('click', function(){ running ? stop() : start(); });
+  render();
+})();
+
+/* ---------- calculator ---------- */
+(function(){
+  var el = function(id){ return document.getElementById(id); };
+  var inputs = ['i-calls','i-miss','i-val','i-conv'].map(el);
+  var money = function(n){ return '$' + Math.round(n).toLocaleString('en-US'); };
+  function calc(){
+    var calls = +el('i-calls').value, miss = +el('i-miss').value,
+        val = +el('i-val').value, conv = +el('i-conv').value;
+    el('o-calls').textContent = calls.toLocaleString('en-US');
+    el('o-miss').textContent = miss + '%';
+    el('o-val').textContent = money(val);
+    el('o-conv').textContent = conv + '%';
+    el('f-calls').textContent = calls.toLocaleString('en-US');
+    el('f-miss').textContent = miss + '%';
+    el('f-conv').textContent = conv + '%';
+    el('f-val').textContent = money(val);
+    el('f-val2').textContent = money(val);
+    var missed = calls * 12 * (miss/100);
+    var lost = missed * (conv/100);
+    el('o-missed').textContent = Math.round(missed).toLocaleString('en-US');
+    el('o-lost').textContent = Math.round(lost).toLocaleString('en-US');
+    el('o-low').textContent = money(lost * val * 0.35);
+    el('o-high').textContent = money(lost * val * 0.70);
+  }
+  inputs.forEach(function(i){ i.addEventListener('input', calc); });
+  calc();
+})();
+
+/* ---------- pinned Ring to Revenue ---------- */
+(function(){
+  if(RM || !window.gsap || !window.ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+  var stages = [].slice.call(document.querySelectorAll('#stages .stage'));
+  var nodes  = [].slice.call(document.querySelectorAll('#nodes .node'));
+  var fill   = document.getElementById('railfill');
+  var signal = document.getElementById('signal');
+  var N = stages.length, current = -1;
+
+  function setStage(i){
+    if(i === current) return;
+    current = i;
+    stages.forEach(function(s,k){ s.classList.toggle('on', k===i); });
+    nodes.forEach(function(n,k){ n.classList.toggle('done', k<=i); });
+  }
+
+  var mm = gsap.matchMedia();
+
+  mm.add('(min-width: 900px)', function(){
+    setStage(0);
+    ScrollTrigger.create({
+      trigger: '#seq',
+      start: 'top top',
+      end: '+=' + (N * 55) + '%',
+      pin: true,
+      scrub: true,
+      anticipatePin: 1,
+      onUpdate: function(self){
+        var pos = self.progress * 100;
+        fill.style.width = pos + '%';
+        signal.style.left = pos + '%';
+        setStage(Math.min(N-1, Math.floor(self.progress * N * 0.999)));
+      }
+    });
+  });
+
+  mm.add('(max-width: 899px)', function(){
+    // no pinning on mobile: stages stack and reveal on entry
+    document.getElementById('seq').style.height = 'auto';
+    document.querySelector('.stagebox').style.display = 'block';
+    current = -2;
+    stages.forEach(function(s){
+      s.classList.add('on');
+      s.style.marginBottom = '48px';
+      gsap.from(s, {opacity:0, y:24, duration:.5, ease:'power2.out',
+        scrollTrigger:{trigger:s, start:'top 88%'}});
+    });
+    nodes.forEach(function(n){ n.classList.add('done'); });
+    fill.style.width = '100%';
+    signal.style.display = 'none';
+  });
+})();
+
+/* ---------- section reveals ---------- */
+if(!RM && window.gsap && window.ScrollTrigger){
+  gsap.utils.toArray('.sechd, .panel, .ind, .pc, .step, .demo-wrap, .calc, form').forEach(function(el){
+    gsap.from(el, {opacity:0, y:22, duration:.6, ease:'power2.out',
+      scrollTrigger:{trigger:el, start:'top 88%'}});
+  });
+}
+
+/* ---------- form ---------- */
+(function(){
+  var form = document.getElementById('form');
+  var required = ['f-name','f-co','f-email','f-phone','f-ind','f-pref'];
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var ok = true, firstBad = null;
+    required.forEach(function(id){
+      var input = document.getElementById(id), wrap = input.closest('.f');
+      var bad = !input.value.trim() || (input.type==='email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(input.value));
+      wrap.classList.toggle('bad', bad);
+      if(bad){ ok = false; if(!firstBad) firstBad = input; }
+    });
+    var consent = document.getElementById('f-consent');
+    document.getElementById('consent-err').style.display = consent.checked ? 'none' : 'block';
+    if(!consent.checked){ ok = false; if(!firstBad) firstBad = consent; }
+    if(!ok){ firstBad.focus(); return; }
+    form.classList.add('done');
+    form.scrollIntoView({block:'center', behavior: RM ? 'auto' : 'smooth'});
+  });
+})();
+
+/* ---------- placeholder links ---------- */
+document.querySelectorAll('a[href="#privacy"],a[href="#sms"],a[href="#terms"],#areas').forEach(function(a){
+  a.addEventListener('click', function(e){
+    e.preventDefault();
+    alert('Prototype: this page is not built yet.\n\nPrivacy policy, SMS terms and Terms are required before launch — none currently exist on nxaihorizon.com. Service areas replaces the 79 location links in the current navigation.');
+  });
+});
+})();
+</script>
