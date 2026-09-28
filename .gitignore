@@ -11,3 +11,5 @@ wp-theme/shots-wp/*
 !wp-theme/shots-wp/audit.json
 while-you-were-out/shots/*
 !while-you-were-out/shots/audit.json
+
+check-*.log

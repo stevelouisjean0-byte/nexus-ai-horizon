@@ -1,10 +1,10 @@
 <?php
 /**
- * Title: What happens on every call (bento)
+ * Title: How it works: what happens on every call
  * Slug: nexus/every-call
  * Categories: nexus
  *
- * Generated from picked-up/index.html by wp-theme/build-theme.cjs. Edit the
+ * Generated from picked-up/sections.html by wp-theme/build-theme.cjs. Edit the
  * static build and rerun the script rather than editing this file by hand.
  *
  * @package nexus-ai-horizon
@@ -13,11 +13,11 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 $uri = get_template_directory_uri();
 ?>
 <!-- wp:html -->
-<section class="band grey" id="every-call" aria-labelledby="h-every">
+<section class="band deep seam" id="every-call" aria-labelledby="h-every">
     <div class="wrap">
       <div class="band-head center reveal">
-        <h2 id="h-every">What happens on every call.</h2>
-        <p class="lede">The same things, whether it is nine in the morning or two at night. The vignettes below are drawn from the staged call above.</p>
+        <h1 id="h-every" class="caps stack"><span class="line">Every call answered.</span> <span class="line">Every lead captured.</span> <span class="line">Every appointment booked.</span></h1>
+        <p class="lede">The same things happen on every call, whether it is nine in the morning or two at night. The vignettes below are drawn from the staged call on the home page.</p>
       </div>
 
       <div class="bento">

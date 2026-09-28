@@ -11,7 +11,7 @@ fs.mkdirSync(OUT, { recursive: true });
   const browser = await chromium.launch({ channel: 'chrome', headless: false });
   const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
   const result = {};
-  await page.goto(BASE + '/', { waitUntil: 'load' });
+  await page.goto(BASE + '/contact/', { waitUntil: 'domcontentloaded' }); await page.waitForLoadState('load', { timeout: 20000 }).catch(() => {});
   await page.waitForTimeout(500);
 
   // 1. Submitting empty must not leave the page.
@@ -60,7 +60,7 @@ fs.mkdirSync(OUT, { recursive: true });
   }
 
   // 4. Site editor loads the front-page template without a fatal.
-  await page.goto(BASE + '/wp-admin/site-editor.php?postType=wp_template&postId=nexus-ai-horizon%2F%2Ffront-page&canvas=edit', { waitUntil: 'load' });
+  await page.goto(BASE + '/wp-admin/site-editor.php?postType=wp_template&postId=nexus-ai-horizon%2F%2Fpage-contact&canvas=edit', { waitUntil: 'load' });
   await page.waitForTimeout(6000);
   result.siteEditorLoaded = await page.evaluate(() => !!document.querySelector('iframe[name="editor-canvas"]') || !!document.querySelector('.edit-site'));
   await page.screenshot({ path: path.join(OUT, 'site-editor.png') });

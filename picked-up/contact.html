@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Book a strategy call | Nexus AI Horizon</title>
+  <meta name="description" content="Book a twenty-minute strategy call with Nexus AI Horizon. No deck.">
+  <meta property="og:title" content="Nexus AI Horizon">
+  <meta property="og:description" content="AI voice and SMS systems for New York service businesses. The phone rings. Your AI answers. 24/7.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#070b12">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <script>document.documentElement.classList.add('js');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="page-contact page-sub">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Nexus AI Horizon, home">
+      <img src="assets/logo.png" alt="" width="583" height="211" fetchpriority="high">
+      <span translate="no">Nexus AI Horizon</span>
+    </a>
+    <nav class="nav" id="nav" aria-label="Site">
+      <a href="how-it-works.html">How it works</a>
+      <a href="industries.html">Industries</a>
+      <a href="oversight.html">Oversight</a>
+      <a href="contact.html" aria-current="page">Contact</a>
+      <a class="btn btn-primary" href="contact.html" aria-current="page">Book a strategy call</a>
+    </nav>
+    <a class="btn btn-primary btn-sm" href="contact.html" aria-current="page">Book a strategy call</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="band contact seam" id="contact" aria-labelledby="h-contact">
+    <div class="contact-bg" aria-hidden="true">
+      <img src="assets/contact-night.webp" alt="" width="1600" height="2133" loading="lazy">
+    </div>
+    <div class="wrap">
+      <div class="reveal">
+        <p class="kicker">2:14 a.m.</p>
+        <h1 id="h-contact" class="caps">What happens when your phone rings at 2:14 a.m.?</h1>
+        <p class="lede">Your AI should already be answering. Book a twenty-minute strategy call: a walk-through of the system handling calls from your industry, and an honest answer on whether your business is one it can help. No deck.</p>
+        <p class="aside">What happens next: someone at Nexus AI Horizon reads your message and calls or emails to set a time. Nothing on this side of the form is automated.</p>
+      </div>
+
+      <form class="form-card reveal" id="contact-form" novalidate aria-label="Book a strategy call">
+        <div class="grid-2">
+          <div class="field">
+            <label for="first">First name</label>
+            <input id="first" name="first_name" type="text" autocomplete="given-name" required>
+            <span class="err" id="first-err">Enter your first name.</span>
+          </div>
+          <div class="field">
+            <label for="last">Last name</label>
+            <input id="last" name="last_name" type="text" autocomplete="family-name" required>
+            <span class="err" id="last-err">Enter your last name.</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="company">Company</label>
+          <input id="company" name="company" type="text" autocomplete="organization" required>
+          <span class="err" id="company-err">Enter the business name.</span>
+        </div>
+        <div class="field">
+          <label for="industry">Industry</label>
+          <select id="industry" name="industry" required>
+            <option value="">Choose one</option>
+            <option>Emergency home services (plumbing, HVAC, electrical, restoration)</option>
+            <option>Property management</option>
+            <option>Moving and relocation</option>
+            <option>Financial services</option>
+            <option>Something else</option>
+          </select>
+          <span class="err" id="industry-err">Choose the closest industry.</span>
+        </div>
+        <div class="grid-2">
+          <div class="field">
+            <label for="email">Work email</label>
+            <input id="email" name="email" type="email" autocomplete="email" inputmode="email" spellcheck="false" required>
+            <span class="err" id="email-err">Enter an email address, like name@company.com.</span>
+          </div>
+          <div class="field">
+            <label for="phone">Mobile</label>
+            <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required>
+            <span class="err" id="phone-err">Enter a phone number with area code.</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="when">Best time to call</label>
+          <select id="when" name="best_time">
+            <option>Morning</option>
+            <option>Afternoon</option>
+            <option>Evening</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="message">What are you trying to fix?</label>
+          <textarea id="message" name="message" rows="3" required></textarea>
+          <span class="err" id="message-err">Tell us in a sentence or two what is going wrong with your calls.</span>
+        </div>
+        <label class="consent">
+          <input type="checkbox" id="consent" name="consent" required>
+          <span>Nexus AI Horizon may call or text me about this request. Message and data rates may apply. See the <a href="legal/privacy-policy.html">privacy policy</a>.</span>
+        </label>
+        <div class="form-actions">
+          <button class="btn btn-primary" type="submit">Book a strategy call</button>
+          <span class="small">Twenty minutes. No deck.</span>
+        </div>
+        <p class="form-status" role="status" aria-live="polite" hidden></p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div>
+      <a class="brand" href="index.html" aria-label="Nexus AI Horizon, home">
+        <img src="assets/logo.png" alt="" width="583" height="211" loading="lazy">
+        <span translate="no">Nexus AI Horizon</span>
+      </a>
+      <p>An AI automation studio in Lower Manhattan. Voice and SMS systems for service businesses across the New York metro, in four industries.</p>
+    </div>
+    <ul>
+      <li><a href="how-it-works.html">How it works</a></li>
+      <li><a href="industries.html">Industries</a></li>
+      <li><a href="oversight.html">Oversight</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <ul>
+      <li><a href="legal/privacy-policy.html">Privacy policy</a></li>
+      <li><a href="legal/sms-terms.html">SMS terms</a></li>
+      <li><a href="legal/terms.html">Terms of service</a></li>
+    </ul>
+    <div class="legal">
+      <span>&copy; 2026 Nexus AI Horizon, New York, NY.</span>
+      <span>Every call, business and caller shown on this page is a staged demonstration.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script src="script.js" defer></script>
+</body>
+</html>

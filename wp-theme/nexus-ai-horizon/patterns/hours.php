@@ -1,10 +1,10 @@
 <?php
 /**
- * Title: 168 hours (week grid)
+ * Title: How it works: 168 hours
  * Slug: nexus/hours
  * Categories: nexus
  *
- * Generated from picked-up/index.html by wp-theme/build-theme.cjs. Edit the
+ * Generated from picked-up/sections.html by wp-theme/build-theme.cjs. Edit the
  * static build and rerun the script rather than editing this file by hand.
  *
  * @package nexus-ai-horizon
@@ -13,10 +13,10 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 $uri = get_template_directory_uri();
 ?>
 <!-- wp:html -->
-<section class="band grey hours" aria-labelledby="h-hours">
+<section class="band deep hours seam" aria-labelledby="h-hours">
     <div class="wrap">
       <div class="reveal">
-        <h2 id="h-hours">168 hours in a week. The office answers 50.</h2>
+        <h2 id="h-hours"><span class="n" data-count="168">168</span> hours in a week. The office answers <span class="n" data-count="50">50</span>.</h2>
         <p class="lede">A business that picks up 8 to 6, Monday to Friday, is reachable for 50 hours. For the other 118, callers get voicemail, and voicemail qualifies nobody.</p>
         <div class="legend"><span><i class="on"></i>Office answers</span><span><i></i>Voicemail</span></div>
       </div>

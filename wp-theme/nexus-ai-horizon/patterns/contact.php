@@ -1,10 +1,10 @@
 <?php
 /**
- * Title: Book a strategy call (form)
+ * Title: Contact: book a strategy call (form)
  * Slug: nexus/contact
  * Categories: nexus
  *
- * Generated from picked-up/index.html by wp-theme/build-theme.cjs. Edit the
+ * Generated from picked-up/sections.html by wp-theme/build-theme.cjs. Edit the
  * static build and rerun the script rather than editing this file by hand.
  *
  * @package nexus-ai-horizon
@@ -13,11 +13,15 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 $uri = get_template_directory_uri();
 ?>
 <!-- wp:html -->
-<section class="band grey contact" id="contact" aria-labelledby="h-contact">
+<section class="band contact seam" id="contact" aria-labelledby="h-contact">
+    <div class="contact-bg" aria-hidden="true">
+      <img src="<?php echo esc_url( $uri ); ?>/assets/img/contact-night.webp" alt="" width="1600" height="2133" loading="lazy">
+    </div>
     <div class="wrap">
       <div class="reveal">
-        <h2 id="h-contact">Book a strategy call.</h2>
-        <p class="lede">Twenty minutes. A walk-through of the system handling calls from your industry, and an honest answer on whether your business is one it can help. No deck.</p>
+        <p class="kicker">2:14 a.m.</p>
+        <h1 id="h-contact" class="caps">What happens when your phone rings at 2:14 a.m.?</h1>
+        <p class="lede">Your AI should already be answering. Book a twenty-minute strategy call: a walk-through of the system handling calls from your industry, and an honest answer on whether your business is one it can help. No deck.</p>
         <p class="aside">What happens next: someone at Nexus AI Horizon reads your message and calls or emails to set a time. Nothing on this side of the form is automated.</p>
       </div>
 

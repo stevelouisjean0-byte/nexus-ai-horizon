@@ -8,7 +8,7 @@ businesses in the New York metro.
 
 | Path | What it is |
 |---|---|
-| `picked-up/` | **The current homepage build.** Static HTML, CSS and JavaScript, verified in real Chrome at four widths. Open `picked-up/index.html`. Beside it: `HANDOFF.md` (what is on the page, what is deliberately absent, what is needed to go live), `DEMO-RECORDING-BRIEF.md`, `legal/` (privacy policy, SMS terms and terms of service drafts for legal review), `make-video.cjs` (generates the chapter clip through the RunComfy API), `check.cjs` (the verification script) and `shots/` (its screenshots and audit). |
+| `picked-up/` | **The current site: five pages, dark and cinematic.** Open `picked-up/index.html`. `sections.html` is the single source; run `node picked-up/pages.cjs` after editing it to regenerate the five pages. Beside it: `HANDOFF.md` (what is on the page, what is deliberately absent, what is needed to go live), `DEMO-RECORDING-BRIEF.md`, `legal/` (privacy policy, SMS terms and terms of service drafts for legal review), `make-video.cjs` (generates the chapter clip through the RunComfy API), `check.cjs` (the verification script) and `shots/` (its screenshots and audit). |
 | `wp-theme/` | **The WordPress block theme** generated from the static build, with its build script, a WordPress Playground blueprint, and an end-to-end test of the contact form. See `wp-theme/README.md`. |
 | `PRODUCT.md` | The product record: who the site is for, what can and cannot be claimed, and the facts still unconfirmed. Source of truth for copy. |
 | `DESIGN.md` | The design record of the current world ("Picked up"). |

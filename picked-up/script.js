@@ -4,6 +4,10 @@
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var hasIO = 'IntersectionObserver' in window;
   var wide = window.matchMedia('(min-width: 901px)');
+  // GSAP is optional: the page reads correctly without it. It drives the
+  // scroll choreography (the ledger, counters, staggered entrances) when present.
+  var G = window.gsap && window.ScrollTrigger && !reduce ? window.gsap : null;
+  if (G) G.registerPlugin(window.ScrollTrigger);
 
   /* ---------------------------------------------------------- menu */
   var top = document.getElementById('top');
@@ -27,7 +31,7 @@
   }
 
   /* ---------------------------------------------------------- load sequence */
-  document.querySelectorAll('.hero h1 .w').forEach(function (w, i) { w.style.setProperty('--i', i); });
+  document.querySelectorAll('.hero h1 .line').forEach(function (w, i) { w.style.setProperty('--i', i); });
   document.querySelectorAll('.statement .w').forEach(function (w, i) { w.style.setProperty('--p', (i * 0.9) + '%'); });
   var ready = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
   ready.then(function () {
@@ -55,7 +59,7 @@
     reveals.forEach(function (el) { revIO.observe(el); });
   }
 
-  /* ---------------------------------------------------------- week grid */
+  /* ---------------------------------------------------------- week grid + counters */
   var week = document.querySelector('.week');
   if (week) {
     week.querySelectorAll('.h.on').forEach(function (c, i) { c.style.setProperty('--i', i); });
@@ -67,10 +71,40 @@
       wIO.observe(week);
     }
   }
+  var counters = Array.prototype.slice.call(document.querySelectorAll('[data-count]'));
+  if (counters.length && G) {
+    counters.forEach(function (el) {
+      var target = parseInt(el.getAttribute('data-count'), 10);
+      var obj = { v: 0 };
+      G.to(obj, {
+        v: target, duration: 1.4, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 85%', once: true },
+        onUpdate: function () { el.textContent = Math.round(obj.v); },
+      });
+    });
+  }
+
+  /* ---------------------------------------------------------- staggered entrances (GSAP) */
+  if (G) {
+    var groups = [
+      { sel: '.bento .tile', y: 26 },
+      { sel: '.gallery-track .card', y: 30 },
+      { sel: '.trust li', y: 12 },
+    ];
+    groups.forEach(function (g) {
+      var els = G.utils.toArray(g.sel);
+      if (!els.length) return;
+      els.forEach(function (el) { el.classList.remove('reveal', 'is-in'); });
+      G.set(els, { opacity: 0, y: g.y });
+      window.ScrollTrigger.batch(els, {
+        start: 'top 88%',
+        once: true,
+        onEnter: function (batch) { G.to(batch, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.08, overwrite: true, clearProps: 'transform' }); },
+      });
+    });
+  }
 
   /* ---------------------------------------------------------- chapter video */
-  // Present only when a clip has been dropped in (see HANDOFF.md); the still
-  // image is used otherwise.
   var video = document.querySelector('.chapter-video');
   if (video && video.getAttribute('data-src')) {
     var canPlay = !reduce && hasIO && !(navigator.connection && navigator.connection.saveData);
@@ -112,9 +146,6 @@
   }
 
   /* ---------------------------------------------------------- the call */
-  // The transcript in the <details> element is the single source of truth.
-  // On wide screens the phone is pinned and the call advances act by act as
-  // the copy scrolls past. On narrow screens it plays through when in view.
   var device = document.querySelector('.device');
   var captions = document.querySelector('.captions');
   var chips = document.querySelector('.chips');
@@ -122,6 +153,7 @@
   var replay = document.querySelector('.replay');
   var source = Array.prototype.slice.call(document.querySelectorAll('.transcript li'));
   var acts = Array.prototype.slice.call(document.querySelectorAll('.act'));
+  var stamps = Array.prototype.slice.call(document.querySelectorAll('.stamps li'));
   var actStart = { 2: 0, 3: 32, 4: 80 };
 
   var timers = [];
@@ -153,7 +185,6 @@
   function trimCaptions() { while (captions.children.length > 4) captions.removeChild(captions.firstChild); }
 
   function renderUpTo(lines, shownCount) {
-    // Show the last lines instantly, and all chips so far.
     captions.innerHTML = '';
     chips.innerHTML = '';
     lines.slice(-4).forEach(function (li) { captions.appendChild(captionEl(li, true)); });
@@ -189,6 +220,7 @@
   function buildStatic() {
     device.setAttribute('data-state', 'call');
     renderUpTo(source, 127);
+    stamps.forEach(function (s) { s.classList.add('is-on'); });
   }
 
   function playAll() {
@@ -199,9 +231,12 @@
     playLines(source, 0, null);
   }
 
-  // Scene mode: acts drive the phone.
+  // Scene mode: acts drive the phone; act 5 lights the ledger.
   var scene = document.querySelector('.scene');
   var currentAct = -1;
+  function lightStamps(n) {
+    stamps.forEach(function (s, i) { s.classList.toggle('is-on', i < n); });
+  }
   function goToAct(n) {
     if (n === currentAct) return;
     currentAct = n;
@@ -216,9 +251,19 @@
       device.setAttribute('data-state', 'ring');
       captions.innerHTML = '';
       chips.innerHTML = '';
+      lightStamps(0);
       return;
     }
     device.setAttribute('data-state', 'call');
+    if (n >= 5) {
+      renderUpTo(source, 127);
+      // the ledger stamps in one by one
+      stamps.forEach(function (s, i) {
+        timers.push(window.setTimeout(function () { s.classList.add('is-on'); }, 350 + i * 420));
+      });
+      return;
+    }
+    lightStamps(0);
     var before = source.filter(function (li) { return parseInt(li.getAttribute('data-act'), 10) < n; });
     var now = source.filter(function (li) { return parseInt(li.getAttribute('data-act'), 10) === n; });
     renderUpTo(before, actStart[n] || 0);
@@ -233,8 +278,7 @@
       device.setAttribute('data-state', 'ring');
       captions.innerHTML = '';
       chips.innerHTML = '';
-      var aIO = new IntersectionObserver(function (entries) {
-        // pick the act closest to the middle of the viewport among those intersecting
+      var aIO = new IntersectionObserver(function () {
         var best = null, bestD = Infinity, mid = window.innerHeight / 2;
         acts.forEach(function (a) {
           var r = a.getBoundingClientRect();
@@ -248,7 +292,6 @@
       acts.forEach(function (a) { aIO.observe(a); });
       goToAct(0);
     } else {
-      // Narrow screens: play the whole call once the phone is in view.
       captions.innerHTML = '';
       chips.innerHTML = '';
       device.setAttribute('data-state', 'ring');
@@ -263,6 +306,19 @@
         });
       }, { threshold: 0.25 });
       dIO.observe(device);
+      // on narrow screens the ledger lights when it scrolls into view
+      var stampsEl = document.querySelector('.stamps');
+      if (stampsEl) {
+        var sIO = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            if (en.isIntersecting) {
+              stamps.forEach(function (s, i) { window.setTimeout(function () { s.classList.add('is-on'); }, 200 + i * 360); });
+              sIO.disconnect();
+            }
+          });
+        }, { threshold: 0.5 });
+        sIO.observe(stampsEl);
+      }
     }
     if (replay) {
       replay.addEventListener('click', function () {

@@ -4,7 +4,7 @@
  * Slug: nexus/transcript
  * Categories: nexus
  *
- * Generated from picked-up/index.html by wp-theme/build-theme.cjs. Edit the
+ * Generated from picked-up/sections.html by wp-theme/build-theme.cjs. Edit the
  * static build and rerun the script rather than editing this file by hand.
  *
  * @package nexus-ai-horizon

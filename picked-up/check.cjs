@@ -1,6 +1,7 @@
-// Real-Chrome verification for the "Picked up" homepage build. Run from the
-// wh project (or with NODE_PATH at its node_modules) so playwright resolves.
-//   node check.cjs [outDir]
+// Real-Chrome verification for every page of the site. Run from a folder
+// where playwright resolves (or with NODE_PATH set).
+//   node check.cjs [outDir]            static build (file://)
+//   CHECK_URL=http://host/ node check.cjs [outDir]   a running server
 const { chromium } = require('playwright');
 const fs = require('fs');
 const path = require('path');
@@ -8,212 +9,156 @@ const path = require('path');
 const ROOT = __dirname;
 const OUT = process.argv[2] || path.join(ROOT, 'shots');
 fs.mkdirSync(OUT, { recursive: true });
-const URL = process.env.CHECK_URL || ('file:///' + ROOT.split(path.sep).join('/') + '/index.html');
+const BASE = process.env.CHECK_URL || ('file:///' + ROOT.split(path.sep).join('/') + '/');
+const WP = !!process.env.CHECK_URL;
+const PAGES = WP
+  ? [['home', ''], ['how', 'how-it-works/'], ['ind', 'industries/'], ['over', 'oversight/'], ['contact', 'contact/']]
+  : [['home', 'index.html'], ['how', 'how-it-works.html'], ['ind', 'industries.html'], ['over', 'oversight.html'], ['contact', 'contact.html']];
+const VIEWS = [
+  { name: 'desktop', viewport: { width: 1440, height: 900 } },
+  { name: 'laptop', viewport: { width: 1280, height: 720 } },
+  { name: 'tablet', viewport: { width: 820, height: 1180 } },
+  { name: 'mobile', viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 },
+];
 
-function lum(rgb) {
-  const [r, g, b] = rgb.map((v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); });
-  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
-}
+function lum(rgb) { const [r, g, b] = rgb.map((v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }); return 0.2126 * r + 0.7152 * g + 0.0722 * b; }
 function contrast(a, b) { const l1 = lum(a), l2 = lum(b); return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05); }
 
-async function audit(page, label) {
-  return page.evaluate((label) => {
+async function audit(page) {
+  return page.evaluate(() => {
     const parse = (s) => { const m = s.match(/[\d.]+/g); return m ? m.slice(0, 4).map(Number) : null; };
+    // effective background: nearest opaque colour, treating the known image/gradient panels as their base colour
     const bgOf = (el) => {
-      let e = el;
-      while (e) {
-        const cs = getComputedStyle(e);
-        if (e.classList && e.classList.contains('t2')) return [11, 111, 214];
-        const c = parse(cs.backgroundColor);
-        if (c && (c.length < 4 || c[3] > 0.9)) return c.slice(0, 3);
-        e = e.parentElement;
+      for (let e = el; e; e = e.parentElement) {
+        if (e.classList && (e.classList.contains('t2') || e.classList.contains('next-cta'))) return [26, 92, 176];
+        const c = parse(getComputedStyle(e).backgroundColor);
+        if (c && (c.length < 4 || c[3] > 0.6)) return c.slice(0, 3);
       }
-      return [255, 255, 255];
+      return [7, 11, 18];
     };
-    const out = { label };
-    out.scrollWidth = document.documentElement.scrollWidth;
-    out.clientWidth = document.documentElement.clientWidth;
-    out.h1 = document.querySelectorAll('h1').length;
-    out.headings = [...document.querySelectorAll('h1,h2,h3,h4,h5,h6')].map((h) => h.tagName + ' ' + h.textContent.trim().slice(0, 44));
-    out.emDashes = (document.body.innerText.match(/[—–]/g) || []).length;
-    out.hashLinks = [...document.querySelectorAll('a[href="#"]')].length;
-    out.fontsLoaded = document.fonts.check('700 40px "Geist"') && document.fonts.check('400 16px "Geist"');
-    out.nonGeist = [...document.querySelectorAll('body *')].filter((e) => !/Geist/.test(getComputedStyle(e).fontFamily)).map((e) => e.tagName + '.' + e.className).slice(0, 10);
-    out.badSpans = [...document.querySelectorAll('span')].filter((s) => {
-      const cs = getComputedStyle(s);
-      if (cs.display !== 'inline') return false;
-      return cs.aspectRatio !== 'auto' || cs.overflow === 'hidden' || (parseFloat(cs.marginTop) > 0) || (s.getAttribute('style') && /width|height/.test(s.getAttribute('style')));
-    }).map((s) => s.className || s.outerHTML.slice(0, 60));
-    const samples = [];
-    const sel = 'h1,h2,h3,.lede,.prose p,.tile p,.btn,.link,.nav a,.foot a,.foot p,.hero-note,.credit,.field label,.consent span,.form-actions .small,.legal span,.captions li,.captions .who,.chips li,.call-head .line-state,.status span,.card .scene,.card li,.card .foot,.card .when small,.quote,.sms .bubble,.sms .from,.notif .body,.notif .row span,.record dt,.record dd,.cal-head span,.cal-head span b,.cal-body .hr,.cal-event,.legend span,.week .lab,.top-lab span,.transcript .who,.transcript .said,.aside,.person .four li,.form-status,.transcript-details summary';
+    const o = {};
+    o.scrollWidth = document.documentElement.scrollWidth;
+    o.clientWidth = document.documentElement.clientWidth;
+    o.h1 = document.querySelectorAll('h1').length;
+    o.emDashes = (document.body.innerText.match(/[—–]/g) || []).length;
+    o.hashOnly = document.querySelectorAll('a[href="#"]').length;
+    o.fonts = document.fonts.check('700 40px "Geist"');
+    o.badSpans = [...document.querySelectorAll('span')].filter((s) => { const cs = getComputedStyle(s); return cs.display === 'inline' && (cs.aspectRatio !== 'auto' || cs.overflow === 'hidden' || parseFloat(cs.marginTop) > 0); }).length;
+    const sel = 'h1,h2,h3,p,li,a,button,label,dt,dd,summary,.who,.said,.when,.k,.t';
+    const fails = []; let min = 99;
     document.querySelectorAll(sel).forEach((el) => {
+      if (!el.textContent.trim() || el.closest('[hidden]') || el.closest('[aria-hidden="true"]')) return;
+      const r = el.getBoundingClientRect(); if (!r.width || !r.height) return;
       const cs = getComputedStyle(el);
+      if (parseFloat(cs.opacity) < 0.5) return;
       const fg = parse(cs.color); if (!fg) return;
-      if (el.closest('[hidden]')) return;
       const bg = bgOf(el);
-      samples.push({ sel: el.className || el.tagName, fg: fg.slice(0, 3), bg, size: parseFloat(cs.fontSize), weight: cs.fontWeight, text: el.textContent.trim().slice(0, 30) });
+      const L = (x) => { const [r2, g2, b2] = x.map((v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }); return 0.2126 * r2 + 0.7152 * g2 + 0.0722 * b2; };
+      const c = (Math.max(L(fg), L(bg)) + 0.05) / (Math.min(L(fg), L(bg)) + 0.05);
+      const size = parseFloat(cs.fontSize); const large = size >= 24 || (size >= 18.66 && parseInt(cs.fontWeight, 10) >= 700);
+      min = Math.min(min, c);
+      if (c < (large ? 3 : 4.5)) fails.push((el.className || el.tagName) + ' "' + el.textContent.trim().slice(0, 24) + '" ' + c.toFixed(2));
     });
-    out.samples = samples;
-    out.images = [...document.images].map((i) => ({ src: (i.currentSrc || i.src).split('/').slice(-1)[0], w: i.naturalWidth, h: i.naturalHeight, complete: i.complete }));
-    out.uppercaseLabels = [...document.querySelectorAll('*')].filter((e) => e.children.length === 0 && getComputedStyle(e).textTransform === 'uppercase' && e.textContent.trim()).map((e) => e.textContent.trim().slice(0, 40));
-    out.smallTargets = [...document.querySelectorAll('a,button,input,select,textarea,summary')].filter((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0 && (r.height < 40); }).map((e) => (e.textContent.trim() || e.id).slice(0, 30) + ' ' + Math.round(e.getBoundingClientRect().height));
-    const heroCta = document.querySelector('.hero-actions .btn');
-    out.heroCtaBottom = heroCta ? Math.round(heroCta.getBoundingClientRect().bottom + window.scrollY) : null;
-    const dev = document.querySelector('.device');
-    out.deviceTop = dev ? Math.round(dev.getBoundingClientRect().top + window.scrollY) : null;
-    const bento = document.querySelector('.bento');
-    if (bento) {
-      const tiles = [...bento.querySelectorAll('.tile')].map((t) => t.getBoundingClientRect());
-      const b = bento.getBoundingClientRect();
-      const area = tiles.reduce((s, r) => s + r.width * r.height, 0);
-      out.bentoFill = +(area / (b.width * b.height)).toFixed(2);
-    }
-    return out;
-  }, label);
+    o.contrastMin = +min.toFixed(2); o.contrastFails = fails.slice(0, 8);
+    o.images = [...document.images].map((i) => ({ src: (i.currentSrc || i.src).split('/').pop(), ok: i.complete && i.naturalWidth > 0 }));
+    o.links = [...document.querySelectorAll('a[href]')].map((a) => a.getAttribute('href')).filter((h) => !/^(https?:|mailto:|tel:|#)/.test(h));
+    o.smallTargets = [...document.querySelectorAll('a,button,input,select,textarea,summary')].filter((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0 && r.height < 40 && !e.closest('.hp'); }).map((e) => (e.textContent.trim() || e.id).slice(0, 24) + ' ' + Math.round(e.getBoundingClientRect().height));
+    o.gsap = !!window.gsap;
+    return o;
+  });
 }
 
-let a_actState = null;
 (async () => {
   const browser = await chromium.launch({ channel: 'chrome', headless: false });
-  const results = {};
-  const views = [
-    { name: 'desktop', viewport: { width: 1440, height: 900 } },
-    { name: 'laptop', viewport: { width: 1280, height: 720 } },
-    { name: 'tablet', viewport: { width: 820, height: 1180 } },
-    { name: 'mobile', viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 },
-  ];
-  for (const v of views) {
+  const report = {};
+  const broken = new Set();
+  for (const v of VIEWS) {
     const ctx = await browser.newContext({ viewport: v.viewport, isMobile: !!v.isMobile, hasTouch: !!v.hasTouch, deviceScaleFactor: v.deviceScaleFactor || 1 });
-    const page = await ctx.newPage();
-    const errors = [];
-    page.on('pageerror', (e) => errors.push(e.message));
-    page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
-    await page.goto(URL, { waitUntil: 'load' });
-    await page.evaluate(() => document.fonts.ready);
-    await page.waitForTimeout(900);
-    await page.screenshot({ path: path.join(OUT, `${v.name}-fold.png`) });
-    await page.waitForTimeout(6000);
-    const dev = await page.$('.device');
-    if (dev) await dev.screenshot({ path: path.join(OUT, `${v.name}-device.png`) });
-    // Scene captures on wide screens: the acts as they pin.
-    if (!v.isMobile) {
+    for (const [key, rel] of PAGES) {
+      const page = await ctx.newPage();
+      const errors = [];
+      page.on('pageerror', (e) => errors.push(e.message));
+      page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text().slice(0, 120)); });
+      page.on('requestfailed', (r) => { if (!/fonts\.g/.test(r.url())) errors.push('failed ' + r.url().split('/').slice(-2).join('/')); });
+      await page.goto(BASE + rel, { waitUntil: 'domcontentloaded', timeout: 60000 }); await page.waitForLoadState('load', { timeout: 20000 }).catch(() => errors.push('load event slow'));
+      await page.evaluate(() => document.fonts.ready);
+      await page.waitForTimeout(1200);
+      await page.screenshot({ path: path.join(OUT, `${v.name}-${key}-fold.png`) });
       const vh = v.viewport.height;
-      for (const n of [1, 2, 3, 4]) {
-        const top = await page.evaluate((k) => { const a = document.querySelector('.act[data-act="' + k + '"]'); return a ? a.getBoundingClientRect().top + window.scrollY : null; }, n);
-        if (top === null) continue;
-        await page.evaluate((y) => { document.documentElement.style.scrollBehavior = 'auto'; window.scrollTo(0, y); }, Math.round(top + vh * 0.15));
-        await page.waitForTimeout(2200);
-        await page.screenshot({ path: path.join(OUT, `${v.name}-act${n}.png`) });
+      if (key === 'home' && !v.isMobile) {
+        for (const n of [1, 2, 3, 4, 5]) {
+          const top = await page.evaluate((k) => { const a = document.querySelector('.act[data-act="' + k + '"]'); return a ? a.getBoundingClientRect().top + window.scrollY : null; }, n);
+          if (top === null) continue;
+          await page.evaluate((y) => { document.documentElement.style.scrollBehavior = 'auto'; window.scrollTo(0, y); }, Math.round(top + vh * 0.15));
+          await page.waitForTimeout(n === 5 ? 3200 : 2200);
+          await page.screenshot({ path: path.join(OUT, `${v.name}-home-act${n}.png`) });
+        }
       }
-      a_actState = await page.evaluate(() => ({ act: [...document.querySelectorAll('.act')].map((x) => x.className.replace(/wrap|act /g, '').trim()), state: document.querySelector('.device').getAttribute('data-state'), shifted: document.querySelector('.scene').classList.contains('is-shifted'), captions: document.querySelectorAll('.captions li').length, chips: document.querySelectorAll('.chips li').length }));
-    }
-    await page.evaluate(async () => {
-      document.documentElement.style.scrollBehavior = 'auto';
-      document.querySelectorAll('img').forEach((i) => { i.loading = 'eager'; });
-      const h = document.documentElement.scrollHeight;
-      for (let y = 0; y < h; y += 400) { window.scrollTo(0, y); await new Promise((r) => setTimeout(r, 90)); }
-      await new Promise((r) => setTimeout(r, 400));
-      window.scrollTo(0, 0);
-    });
-    await page.waitForTimeout(900);
-    const a = await audit(page, v.name);
-    a.errors = errors;
-    a.scrollHeight = await page.evaluate(() => document.documentElement.scrollHeight);
-    a.deviceState = await page.evaluate(() => document.querySelector('.device').getAttribute('data-state'));
-    if (a_actState) { a.sceneAtAct4 = a_actState; a_actState = null; }
-    a.demoPlaying = await page.evaluate(() => document.querySelectorAll('.captions li.is-in').length > 0 || document.querySelector('.device').getAttribute('data-state') === 'ring');
-    a.chipsShown = await page.evaluate(() => document.querySelectorAll('.chips li.is-in').length);
-    results[v.name] = a;
-    if (v.isMobile) {
-      const total = a.scrollHeight; const step = v.viewport.height; let n = 0;
-      for (let y = 0; y < total; y += step) {
-        await page.evaluate((yy) => window.scrollTo(0, yy), y);
-        await page.waitForTimeout(350);
-        await page.screenshot({ path: path.join(OUT, `${v.name}-page-${String(n).padStart(2, '0')}.png`) });
-        n++;
-      }
-      await page.evaluate(() => window.scrollTo(0, 0));
-    } else {
-      await page.screenshot({ path: path.join(OUT, `${v.name}-full.png`), fullPage: true });
-    }
-    if (v.name === 'desktop' || v.name === 'mobile') {
-      const ids = ['every-call', 'industries', 'person', 'contact'];
-      for (const id of ids) {
-        const el = await page.$('#' + id);
-        if (el) { await el.scrollIntoViewIfNeeded(); await page.waitForTimeout(700); await el.screenshot({ path: path.join(OUT, `${v.name}-${id}.png`) }); }
-      }
-      const chapter = await page.$('.chapter');
-      if (chapter) { await chapter.scrollIntoViewIfNeeded(); await page.waitForTimeout(900); await chapter.screenshot({ path: path.join(OUT, `${v.name}-chapter.png`) }); }
-      const hours = await page.$('.hours');
-      if (hours) { await hours.scrollIntoViewIfNeeded(); await page.waitForTimeout(900); await hours.screenshot({ path: path.join(OUT, `${v.name}-hours.png`) }); }
-      const foot = await page.$('.foot');
-      if (foot) { await foot.scrollIntoViewIfNeeded(); await page.waitForTimeout(300); await foot.screenshot({ path: path.join(OUT, `${v.name}-footer.png`) }); }
-    }
-    if (v.name === 'desktop') {
-      const before = await page.evaluate(() => document.querySelector('.gallery-track').scrollLeft);
-      await page.click('.gallery-nav .next');
-      await page.waitForTimeout(700);
-      a.galleryMoved = (await page.evaluate(() => document.querySelector('.gallery-track').scrollLeft)) > before;
-      const gal = await page.$('#industries');
-      if (gal) await gal.screenshot({ path: path.join(OUT, 'desktop-industries-scrolled.png') });
-      await page.click('.transcript-details summary');
-      await page.waitForTimeout(300);
-      a.transcriptOpen = await page.evaluate(() => document.querySelector('.transcript-details').open);
-      const det = await page.$('.transcript-details');
-      if (det) await det.screenshot({ path: path.join(OUT, 'desktop-transcript-open.png') });
-      await page.goto(URL, { waitUntil: 'load' });
-      await page.waitForTimeout(400);
-      await page.keyboard.press('Tab'); await page.keyboard.press('Tab'); await page.keyboard.press('Tab');
-      await page.waitForTimeout(200);
-      await page.screenshot({ path: path.join(OUT, 'desktop-focus.png'), clip: { x: 0, y: 0, width: 1440, height: 100 } });
-      a.focused = await page.evaluate(() => (document.activeElement.textContent || '').trim().slice(0, 30));
-      const rctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' });
-      const rp = await rctx.newPage();
-      await rp.goto(URL, { waitUntil: 'load' });
-      await rp.waitForTimeout(600);
-      a.reducedMotionStatic = await rp.evaluate(() => {
-        const d = document.querySelector('.device');
-        const li = document.querySelector('.captions li');
-        return d.getAttribute('data-state') === 'call' && getComputedStyle(d).opacity === '1' && !!li && getComputedStyle(li).opacity === '1' && document.querySelectorAll('.chips li').length === 9;
+      // walk the page so observers fire, then capture viewport by viewport
+      await page.evaluate(async () => {
+        document.documentElement.style.scrollBehavior = 'auto';
+        document.querySelectorAll('img').forEach((i) => { i.loading = 'eager'; });
+        const h = document.documentElement.scrollHeight;
+        for (let y = 0; y < h; y += 350) { window.scrollTo(0, y); await new Promise((r) => setTimeout(r, 80)); }
+        await new Promise((r) => setTimeout(r, 500));
       });
-      await rp.screenshot({ path: path.join(OUT, 'desktop-reduced-motion.png') });
-      await rctx.close();
-    }
-    if (v.name === 'mobile') {
-      await page.evaluate(() => window.scrollTo(0, 0));
-      await page.click('.menu-btn');
-      await page.waitForTimeout(300);
-      await page.screenshot({ path: path.join(OUT, 'mobile-menu.png') });
-      await page.click('.menu-btn');
-      await page.click('#contact-form button[type=submit]');
-      await page.waitForTimeout(300);
-      const el = await page.$('#contact-form');
-      await el.screenshot({ path: path.join(OUT, 'mobile-form-errors.png') });
-      a.invalidCount = await page.evaluate(() => document.querySelectorAll('.is-invalid').length);
+      await page.waitForTimeout(800);
+      const a = await audit(page);
+      a.errors = errors;
+      if (key === 'home') a.scene = await page.evaluate(() => { const s = document.querySelector('.scene'); const d = document.querySelector('.device'); return s && d ? { shifted: s.classList.contains('is-shifted'), state: d.getAttribute('data-state'), stamps: document.querySelectorAll('.stamps li.is-on').length, chips: document.querySelectorAll('.chips li').length } : null; });
+      if (v.name === 'desktop' || v.name === 'mobile') {
+        const total = await page.evaluate(() => document.documentElement.scrollHeight);
+        let n = 0;
+        for (let y = 0; y < total && n < 16; y += vh) {
+          await page.evaluate((yy) => window.scrollTo(0, yy), y);
+          await page.waitForTimeout(450);
+          await page.screenshot({ path: path.join(OUT, `${v.name}-${key}-${String(n).padStart(2, '0')}.png`) });
+          n++;
+        }
+      }
+      if (key === 'contact' && v.name === 'mobile') {
+        await page.evaluate(() => window.scrollTo(0, 0));
+        await page.click('#contact-form button[type=submit]');
+        await page.waitForTimeout(300);
+        a.invalidOnEmpty = await page.evaluate(() => document.querySelectorAll('.is-invalid').length);
+      }
+      if (key === 'ind' && v.name === 'desktop') {
+        const card = await page.$('.card');
+        const before = await page.evaluate(() => getComputedStyle(document.querySelector('.card .more')).gridTemplateRows);
+        await card.hover();
+        await page.waitForTimeout(700);
+        a.hoverReveal = before + ' -> ' + (await page.evaluate(() => getComputedStyle(document.querySelector('.card .more')).gridTemplateRows));
+        await page.screenshot({ path: path.join(OUT, 'desktop-ind-hover.png') });
+      }
+      if (key === 'home' && v.name === 'desktop') {
+        const rctx = await browser.newContext({ viewport: v.viewport, reducedMotion: 'reduce' });
+        const rp = await rctx.newPage();
+        await rp.goto(BASE + rel, { waitUntil: 'domcontentloaded', timeout: 60000 }); await rp.waitForLoadState('load', { timeout: 20000 }).catch(() => {});
+        await rp.waitForTimeout(700);
+        a.reducedMotion = await rp.evaluate(() => ({ state: document.querySelector('.device').getAttribute('data-state'), chips: document.querySelectorAll('.chips li').length, stamps: document.querySelectorAll('.stamps li.is-on').length, pinned: getComputedStyle(document.querySelector('.stage')).position }));
+        await rp.screenshot({ path: path.join(OUT, 'desktop-home-reduced.png'), fullPage: true });
+        await rctx.close();
+        await page.evaluate(() => window.scrollTo(0, 0));
+        await page.keyboard.press('Tab'); await page.keyboard.press('Tab'); await page.keyboard.press('Tab');
+        await page.waitForTimeout(200);
+        await page.screenshot({ path: path.join(OUT, 'desktop-focus.png'), clip: { x: 0, y: 0, width: 1440, height: 90 } });
+      }
+      for (const l of a.links) broken.add(l);
+      report[v.name + ':' + key] = a;
+      await page.close();
     }
     await ctx.close();
   }
-  for (const k of Object.keys(results)) {
-    const r = results[k];
-    r.contrastFails = r.samples.filter((s) => {
-      const c = contrast(s.fg, s.bg);
-      const large = s.size >= 24 || (s.size >= 18.66 && parseInt(s.weight, 10) >= 700);
-      return c < (large ? 3 : 4.5);
-    }).map((s) => ({ sel: s.sel, text: s.text, ratio: contrast(s.fg, s.bg).toFixed(2), size: s.size, fg: s.fg, bg: s.bg }));
-    r.contrastMin = Math.min(...r.samples.map((s) => contrast(s.fg, s.bg))).toFixed(2);
-    delete r.samples;
+  // link resolution for the static build
+  const missing = [];
+  if (!WP) for (const l of broken) { const f = path.join(ROOT, l.split('#')[0]); if (l.split('#')[0] && !fs.existsSync(f)) missing.push(l); }
+  fs.writeFileSync(path.join(OUT, 'audit.json'), JSON.stringify({ report, missingLinks: missing }, null, 2));
+  for (const [k, a] of Object.entries(report)) {
+    const imgs = a.images.filter((i) => !i.ok).map((i) => i.src);
+    console.log(`${k.padEnd(16)} w ${a.scrollWidth}/${a.clientWidth} h1 ${a.h1} dash ${a.emDashes} #${a.hashOnly} font ${a.fonts} gsap ${a.gsap} spans ${a.badSpans} cmin ${a.contrastMin} imgBad ${JSON.stringify(imgs)} err ${JSON.stringify(a.errors)}${a.scene ? ' scene ' + JSON.stringify(a.scene) : ''}${a.invalidOnEmpty !== undefined ? ' invalid ' + a.invalidOnEmpty : ''}${a.hoverReveal ? ' hover ' + a.hoverReveal : ''}${a.reducedMotion ? ' reduced ' + JSON.stringify(a.reducedMotion) : ''}`);
+    if (a.contrastFails.length) console.log('   contrast fails:', JSON.stringify(a.contrastFails));
+    if (a.smallTargets.length) console.log('   small targets:', JSON.stringify(a.smallTargets));
   }
-  fs.writeFileSync(path.join(OUT, 'audit.json'), JSON.stringify(results, null, 2));
-  for (const k of Object.keys(results)) {
-    const r = results[k];
-    console.log(`\n== ${k} == scrollW ${r.scrollWidth}/${r.clientWidth} h ${r.scrollHeight} | h1 ${r.h1} | emdash ${r.emDashes} | hash# ${r.hashLinks} | fonts ${r.fontsLoaded} nonGeist ${JSON.stringify(r.nonGeist)} | device ${r.deviceState} demo ${r.demoPlaying} chips ${r.chipsShown} | heroCtaBottom ${r.heroCtaBottom} deviceTop ${r.deviceTop} | bentoFill ${r.bentoFill}`);
-    console.log('   contrastMin', r.contrastMin, 'fails', JSON.stringify(r.contrastFails));
-    console.log('   badSpans', JSON.stringify(r.badSpans), '| uppercase', JSON.stringify(r.uppercaseLabels), '| smallTargets', JSON.stringify(r.smallTargets));
-    console.log('   images', JSON.stringify(r.images), '| errors', JSON.stringify(r.errors));
-    if (r.invalidCount !== undefined) console.log('   form invalid fields on empty submit:', r.invalidCount);
-    if (r.focused !== undefined) console.log('   focused after 3 tabs:', r.focused, '| reducedMotionStatic:', r.reducedMotionStatic, '| galleryMoved:', r.galleryMoved, '| transcriptOpen:', r.transcriptOpen);
-    if (r.sceneAtAct4) console.log('   scene at act 4:', JSON.stringify(r.sceneAtAct4));
-    console.log('   headings', r.headings.join(' / '));
-  }
+  console.log('missing links:', JSON.stringify(missing));
   await browser.close();
 })().catch((e) => { console.error('ERR', e); process.exit(1); });

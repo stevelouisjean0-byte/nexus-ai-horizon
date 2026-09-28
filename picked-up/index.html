@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Nexus AI Horizon | AI voice and SMS systems for New York service businesses</title>
-  <meta name="description" content="Nexus AI Horizon builds AI voice and SMS systems for service businesses in the New York metro. Calls answered, qualified and booked at any hour, with a person reviewing the early calls.">
+  <meta name="description" content="Nexus AI Horizon builds AI voice and SMS systems for service businesses in the New York metro. The phone rings. Your AI answers. 24/7.">
   <meta property="og:title" content="Nexus AI Horizon">
-  <meta property="og:description" content="AI voice and SMS systems for New York service businesses. Calls answered, qualified and booked at any hour.">
+  <meta property="og:description" content="AI voice and SMS systems for New York service businesses. The phone rings. Your AI answers. 24/7.">
   <meta property="og:type" content="website">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#070b12">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <script>document.documentElement.classList.add('js');</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,23 +16,23 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&display=swap">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="page-home">
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="top" id="top">
   <div class="wrap">
-    <a class="brand" href="#top" aria-label="Nexus AI Horizon, home">
+    <a class="brand" href="index.html" aria-label="Nexus AI Horizon, home">
       <img src="assets/logo.png" alt="" width="583" height="211" fetchpriority="high">
       <span translate="no">Nexus AI Horizon</span>
     </a>
     <nav class="nav" id="nav" aria-label="Site">
-      <a href="#every-call">How it works</a>
-      <a href="#industries">Industries</a>
-      <a href="#person">Oversight</a>
-      <a href="#contact">Contact</a>
-      <a class="btn btn-primary" href="#contact">Book a strategy call</a>
+      <a href="how-it-works.html">How it works</a>
+      <a href="industries.html">Industries</a>
+      <a href="oversight.html">Oversight</a>
+      <a href="contact.html">Contact</a>
+      <a class="btn btn-primary" href="contact.html">Book a strategy call</a>
     </nav>
-    <a class="btn btn-primary btn-sm" href="#contact">Book a strategy call</a>
+    <a class="btn btn-primary btn-sm" href="contact.html">Book a strategy call</a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
   </div>
 </header>
@@ -40,6 +40,11 @@
 <main id="main">
 
   <section class="hero scene" aria-labelledby="h-hero">
+    <div class="scene-bg" aria-hidden="true">
+      <img src="assets/hero-night.webp" alt="" width="1800" height="1200" fetchpriority="high">
+    </div>
+    <p class="scene-credit">Photograph by Allen Boguslavsky via <a href="https://www.pexels.com/photo/30315826/">Pexels</a>. Stock image.</p>
+
       <div class="stage">
         <div class="stage-inner">
           <div class="device" data-state="call" role="figure" aria-label="A phone showing the staged demonstration call as live captions">
@@ -59,6 +64,7 @@
                   <div class="line-name">Verrazano Pipe &amp; Heat</div>
                   <div class="line-state">After-hours line, <b>02:07</b></div>
                 </div>
+                <div class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
                 <ol class="captions" aria-live="polite" aria-label="Live captions">
                   <li class="caller is-in"><span class="who">Caller</span>Yes. Please.</li>
                   <li class="agent is-in"><span class="who">Agent</span>Booked. You&rsquo;ll get a text in a moment with the window and the technician&rsquo;s first name. Keep that valve closed, and put a bucket under the drip if you can. Anything else?</li>
@@ -88,14 +94,15 @@
       <div class="acts">
         <div class="act act-0 wrap" data-act="0">
           <p class="act-time">Tuesday, 2:14 a.m.</p>
-          <h1 id="h-hero"><span class="w">The</span> <span class="w">phone</span> <span class="w">rings.</span> <span class="w">It</span> <span class="w">gets</span> <span class="w">answered.</span></h1>
+          <h1 id="h-hero" class="caps"><span class="line">The phone rings.</span> <span class="line">Your AI answers.</span> <span class="line accent">24/7.</span></h1>
           <p class="lede">Nexus AI Horizon builds AI voice and SMS systems for New York service businesses: calls answered, qualified and booked, then written into the tools you already run.</p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#contact">Book a strategy call</a>
+            <a class="btn btn-primary" href="contact.html">Book a strategy call</a>
           </div>
           <p class="hero-note">Staged demonstration. The business, the caller and the number are fictional.</p>
         </div>
         <div class="act wrap" data-act="1">
+          <p class="act-time">2:14 a.m.</p>
           <p class="act-line">The office closed eight hours ago. The line rings anyway.</p>
         </div>
         <div class="act wrap" data-act="2">
@@ -107,6 +114,16 @@
         <div class="act wrap" data-act="4">
           <p class="act-line">Booked for 7:30. Confirmation texted. Written to your CRM.</p>
           <p class="act-more">Two minutes, start to finish.</p>
+        </div>
+        <div class="act wrap" data-act="5">
+          <p class="act-line">The call, on the record.</p>
+          <ol class="stamps" aria-label="What the call produced, in order">
+            <li>Urgent request</li>
+            <li>Technician notified</li>
+            <li>Appointment booked</li>
+            <li>Customer texted</li>
+            <li>CRM updated</li>
+          </ol>
         </div>
       </div>
   </section>
@@ -136,270 +153,15 @@
     </div>
   </section>
 
-  <section class="band grey" id="every-call" aria-labelledby="h-every">
+  <section class="band next-band seam" data-for="index" aria-labelledby="h-next-index">
     <div class="wrap">
-      <div class="band-head center reveal">
-        <h2 id="h-every">What happens on every call.</h2>
-        <p class="lede">The same things, whether it is nine in the morning or two at night. The vignettes below are drawn from the staged call above.</p>
+      <h2 id="h-next-index" class="caps reveal">See the rest of the call.</h2>
+      <div class="next-grid">
+        <a class="next-card reveal" href="how-it-works.html"><span class="k">How it works</span><span class="t">What happens on every call, and the 118 hours a week that voicemail covers now.</span></a>
+        <a class="next-card reveal" href="industries.html"><span class="k">Industries</span><span class="t">Four industries, four staged calls. Nothing else.</span></a>
+        <a class="next-card reveal" href="oversight.html"><span class="k">Oversight</span><span class="t">A person reviews the early calls before the system runs on its own.</span></a>
+        <a class="next-card next-cta reveal" href="contact.html"><span class="k">Book a strategy call</span><span class="t">Twenty minutes. No deck.</span></a>
       </div>
-
-      <div class="bento">
-        <article class="tile t1 reveal">
-          <h3>Booked into your calendar.</h3>
-          <p>Only into windows you have opened, with a confirmation the caller can keep.</p>
-          <div class="art cal" aria-hidden="true">
-            <div class="cal-head">
-              <span>Mon<b>21</b></span><span class="today">Tue<b>22</b></span><span>Wed<b>23</b></span><span>Thu<b>24</b></span><span>Fri<b>25</b></span><span>Sat<b>26</b></span><span>Sun<b>27</b></span>
-            </div>
-            <div class="cal-body">
-              <span class="hr">7 am</span><i class="cell busy"></i><i class="cell open"></i><i class="cell"></i><i class="cell busy"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i>
-              <span class="hr">8 am</span><i class="cell"></i><i class="cell open"></i><i class="cell"></i><i class="cell busy"></i><i class="cell busy"></i><i class="cell"></i><i class="cell"></i>
-              <span class="hr">9 am</span><i class="cell busy"></i><i class="cell"></i><i class="cell busy"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i>
-              <span class="hr">10 am</span><i class="cell"></i><i class="cell busy"></i><i class="cell"></i><i class="cell"></i><i class="cell busy"></i><i class="cell"></i><i class="cell"></i>
-              <span class="hr">11 am</span><i class="cell busy"></i><i class="cell"></i><i class="cell"></i><i class="cell busy"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i>
-              <span class="hr">12 pm</span><i class="cell"></i><i class="cell"></i><i class="cell busy"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i><i class="cell"></i>
-              <div class="cal-event">7:30 to 9:00<small>Ceiling leak, 88 Bay Ridge Ave</small></div>
-            </div>
-          </div>
-        </article>
-
-        <article class="tile t2 reveal">
-          <h3>Answered on the number you already publish.</h3>
-          <p>The line on your trucks and your listing keeps ringing there. Nothing is ported.</p>
-          <div class="art ring" aria-hidden="true">
-            <span></span><span></span><span></span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
-          </div>
-        </article>
-
-        <article class="tile t3 reveal">
-          <h3>It says it is automated, in the first sentence.</h3>
-          <div class="art quote">I&rsquo;m an automated assistant and I can get a technician moving. What&rsquo;s happening?</div>
-        </article>
-
-        <article class="tile t4 reveal">
-          <h3>Confirmation texted to the caller.</h3>
-          <div class="art sms" aria-hidden="true">
-            <span class="from">Verrazano Pipe &amp; Heat</span>
-            <div class="bubble">A technician is booked for today, 7:30 to 9:00 a.m. His name is Tomas. Reply STOP to opt out.</div>
-          </div>
-        </article>
-
-        <article class="tile t5 reveal">
-          <h3>Urgent calls go to the on-call phone.</h3>
-          <p>Urgency is judged by the rules you set, not by the caller&rsquo;s tone.</p>
-          <div class="art notif" aria-hidden="true">
-            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4m0 4h.01M10.3 3.9L2.5 17.5A2 2 0 0 0 4.2 20.5h15.6a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg></div>
-            <div>
-              <div class="row"><span>On-call</span><span>2:16 AM</span></div>
-              <div class="body"><b>88 Bay Ridge Ave, apt 3.</b> Water through kitchen ceiling. Shutoff closed. Caller Dana Okafor, (718) 555-0142.</div>
-            </div>
-          </div>
-        </article>
-
-        <article class="tile t6 reveal">
-          <h3>Written to your CRM.</h3>
-          <p>Not a spreadsheet on the side.</p>
-          <dl class="art record" aria-hidden="true">
-            <div><dt>Name</dt><dd>Dana Okafor</dd></div>
-            <div><dt>Phone</dt><dd>(718) 555-0142</dd></div>
-            <div><dt>Issue</dt><dd>Ceiling leak, urgent</dd></div>
-            <div><dt>Window</dt><dd>Tue 7:30 to 9:00 a.m.</dd></div>
-          </dl>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="chapter" aria-labelledby="h-chapter">
-    <div class="chapter-media" aria-hidden="true">
-      <img src="assets/street-poster.jpg" alt="" width="1600" height="1067" loading="lazy">
-    </div>
-    <div class="wrap">
-      <h2 class="statement" id="h-chapter"><span class="w">Calls</span> <span class="w">arrive</span> <span class="w">after</span> <span class="w">hours,</span> <span class="w">during</span> <span class="w">jobs,</span> <span class="w">and</span> <span class="w">in</span> <span class="w">bursts.</span> <span class="w">Voicemail</span> <span class="w">qualifies</span> <span class="w">nobody.</span></h2>
-      <p class="chapter-credit">Photograph by Darya Sannikova via Pexels. Bay Ridge, Brooklyn. Stock image, not a customer site.</p>
-    </div>
-  </section>
-
-  <section class="band gallery" id="industries" aria-labelledby="h-ind">
-    <div class="wrap">
-      <div class="band-head reveal">
-        <h2 id="h-ind">Four industries. Nothing else.</h2>
-        <p class="lede">The questions, the rules and the hand-offs are built separately for each, because a burst pipe and a 401(k) question are not the same call.</p>
-      </div>
-      <div class="gallery-nav">
-        <button class="prev" type="button" aria-label="Previous industry"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-        <button class="next" type="button" aria-label="Next industry"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-      </div>
-    </div>
-    <div class="gallery-track" tabindex="0" role="region" aria-label="Staged calls, one per industry. Use the arrow keys to move between them.">
-      <article class="card">
-        <div class="when">2:14 AM<small>Tuesday</small></div>
-        <h3>Emergency home services</h3>
-        <p class="scene-text">Water through a kitchen ceiling in Bay Ridge.</p>
-        <ul>
-          <li>Took the address and a callback number</li>
-          <li>Judged it urgent under the after-hours rule</li>
-          <li>Texted the on-call technician the details</li>
-          <li>Booked 7:30 to 9:00 a.m. and texted the caller</li>
-        </ul>
-        <p class="foot">Staged demonstration. Plumbing, HVAC, electrical, restoration.</p>
-      </article>
-      <article class="card">
-        <div class="when">6:40 PM<small>Thursday</small></div>
-        <h3>Property management</h3>
-        <p class="scene-text">No heat in 4C on Sackett Street. Radiator cold, thermostat at 70.</p>
-        <ul>
-          <li>Opened a work order with a reference number</li>
-          <li>Notified the super by text</li>
-          <li>Texted the tenant the reference number</li>
-          <li>Wrote it to the property system</li>
-        </ul>
-        <p class="foot">Staged demonstration. Tenant intake, maintenance, leasing.</p>
-      </article>
-      <article class="card">
-        <div class="when">9:20 PM<small>Sunday</small></div>
-        <h3>Moving and relocation</h3>
-        <p class="scene-text">Two-bedroom, Astoria walk-up to a Jersey City elevator building, October 4.</p>
-        <ul>
-          <li>Asked rooms, stairs and parking</li>
-          <li>Booked an estimate visit for Tuesday, 5:30 p.m.</li>
-          <li>Texted a confirmation</li>
-          <li>Added the lead to the CRM</li>
-        </ul>
-        <p class="foot">Staged demonstration. Quotes, estimates, booking.</p>
-      </article>
-      <article class="card">
-        <div class="when">12:05 PM<small>Wednesday</small></div>
-        <h3>Financial services</h3>
-        <p class="scene-text">A 401(k) left with a former employer.</p>
-        <ul>
-          <li>Intake only, no advice given</li>
-          <li>Asked the firm&rsquo;s own screening questions</li>
-          <li>Booked a licensed advisor for Thursday, 10:00 a.m.</li>
-          <li>Emailed and texted the confirmation</li>
-        </ul>
-        <p class="foot">Staged demonstration. Regulated intake; the agent gives no advice.</p>
-      </article>
-    </div>
-  </section>
-
-  <section class="band grey hours" aria-labelledby="h-hours">
-    <div class="wrap">
-      <div class="reveal">
-        <h2 id="h-hours">168 hours in a week. The office answers 50.</h2>
-        <p class="lede">A business that picks up 8 to 6, Monday to Friday, is reachable for 50 hours. For the other 118, callers get voicemail, and voicemail qualifies nobody.</p>
-        <div class="legend"><span><i class="on"></i>Office answers</span><span><i></i>Voicemail</span></div>
-      </div>
-      <div class="week reveal" role="img" aria-label="A grid of the 168 hours in a week. The 50 weekday hours from 8 a.m. to 6 p.m. are highlighted; the other 118 are not.">
-        <span class="lab" aria-hidden="true"></span><span class="top-lab" aria-hidden="true"><span>12 am</span><span>6 am</span><span>noon</span><span>6 pm</span><span>11 pm</span></span>
-        <span class="lab">Mon</span><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i>
-        <span class="lab">Tue</span><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i>
-        <span class="lab">Wed</span><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i>
-        <span class="lab">Thu</span><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i>
-        <span class="lab">Fri</span><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h on"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i>
-        <span class="lab">Sat</span><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i>
-        <span class="lab">Sun</span><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i>
-      </div>
-    </div>
-  </section>
-
-  <section class="band person" id="person" aria-labelledby="h-person">
-    <div class="wrap">
-      <div class="photo reveal">
-        <img src="assets/studio-street.jpg" alt="A New York street in daylight, with a small shop's sign and awning." width="900" height="1125" loading="lazy">
-      </div>
-      <div class="text reveal">
-        <h2 id="h-person">A person reviews the early calls.</h2>
-        <div class="prose">
-          <p>Before the system runs on its own, a person at Nexus AI Horizon reads the early calls: what was asked, what was booked, what should have been routed and was not. The rules get corrected on the transcript, not on a hunch.</p>
-          <p><strong>You can read every transcript and every rule yourself, and if you want it off, it goes off.</strong></p>
-          <p>Nexus AI Horizon is a small studio in Lower Manhattan. It builds for service businesses across the New York metro, in four industries, and declines work outside them.</p>
-        </div>
-        <ul class="four">
-          <li>Emergency home services</li>
-          <li>Property management</li>
-          <li>Moving and relocation</li>
-          <li>Financial services</li>
-        </ul>
-        <p class="credit">Photograph by Tatiana Castrillon via <a href="https://www.pexels.com/photo/12168007/">Pexels</a>. Stock image, not a customer or a client site.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="band grey contact" id="contact" aria-labelledby="h-contact">
-    <div class="wrap">
-      <div class="reveal">
-        <h2 id="h-contact">Book a strategy call.</h2>
-        <p class="lede">Twenty minutes. A walk-through of the system handling calls from your industry, and an honest answer on whether your business is one it can help. No deck.</p>
-        <p class="aside">What happens next: someone at Nexus AI Horizon reads your message and calls or emails to set a time. Nothing on this side of the form is automated.</p>
-      </div>
-
-      <form class="form-card reveal" id="contact-form" novalidate aria-label="Book a strategy call">
-        <div class="grid-2">
-          <div class="field">
-            <label for="first">First name</label>
-            <input id="first" name="first_name" type="text" autocomplete="given-name" required>
-            <span class="err" id="first-err">Enter your first name.</span>
-          </div>
-          <div class="field">
-            <label for="last">Last name</label>
-            <input id="last" name="last_name" type="text" autocomplete="family-name" required>
-            <span class="err" id="last-err">Enter your last name.</span>
-          </div>
-        </div>
-        <div class="field">
-          <label for="company">Company</label>
-          <input id="company" name="company" type="text" autocomplete="organization" required>
-          <span class="err" id="company-err">Enter the business name.</span>
-        </div>
-        <div class="field">
-          <label for="industry">Industry</label>
-          <select id="industry" name="industry" required>
-            <option value="">Choose one</option>
-            <option>Emergency home services (plumbing, HVAC, electrical, restoration)</option>
-            <option>Property management</option>
-            <option>Moving and relocation</option>
-            <option>Financial services</option>
-            <option>Something else</option>
-          </select>
-          <span class="err" id="industry-err">Choose the closest industry.</span>
-        </div>
-        <div class="grid-2">
-          <div class="field">
-            <label for="email">Work email</label>
-            <input id="email" name="email" type="email" autocomplete="email" inputmode="email" spellcheck="false" required>
-            <span class="err" id="email-err">Enter an email address, like name@company.com.</span>
-          </div>
-          <div class="field">
-            <label for="phone">Mobile</label>
-            <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required>
-            <span class="err" id="phone-err">Enter a phone number with area code.</span>
-          </div>
-        </div>
-        <div class="field">
-          <label for="when">Best time to call</label>
-          <select id="when" name="best_time">
-            <option>Morning</option>
-            <option>Afternoon</option>
-            <option>Evening</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="message">What are you trying to fix?</label>
-          <textarea id="message" name="message" rows="3" required></textarea>
-          <span class="err" id="message-err">Tell us in a sentence or two what is going wrong with your calls.</span>
-        </div>
-        <label class="consent">
-          <input type="checkbox" id="consent" name="consent" required>
-          <span>Nexus AI Horizon may call or text me about this request. Message and data rates may apply. See the <a href="/privacy-policy/">privacy policy</a>.</span>
-        </label>
-        <div class="form-actions">
-          <button class="btn btn-primary" type="submit">Book a strategy call</button>
-          <span class="small">Twenty minutes. No deck.</span>
-        </div>
-        <p class="form-status" role="status" aria-live="polite" hidden></p>
-      </form>
     </div>
   </section>
 
@@ -408,19 +170,22 @@
 <footer class="foot">
   <div class="wrap">
     <div>
-      <img class="lockup" src="assets/logo-lockup.png" alt="Nexus AI Horizon" width="585" height="383" loading="lazy">
+      <a class="brand" href="index.html" aria-label="Nexus AI Horizon, home">
+        <img src="assets/logo.png" alt="" width="583" height="211" loading="lazy">
+        <span translate="no">Nexus AI Horizon</span>
+      </a>
       <p>An AI automation studio in Lower Manhattan. Voice and SMS systems for service businesses across the New York metro, in four industries.</p>
     </div>
     <ul>
-      <li><a href="#every-call">How it works</a></li>
-      <li><a href="#industries">Industries</a></li>
-      <li><a href="#person">Oversight</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="how-it-works.html">How it works</a></li>
+      <li><a href="industries.html">Industries</a></li>
+      <li><a href="oversight.html">Oversight</a></li>
+      <li><a href="contact.html">Contact</a></li>
     </ul>
     <ul>
-      <li><a href="/privacy-policy/">Privacy policy</a></li>
-      <li><a href="/sms-terms/">SMS terms</a></li>
-      <li><a href="/terms/">Terms of service</a></li>
+      <li><a href="legal/privacy-policy.html">Privacy policy</a></li>
+      <li><a href="legal/sms-terms.html">SMS terms</a></li>
+      <li><a href="legal/terms.html">Terms of service</a></li>
     </ul>
     <div class="legal">
       <span>&copy; 2026 Nexus AI Horizon, New York, NY.</span>
@@ -429,6 +194,8 @@
   </div>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script src="script.js" defer></script>
 </body>
 </html>

@@ -1,19 +1,45 @@
-<?php
-/**
- * Title: Industries: four staged calls
- * Slug: nexus/industries
- * Categories: nexus
- *
- * Generated from picked-up/sections.html by wp-theme/build-theme.cjs. Edit the
- * static build and rerun the script rather than editing this file by hand.
- *
- * @package nexus-ai-horizon
- */
-if ( ! defined( 'ABSPATH' ) ) { exit; }
-$uri = get_template_directory_uri();
-?>
-<!-- wp:html -->
-<section class="band gallery seam" id="industries" aria-labelledby="h-ind">
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Industries | Nexus AI Horizon</title>
+  <meta name="description" content="Four industries and nothing else: emergency home services, property management, moving and relocation, financial services.">
+  <meta property="og:title" content="Nexus AI Horizon">
+  <meta property="og:description" content="AI voice and SMS systems for New York service businesses. The phone rings. Your AI answers. 24/7.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#070b12">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <script>document.documentElement.classList.add('js');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="page-ind page-sub">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Nexus AI Horizon, home">
+      <img src="assets/logo.png" alt="" width="583" height="211" fetchpriority="high">
+      <span translate="no">Nexus AI Horizon</span>
+    </a>
+    <nav class="nav" id="nav" aria-label="Site">
+      <a href="how-it-works.html">How it works</a>
+      <a href="industries.html" aria-current="page">Industries</a>
+      <a href="oversight.html">Oversight</a>
+      <a href="contact.html">Contact</a>
+      <a class="btn btn-primary" href="contact.html">Book a strategy call</a>
+    </nav>
+    <a class="btn btn-primary btn-sm" href="contact.html">Book a strategy call</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="band gallery seam" id="industries" aria-labelledby="h-ind">
     <div class="wrap">
       <div class="band-head reveal">
         <h1 id="h-ind">Four industries. Nothing else.</h1>
@@ -26,7 +52,7 @@ $uri = get_template_directory_uri();
     </div>
     <div class="gallery-track" tabindex="0" role="region" aria-label="Staged calls, one per industry. Use the arrow keys to move between them.">
       <article class="card">
-        <div class="photo"><img src="<?php echo esc_url( $uri ); ?>/assets/img/ind-emergency.webp" alt="" width="1200" height="750" loading="lazy"></div>
+        <div class="photo"><img src="assets/ind-emergency.webp" alt="" width="1200" height="750" loading="lazy"></div>
         <div class="body">
           <div class="when">2:14 AM<small>Tuesday</small></div>
           <h3>Emergency home services</h3>
@@ -44,7 +70,7 @@ $uri = get_template_directory_uri();
         </div>
       </article>
       <article class="card">
-        <div class="photo"><img src="<?php echo esc_url( $uri ); ?>/assets/img/ind-property.webp" alt="" width="1200" height="750" loading="lazy"></div>
+        <div class="photo"><img src="assets/ind-property.webp" alt="" width="1200" height="750" loading="lazy"></div>
         <div class="body">
           <div class="when">6:40 PM<small>Thursday</small></div>
           <h3>Property management</h3>
@@ -62,7 +88,7 @@ $uri = get_template_directory_uri();
         </div>
       </article>
       <article class="card">
-        <div class="photo"><img src="<?php echo esc_url( $uri ); ?>/assets/img/ind-moving.webp" alt="" width="1200" height="750" loading="lazy"></div>
+        <div class="photo"><img src="assets/ind-moving.webp" alt="" width="1200" height="750" loading="lazy"></div>
         <div class="body">
           <div class="when">9:20 PM<small>Sunday</small></div>
           <h3>Moving and relocation</h3>
@@ -80,7 +106,7 @@ $uri = get_template_directory_uri();
         </div>
       </article>
       <article class="card">
-        <div class="photo"><img src="<?php echo esc_url( $uri ); ?>/assets/img/ind-financial.webp" alt="" width="1200" height="750" loading="lazy"></div>
+        <div class="photo"><img src="assets/ind-financial.webp" alt="" width="1200" height="750" loading="lazy"></div>
         <div class="body">
           <div class="when">12:05 PM<small>Wednesday</small></div>
           <h3>Financial services</h3>
@@ -102,4 +128,44 @@ $uri = get_template_directory_uri();
       <p class="gallery-credit small muted" id="gallery-credit">Photographs via Pexels. Stock images, not customers.</p>
     </div>
   </section>
-<!-- /wp:html -->
+
+  <section class="band next-band next-up seam" data-for="industries" aria-label="Next page">
+    <div class="wrap">
+      <a class="next-card reveal" href="oversight.html"><span class="k">Next</span><span class="t">A person reviews the early calls.</span></a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div>
+      <a class="brand" href="index.html" aria-label="Nexus AI Horizon, home">
+        <img src="assets/logo.png" alt="" width="583" height="211" loading="lazy">
+        <span translate="no">Nexus AI Horizon</span>
+      </a>
+      <p>An AI automation studio in Lower Manhattan. Voice and SMS systems for service businesses across the New York metro, in four industries.</p>
+    </div>
+    <ul>
+      <li><a href="how-it-works.html">How it works</a></li>
+      <li><a href="industries.html">Industries</a></li>
+      <li><a href="oversight.html">Oversight</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <ul>
+      <li><a href="legal/privacy-policy.html">Privacy policy</a></li>
+      <li><a href="legal/sms-terms.html">SMS terms</a></li>
+      <li><a href="legal/terms.html">Terms of service</a></li>
+    </ul>
+    <div class="legal">
+      <span>&copy; 2026 Nexus AI Horizon, New York, NY.</span>
+      <span>Every call, business and caller shown on this page is a staged demonstration.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script src="script.js" defer></script>
+</body>
+</html>

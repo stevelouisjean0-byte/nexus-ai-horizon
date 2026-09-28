@@ -6,7 +6,7 @@
  * Block Types: core/template-part/footer
  * Inserter: no
  *
- * Generated from picked-up/index.html by wp-theme/build-theme.cjs. Edit the
+ * Generated from picked-up/sections.html by wp-theme/build-theme.cjs. Edit the
  * static build and rerun the script rather than editing this file by hand.
  *
  * @package nexus-ai-horizon
@@ -18,14 +18,17 @@ $uri = get_template_directory_uri();
 <div class="foot">
   <div class="wrap">
     <div>
-      <img class="lockup" src="<?php echo esc_url( $uri ); ?>/assets/img/logo-lockup.png" alt="Nexus AI Horizon" width="585" height="383" loading="lazy">
+      <a class="brand" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="Nexus AI Horizon, top of page">
+        <img src="<?php echo esc_url( $uri ); ?>/assets/img/logo.png" alt="" width="583" height="211" loading="lazy">
+        <span translate="no">Nexus AI Horizon</span>
+      </a>
       <p>An AI automation studio in Lower Manhattan. Voice and SMS systems for service businesses across the New York metro, in four industries.</p>
     </div>
     <ul>
-      <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>#every-call">How it works</a></li>
-      <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>#industries">Industries</a></li>
-      <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>#person">Oversight</a></li>
-      <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>#contact">Contact</a></li>
+      <li><a href="<?php echo esc_url( home_url( '/how-it-works/' ) ); ?>">How it works</a></li>
+      <li><a href="<?php echo esc_url( home_url( '/industries/' ) ); ?>">Industries</a></li>
+      <li><a href="<?php echo esc_url( home_url( '/oversight/' ) ); ?>">Oversight</a></li>
+      <li><a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Contact</a></li>
     </ul>
     <ul>
       <li><a href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>">Privacy policy</a></li>

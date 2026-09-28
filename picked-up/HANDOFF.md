@@ -1,4 +1,37 @@
-# Handoff: the "Picked up" homepage
+# Handoff: the "Picked up" site
+
+## Current state (27 September 2026, evening): dark, cinematic, five pages
+
+This file's later sections describe the light build and remain accurate for
+the components, the copy sources and the absences. What changed since:
+
+- **Five pages, one source.** `sections.html` holds every section; `node pages.cjs` writes `index.html` (the call scene and transcript), `how-it-works.html` (the six vignettes, the chapter band, the 168-hour grid), `industries.html` (the four cards), `oversight.html` and `contact.html`. Each page has its own `h1`, the navigation marks the current page, and each page ends with a link to the next. Edit `sections.html`, then rerun `pages.cjs`; never edit the five pages by hand. The WordPress theme is generated from the same source with a template per page.
+- **Dark and immersive.** Near-black navy ground (`#070b12`), the brand blue (`#1f6fd0`) and teal (`#35c3f5`) used as light: glows behind the phone, illuminated section seams, lit borders on the industry cards. New York night photography behind the hero, the chapter band and the contact scene, each under a dark overlay so text stays at AA contrast.
+- **The call, from start to finish.** The hero reads THE PHONE RINGS. YOUR AI ANSWERS. 24/7., line by line. The pinned phone rings, answers (with a voice waveform while the call runs), and plays the transcript act by act; a new act 5 stamps the outcome as you scroll: urgent request, technician notified, appointment booked, customer texted, CRM updated.
+- **Industries.** Dark cards with a photograph each, a thin lit border, and a lift on hover that reveals what the agent did; on touch screens the detail is always shown.
+- **Trust strip.** 24/7 call coverage, appointment booking, urgent call routing, SMS follow-up, CRM integration, human review of early calls. No statistics and no testimonials. "Missed call text-back" and "live call transfer" from the brief are left out because neither is confirmed in `PRODUCT.md` as something the system does.
+- **Counters.** The 168 and 50 in the hours heading count up; they are arithmetic, not performance data.
+- **GSAP and ScrollTrigger** (from cdnjs) drive the counters and the staggered entrances. The page is fully readable if the CDN is blocked. Lenis, Lottie and Three.js were considered and not used: native smooth scrolling, CSS keyframes for the waveform and ringing, and no 3D element that would improve the story.
+- **Images** are WebP, below-the-fold images lazy-load, and the hero image is the only eager one.
+- **Contact** is the final scene: "What happens when your phone rings at 2:14 a.m.?" over a night street, with a glass form card.
+
+### New photographs
+
+| File | Source | Author |
+|---|---|---|
+| `hero-night.webp` | Pexels 30315826, "Moody Night Street Scene with Neon Sign" | Allen Boguslavsky |
+| `chapter-night.webp` | Pexels 30213798, "Night View of Chinatown Street in New York City" | Allen Boguslavsky |
+| `contact-night.webp` | Pexels 38103510, "Nocturnal Cityscape of Canal Street, NYC" | Yura Forrat |
+| `ind-emergency.webp` | Pexels 7859953, "Plumber Repairing Power Source" | Heiko Ruth |
+| `ind-property.webp` | Pexels 30211053, "Red Brick Building with Fire Escapes in NYC" | Jimme Deknatel |
+| `ind-moving.webp` | Pexels 4553261, "Brown Cardboard Box on White Wooden Door" | cottonbro studio |
+| `ind-financial.webp` | Pexels 7063739, "Documents placed on wooden table" | Dziana Hasanbekava |
+
+All under the Pexels licence, downloaded 27 September 2026, converted to WebP, and labelled on the page as stock. A moving-truck photo was rejected because it carried a real moving company's branding.
+
+---
+
+# The light build (earlier the same day)
 
 Built 27 September 2026 for nxaihorizon.com, after the brief changed from
 "dark with a cyan accent" to "premium, light, Apple-like, well-built

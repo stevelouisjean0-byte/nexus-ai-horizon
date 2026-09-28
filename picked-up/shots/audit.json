@@ -1,342 +1,1049 @@
 {
-  "desktop": {
-    "label": "desktop",
-    "scrollWidth": 1425,
-    "clientWidth": 1425,
-    "h1": 1,
-    "headings": [
-      "H1 The phone rings. It gets answered.",
-      "H2 What happens on every call.",
-      "H3 Booked into your calendar.",
-      "H3 Answered on the number you already publish.",
-      "H3 It says it is automated, in the first senten",
-      "H3 Confirmation texted to the caller.",
-      "H3 Urgent calls go to the on-call phone.",
-      "H3 Written to your CRM.",
-      "H2 Calls arrive after hours, during jobs, and i",
-      "H2 Four industries. Nothing else.",
-      "H3 Emergency home services",
-      "H3 Property management",
-      "H3 Moving and relocation",
-      "H3 Financial services",
-      "H2 168 hours in a week. The office answers 50.",
-      "H2 A person reviews the early calls.",
-      "H2 Book a strategy call."
-    ],
-    "emDashes": 0,
-    "hashLinks": 0,
-    "fontsLoaded": true,
-    "nonGeist": [
-      "INPUT."
-    ],
-    "badSpans": [],
-    "images": [
-      {
-        "src": "logo.png",
-        "w": 583,
-        "h": 211,
-        "complete": true
-      },
-      {
-        "src": "street-poster.jpg",
-        "w": 1600,
-        "h": 1067,
-        "complete": true
-      },
-      {
-        "src": "studio-street.jpg",
-        "w": 1200,
-        "h": 1800,
-        "complete": true
-      },
-      {
-        "src": "logo-lockup.png",
-        "w": 585,
-        "h": 383,
-        "complete": true
-      }
-    ],
-    "uppercaseLabels": [],
-    "smallTargets": [
-      "Pexels 38",
-      "consent 18",
-      "privacy policy 36"
-    ],
-    "heroCtaBottom": 563,
-    "deviceTop": 423,
-    "bentoFill": 0.96,
-    "errors": [],
-    "scrollHeight": 11229,
-    "deviceState": "ring",
-    "sceneAtAct4": {
-      "act": [
-        "act-0",
-        "is-past",
-        "is-past",
-        "is-past",
-        "is-active"
+  "report": {
+    "desktop:home": {
+      "scrollWidth": 1425,
+      "clientWidth": 1425,
+      "h1": 1,
+      "emDashes": 0,
+      "hashOnly": 0,
+      "fonts": true,
+      "badSpans": 0,
+      "contrastMin": 4.95,
+      "contrastFails": [],
+      "images": [
+        {
+          "src": "logo.png",
+          "ok": true
+        },
+        {
+          "src": "hero-night.webp",
+          "ok": true
+        },
+        {
+          "src": "logo.png",
+          "ok": true
+        }
       ],
-      "state": "call",
-      "shifted": true,
-      "captions": 4,
-      "chips": 7
-    },
-    "demoPlaying": true,
-    "chipsShown": 0,
-    "galleryMoved": true,
-    "transcriptOpen": true,
-    "focused": "How it works",
-    "reducedMotionStatic": true,
-    "contrastFails": [],
-    "contrastMin": "4.53"
-  },
-  "laptop": {
-    "label": "laptop",
-    "scrollWidth": 1265,
-    "clientWidth": 1265,
-    "h1": 1,
-    "headings": [
-      "H1 The phone rings. It gets answered.",
-      "H2 What happens on every call.",
-      "H3 Booked into your calendar.",
-      "H3 Answered on the number you already publish.",
-      "H3 It says it is automated, in the first senten",
-      "H3 Confirmation texted to the caller.",
-      "H3 Urgent calls go to the on-call phone.",
-      "H3 Written to your CRM.",
-      "H2 Calls arrive after hours, during jobs, and i",
-      "H2 Four industries. Nothing else.",
-      "H3 Emergency home services",
-      "H3 Property management",
-      "H3 Moving and relocation",
-      "H3 Financial services",
-      "H2 168 hours in a week. The office answers 50.",
-      "H2 A person reviews the early calls.",
-      "H2 Book a strategy call."
-    ],
-    "emDashes": 0,
-    "hashLinks": 0,
-    "fontsLoaded": true,
-    "nonGeist": [
-      "INPUT."
-    ],
-    "badSpans": [],
-    "images": [
-      {
-        "src": "logo.png",
-        "w": 583,
-        "h": 211,
-        "complete": true
-      },
-      {
-        "src": "street-poster.jpg",
-        "w": 1600,
-        "h": 1067,
-        "complete": true
-      },
-      {
-        "src": "studio-street.jpg",
-        "w": 1200,
-        "h": 1800,
-        "complete": true
-      },
-      {
-        "src": "logo-lockup.png",
-        "w": 585,
-        "h": 383,
-        "complete": true
-      }
-    ],
-    "uppercaseLabels": [],
-    "smallTargets": [
-      "Pexels 38",
-      "consent 18",
-      "privacy policy 36"
-    ],
-    "heroCtaBottom": 554,
-    "deviceTop": 413,
-    "bentoFill": 0.96,
-    "errors": [],
-    "scrollHeight": 10032,
-    "deviceState": "ring",
-    "sceneAtAct4": {
-      "act": [
-        "act-0",
-        "is-past",
-        "is-past",
-        "is-past",
-        "is-active"
+      "links": [
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "contact.html",
+        "contact.html",
+        "contact.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "legal/privacy-policy.html",
+        "legal/sms-terms.html",
+        "legal/terms.html"
       ],
-      "state": "call",
-      "shifted": true,
-      "captions": 4,
-      "chips": 7
-    },
-    "demoPlaying": true,
-    "chipsShown": 0,
-    "contrastFails": [],
-    "contrastMin": "4.53"
-  },
-  "tablet": {
-    "label": "tablet",
-    "scrollWidth": 805,
-    "clientWidth": 805,
-    "h1": 1,
-    "headings": [
-      "H1 The phone rings. It gets answered.",
-      "H2 What happens on every call.",
-      "H3 Booked into your calendar.",
-      "H3 Answered on the number you already publish.",
-      "H3 It says it is automated, in the first senten",
-      "H3 Confirmation texted to the caller.",
-      "H3 Urgent calls go to the on-call phone.",
-      "H3 Written to your CRM.",
-      "H2 Calls arrive after hours, during jobs, and i",
-      "H2 Four industries. Nothing else.",
-      "H3 Emergency home services",
-      "H3 Property management",
-      "H3 Moving and relocation",
-      "H3 Financial services",
-      "H2 168 hours in a week. The office answers 50.",
-      "H2 A person reviews the early calls.",
-      "H2 Book a strategy call."
-    ],
-    "emDashes": 0,
-    "hashLinks": 0,
-    "fontsLoaded": true,
-    "nonGeist": [
-      "INPUT."
-    ],
-    "badSpans": [],
-    "images": [
-      {
-        "src": "logo.png",
-        "w": 583,
-        "h": 211,
-        "complete": true
-      },
-      {
-        "src": "street-poster.jpg",
-        "w": 1600,
-        "h": 1067,
-        "complete": true
-      },
-      {
-        "src": "studio-street.jpg",
-        "w": 1200,
-        "h": 1800,
-        "complete": true
-      },
-      {
-        "src": "logo-lockup.png",
-        "w": 585,
-        "h": 383,
-        "complete": true
-      }
-    ],
-    "uppercaseLabels": [],
-    "smallTargets": [
-      "Pexels 38",
-      "consent 18",
-      "privacy policy 36"
-    ],
-    "heroCtaBottom": 460,
-    "deviceTop": 515,
-    "bentoFill": 0.96,
-    "errors": [],
-    "scrollHeight": 8569,
-    "deviceState": "call",
-    "sceneAtAct4": {
-      "act": [
-        "act-0",
-        "",
-        "",
-        "",
-        ""
+      "smallTargets": [
+        "Pexels 34"
       ],
-      "state": "call",
-      "shifted": false,
-      "captions": 4,
-      "chips": 2
-    },
-    "demoPlaying": true,
-    "chipsShown": 3,
-    "contrastFails": [],
-    "contrastMin": "4.53"
-  },
-  "mobile": {
-    "label": "mobile",
-    "scrollWidth": 390,
-    "clientWidth": 390,
-    "h1": 1,
-    "headings": [
-      "H1 The phone rings. It gets answered.",
-      "H2 What happens on every call.",
-      "H3 Booked into your calendar.",
-      "H3 Answered on the number you already publish.",
-      "H3 It says it is automated, in the first senten",
-      "H3 Confirmation texted to the caller.",
-      "H3 Urgent calls go to the on-call phone.",
-      "H3 Written to your CRM.",
-      "H2 Calls arrive after hours, during jobs, and i",
-      "H2 Four industries. Nothing else.",
-      "H3 Emergency home services",
-      "H3 Property management",
-      "H3 Moving and relocation",
-      "H3 Financial services",
-      "H2 168 hours in a week. The office answers 50.",
-      "H2 A person reviews the early calls.",
-      "H2 Book a strategy call."
-    ],
-    "emDashes": 0,
-    "hashLinks": 0,
-    "fontsLoaded": true,
-    "nonGeist": [
-      "INPUT."
-    ],
-    "badSpans": [],
-    "images": [
-      {
-        "src": "logo.png",
-        "w": 583,
-        "h": 211,
-        "complete": true
+      "gsap": true,
+      "errors": [],
+      "scene": {
+        "shifted": true,
+        "state": "call",
+        "stamps": 4,
+        "chips": 9
       },
-      {
-        "src": "street-poster.jpg",
-        "w": 1600,
-        "h": 1067,
-        "complete": true
-      },
-      {
-        "src": "studio-street.jpg",
-        "w": 1200,
-        "h": 1800,
-        "complete": true
-      },
-      {
-        "src": "logo-lockup.png",
-        "w": 585,
-        "h": 383,
-        "complete": true
+      "reducedMotion": {
+        "state": "call",
+        "chips": 9,
+        "stamps": 5,
+        "pinned": "relative"
       }
-    ],
-    "uppercaseLabels": [],
-    "smallTargets": [
-      "Pexels 38",
-      "consent 18",
-      "privacy policy 36"
-    ],
-    "heroCtaBottom": 486,
-    "deviceTop": 561,
-    "bentoFill": 0.96,
-    "errors": [],
-    "scrollHeight": 9637,
-    "deviceState": "call",
-    "demoPlaying": true,
-    "chipsShown": 2,
-    "invalidCount": 8,
-    "contrastFails": [],
-    "contrastMin": "4.53"
-  }
+    },
+    "desktop:how": {
+      "scrollWidth": 1425,
+      "clientWidth": 1425,
+      "h1": 1,
+      "emDashes": 0,
+      "hashOnly": 0,
+      "fonts": true,
+      "badSpans": 0,
+      "contrastMin": 6.13,
+      "contrastFails": [],
+      "images": [
+        {
+          "src": "logo.png",
+          "ok": true
+        },
+        {
+          "src": "chapter-night.webp",
+          "ok": true
+        },
+        {
+          "src": "logo.png",
+          "ok": true
+        }
+      ],
+      "links": [
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "contact.html",
+        "contact.html",
+        "industries.html",
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "legal/privacy-policy.html",
+        "legal/sms-terms.html",
+        "legal/terms.html"
+      ],
+      "smallTargets": [],
+      "gsap": true,
+      "errors": []
+    },
+    "desktop:ind": {
+      "scrollWidth": 1425,
+      "clientWidth": 1425,
+      "h1": 1,
+      "emDashes": 0,
+      "hashOnly": 0,
+      "fonts": true,
+      "badSpans": 0,
+      "contrastMin": 6.13,
+      "contrastFails": [],
+      "images": [
+        {
+          "src": "logo.png",
+          "ok": true
+        },
+        {
+          "src": "ind-emergency.webp",
+          "ok": true
+        },
+        {
+          "src": "ind-property.webp",
+          "ok": true
+        },
+        {
+          "src": "ind-moving.webp",
+          "ok": true
+        },
+        {
+          "src": "ind-financial.webp",
+          "ok": true
+        },
+        {
+          "src": "logo.png",
+          "ok": true
+        }
+      ],
+      "links": [
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "contact.html",
+        "contact.html",
+        "oversight.html",
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "legal/privacy-policy.html",
+        "legal/sms-terms.html",
+        "legal/terms.html"
+      ],
+      "smallTargets": [],
+      "gsap": true,
+      "errors": [],
+      "hoverReveal": "0px -> 126px"
+    },
+    "desktop:over": {
+      "scrollWidth": 1425,
+      "clientWidth": 1425,
+      "h1": 1,
+      "emDashes": 0,
+      "hashOnly": 0,
+      "fonts": true,
+      "badSpans": 0,
+      "contrastMin": 5.83,
+      "contrastFails": [],
+      "images": [
+        {
+          "src": "logo.png",
+          "ok": true
+        },
+        {
+          "src": "studio-street.jpg",
+          "ok": true
+        },
+        {
+          "src": "logo.png",
+          "ok": true
+        }
+      ],
+      "links": [
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "contact.html",
+        "contact.html",
+        "contact.html",
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "legal/privacy-policy.html",
+        "legal/sms-terms.html",
+        "legal/terms.html"
+      ],
+      "smallTargets": [
+        "Pexels 38"
+      ],
+      "gsap": true,
+      "errors": []
+    },
+    "desktop:contact": {
+      "scrollWidth": 1425,
+      "clientWidth": 1425,
+      "h1": 1,
+      "emDashes": 0,
+      "hashOnly": 0,
+      "fonts": true,
+      "badSpans": 0,
+      "contrastMin": 8.45,
+      "contrastFails": [],
+      "images": [
+        {
+          "src": "logo.png",
+          "ok": true
+        },
+        {
+          "src": "contact-night.webp",
+          "ok": true
+        },
+        {
+          "src": "logo.png",
+          "ok": true
+        }
+      ],
+      "links": [
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "contact.html",
+        "contact.html",
+        "legal/privacy-policy.html",
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "legal/privacy-policy.html",
+        "legal/sms-terms.html",
+        "legal/terms.html"
+      ],
+      "smallTargets": [
+        "consent 18",
+        "privacy policy 36"
+      ],
+      "gsap": true,
+      "errors": []
+    },
+    "laptop:home": {
+      "scrollWidth": 1265,
+      "clientWidth": 1265,
+      "h1": 1,
+      "emDashes": 0,
+      "hashOnly": 0,
+      "fonts": true,
+      "badSpans": 0,
+      "contrastMin": 4.95,
+      "contrastFails": [],
+      "images": [
+        {
+          "src": "logo.png",
+          "ok": true
+        },
+        {
+          "src": "hero-night.webp",
+          "ok": true
+        },
+        {
+          "src": "logo.png",
+          "ok": true
+        }
+      ],
+      "links": [
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "contact.html",
+        "contact.html",
+        "contact.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "legal/privacy-policy.html",
+        "legal/sms-terms.html",
+        "legal/terms.html"
+      ],
+      "smallTargets": [
+        "Pexels 34"
+      ],
+      "gsap": true,
+      "errors": [],
+      "scene": {
+        "shifted": true,
+        "state": "call",
+        "stamps": 4,
+        "chips": 9
+      }
+    },
+    "laptop:how": {
+      "scrollWidth": 1265,
+      "clientWidth": 1265,
+      "h1": 1,
+      "emDashes": 0,
+      "hashOnly": 0,
+      "fonts": true,
+      "badSpans": 0,
+      "contrastMin": 6.13,
+      "contrastFails": [],
+      "images": [
+        {
+          "src": "logo.png",
+          "ok": true
+        },
+        {
+          "src": "chapter-night.webp",
+          "ok": true
+        },
+        {
+          "src": "logo.png",
+          "ok": true
+        }
+      ],
+      "links": [
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "contact.html",
+        "contact.html",
+        "industries.html",
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "legal/privacy-policy.html",
+        "legal/sms-terms.html",
+        "legal/terms.html"
+      ],
+      "smallTargets": [],
+      "gsap": true,
+      "errors": []
+    },
+    "laptop:ind": {
+      "scrollWidth": 1265,
+      "clientWidth": 1265,
+      "h1": 1,
+      "emDashes": 0,
+      "hashOnly": 0,
+      "fonts": true,
+      "badSpans": 0,
+      "contrastMin": 6.13,
+      "contrastFails": [],
+      "images": [
+        {
+          "src": "logo.png",
+          "ok": true
+        },
+        {
+          "src": "ind-emergency.webp",
+          "ok": true
+        },
+        {
+          "src": "ind-property.webp",
+          "ok": true
+        },
+        {
+          "src": "ind-moving.webp",
+          "ok": true
+        },
+        {
+          "src": "ind-financial.webp",
+          "ok": true
+        },
+        {
+          "src": "logo.png",
+          "ok": true
+        }
+      ],
+      "links": [
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "contact.html",
+        "contact.html",
+        "oversight.html",
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "legal/privacy-policy.html",
+        "legal/sms-terms.html",
+        "legal/terms.html"
+      ],
+      "smallTargets": [],
+      "gsap": true,
+      "errors": []
+    },
+    "laptop:over": {
+      "scrollWidth": 1265,
+      "clientWidth": 1265,
+      "h1": 1,
+      "emDashes": 0,
+      "hashOnly": 0,
+      "fonts": true,
+      "badSpans": 0,
+      "contrastMin": 5.83,
+      "contrastFails": [],
+      "images": [
+        {
+          "src": "logo.png",
+          "ok": true
+        },
+        {
+          "src": "studio-street.jpg",
+          "ok": true
+        },
+        {
+          "src": "logo.png",
+          "ok": true
+        }
+      ],
+      "links": [
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "contact.html",
+        "contact.html",
+        "contact.html",
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "legal/privacy-policy.html",
+        "legal/sms-terms.html",
+        "legal/terms.html"
+      ],
+      "smallTargets": [
+        "Pexels 38"
+      ],
+      "gsap": true,
+      "errors": []
+    },
+    "laptop:contact": {
+      "scrollWidth": 1265,
+      "clientWidth": 1265,
+      "h1": 1,
+      "emDashes": 0,
+      "hashOnly": 0,
+      "fonts": true,
+      "badSpans": 0,
+      "contrastMin": 8.45,
+      "contrastFails": [],
+      "images": [
+        {
+          "src": "logo.png",
+          "ok": true
+        },
+        {
+          "src": "contact-night.webp",
+          "ok": true
+        },
+        {
+          "src": "logo.png",
+          "ok": true
+        }
+      ],
+      "links": [
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "contact.html",
+        "contact.html",
+        "legal/privacy-policy.html",
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "legal/privacy-policy.html",
+        "legal/sms-terms.html",
+        "legal/terms.html"
+      ],
+      "smallTargets": [
+        "consent 18",
+        "privacy policy 36"
+      ],
+      "gsap": true,
+      "errors": []
+    },
+    "tablet:home": {
+      "scrollWidth": 805,
+      "clientWidth": 805,
+      "h1": 1,
+      "emDashes": 0,
+      "hashOnly": 0,
+      "fonts": true,
+      "badSpans": 0,
+      "contrastMin": 4.95,
+      "contrastFails": [],
+      "images": [
+        {
+          "src": "logo.png",
+          "ok": true
+        },
+        {
+          "src": "hero-night.webp",
+          "ok": true
+        },
+        {
+          "src": "logo.png",
+          "ok": true
+        }
+      ],
+      "links": [
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "contact.html",
+        "contact.html",
+        "contact.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "legal/privacy-policy.html",
+        "legal/sms-terms.html",
+        "legal/terms.html"
+      ],
+      "smallTargets": [
+        "Pexels 34"
+      ],
+      "gsap": true,
+      "errors": [],
+      "scene": {
+        "shifted": false,
+        "state": "call",
+        "stamps": 5,
+        "chips": 2
+      }
+    },
+    "tablet:how": {
+      "scrollWidth": 805,
+      "clientWidth": 805,
+      "h1": 1,
+      "emDashes": 0,
+      "hashOnly": 0,
+      "fonts": true,
+      "badSpans": 0,
+      "contrastMin": 6.13,
+      "contrastFails": [],
+      "images": [
+        {
+          "src": "logo.png",
+          "ok": true
+        },
+        {
+          "src": "chapter-night.webp",
+          "ok": true
+        },
+        {
+          "src": "logo.png",
+          "ok": true
+        }
+      ],
+      "links": [
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "contact.html",
+        "contact.html",
+        "industries.html",
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "legal/privacy-policy.html",
+        "legal/sms-terms.html",
+        "legal/terms.html"
+      ],
+      "smallTargets": [],
+      "gsap": true,
+      "errors": []
+    },
+    "tablet:ind": {
+      "scrollWidth": 805,
+      "clientWidth": 805,
+      "h1": 1,
+      "emDashes": 0,
+      "hashOnly": 0,
+      "fonts": true,
+      "badSpans": 0,
+      "contrastMin": 6.13,
+      "contrastFails": [],
+      "images": [
+        {
+          "src": "logo.png",
+          "ok": true
+        },
+        {
+          "src": "ind-emergency.webp",
+          "ok": true
+        },
+        {
+          "src": "ind-property.webp",
+          "ok": true
+        },
+        {
+          "src": "ind-moving.webp",
+          "ok": true
+        },
+        {
+          "src": "ind-financial.webp",
+          "ok": true
+        },
+        {
+          "src": "logo.png",
+          "ok": true
+        }
+      ],
+      "links": [
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "contact.html",
+        "contact.html",
+        "oversight.html",
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "legal/privacy-policy.html",
+        "legal/sms-terms.html",
+        "legal/terms.html"
+      ],
+      "smallTargets": [],
+      "gsap": true,
+      "errors": []
+    },
+    "tablet:over": {
+      "scrollWidth": 805,
+      "clientWidth": 805,
+      "h1": 1,
+      "emDashes": 0,
+      "hashOnly": 0,
+      "fonts": true,
+      "badSpans": 0,
+      "contrastMin": 5.83,
+      "contrastFails": [],
+      "images": [
+        {
+          "src": "logo.png",
+          "ok": true
+        },
+        {
+          "src": "studio-street.jpg",
+          "ok": true
+        },
+        {
+          "src": "logo.png",
+          "ok": true
+        }
+      ],
+      "links": [
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "contact.html",
+        "contact.html",
+        "contact.html",
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "legal/privacy-policy.html",
+        "legal/sms-terms.html",
+        "legal/terms.html"
+      ],
+      "smallTargets": [
+        "Pexels 38"
+      ],
+      "gsap": true,
+      "errors": []
+    },
+    "tablet:contact": {
+      "scrollWidth": 805,
+      "clientWidth": 805,
+      "h1": 1,
+      "emDashes": 0,
+      "hashOnly": 0,
+      "fonts": true,
+      "badSpans": 0,
+      "contrastMin": 8.45,
+      "contrastFails": [],
+      "images": [
+        {
+          "src": "logo.png",
+          "ok": true
+        },
+        {
+          "src": "contact-night.webp",
+          "ok": true
+        },
+        {
+          "src": "logo.png",
+          "ok": true
+        }
+      ],
+      "links": [
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "contact.html",
+        "contact.html",
+        "legal/privacy-policy.html",
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "legal/privacy-policy.html",
+        "legal/sms-terms.html",
+        "legal/terms.html"
+      ],
+      "smallTargets": [
+        "consent 18",
+        "privacy policy 36"
+      ],
+      "gsap": true,
+      "errors": []
+    },
+    "mobile:home": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "h1": 1,
+      "emDashes": 0,
+      "hashOnly": 0,
+      "fonts": true,
+      "badSpans": 0,
+      "contrastMin": 5.52,
+      "contrastFails": [],
+      "images": [
+        {
+          "src": "logo.png",
+          "ok": true
+        },
+        {
+          "src": "hero-night.webp",
+          "ok": true
+        },
+        {
+          "src": "logo.png",
+          "ok": true
+        }
+      ],
+      "links": [
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "contact.html",
+        "contact.html",
+        "contact.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "legal/privacy-policy.html",
+        "legal/sms-terms.html",
+        "legal/terms.html"
+      ],
+      "smallTargets": [
+        "Pexels 34"
+      ],
+      "gsap": true,
+      "errors": [],
+      "scene": {
+        "shifted": false,
+        "state": "call",
+        "stamps": 5,
+        "chips": 1
+      }
+    },
+    "mobile:how": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "h1": 1,
+      "emDashes": 0,
+      "hashOnly": 0,
+      "fonts": true,
+      "badSpans": 0,
+      "contrastMin": 6.13,
+      "contrastFails": [],
+      "images": [
+        {
+          "src": "logo.png",
+          "ok": true
+        },
+        {
+          "src": "chapter-night.webp",
+          "ok": true
+        },
+        {
+          "src": "logo.png",
+          "ok": true
+        }
+      ],
+      "links": [
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "contact.html",
+        "contact.html",
+        "industries.html",
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "legal/privacy-policy.html",
+        "legal/sms-terms.html",
+        "legal/terms.html"
+      ],
+      "smallTargets": [],
+      "gsap": true,
+      "errors": []
+    },
+    "mobile:ind": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "h1": 1,
+      "emDashes": 0,
+      "hashOnly": 0,
+      "fonts": true,
+      "badSpans": 0,
+      "contrastMin": 6.13,
+      "contrastFails": [],
+      "images": [
+        {
+          "src": "logo.png",
+          "ok": true
+        },
+        {
+          "src": "ind-emergency.webp",
+          "ok": true
+        },
+        {
+          "src": "ind-property.webp",
+          "ok": true
+        },
+        {
+          "src": "ind-moving.webp",
+          "ok": true
+        },
+        {
+          "src": "ind-financial.webp",
+          "ok": true
+        },
+        {
+          "src": "logo.png",
+          "ok": true
+        }
+      ],
+      "links": [
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "contact.html",
+        "contact.html",
+        "oversight.html",
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "legal/privacy-policy.html",
+        "legal/sms-terms.html",
+        "legal/terms.html"
+      ],
+      "smallTargets": [],
+      "gsap": true,
+      "errors": []
+    },
+    "mobile:over": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "h1": 1,
+      "emDashes": 0,
+      "hashOnly": 0,
+      "fonts": true,
+      "badSpans": 0,
+      "contrastMin": 5.83,
+      "contrastFails": [],
+      "images": [
+        {
+          "src": "logo.png",
+          "ok": true
+        },
+        {
+          "src": "studio-street.jpg",
+          "ok": true
+        },
+        {
+          "src": "logo.png",
+          "ok": true
+        }
+      ],
+      "links": [
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "contact.html",
+        "contact.html",
+        "contact.html",
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "legal/privacy-policy.html",
+        "legal/sms-terms.html",
+        "legal/terms.html"
+      ],
+      "smallTargets": [
+        "Pexels 38"
+      ],
+      "gsap": true,
+      "errors": []
+    },
+    "mobile:contact": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "h1": 1,
+      "emDashes": 0,
+      "hashOnly": 0,
+      "fonts": true,
+      "badSpans": 0,
+      "contrastMin": 8.45,
+      "contrastFails": [],
+      "images": [
+        {
+          "src": "logo.png",
+          "ok": true
+        },
+        {
+          "src": "contact-night.webp",
+          "ok": true
+        },
+        {
+          "src": "logo.png",
+          "ok": true
+        }
+      ],
+      "links": [
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "contact.html",
+        "contact.html",
+        "legal/privacy-policy.html",
+        "index.html",
+        "how-it-works.html",
+        "industries.html",
+        "oversight.html",
+        "contact.html",
+        "legal/privacy-policy.html",
+        "legal/sms-terms.html",
+        "legal/terms.html"
+      ],
+      "smallTargets": [
+        "consent 18",
+        "privacy policy 36"
+      ],
+      "gsap": true,
+      "errors": [],
+      "invalidOnEmpty": 8
+    }
+  },
+  "missingLinks": []
 }

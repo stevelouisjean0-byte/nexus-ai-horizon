@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NEXUS_THEME_VERSION', '1.1.0' );
+define( 'NEXUS_THEME_VERSION', '1.2.0' );
 
 /* ------------------------------------------------------------ setup */
 
@@ -41,7 +41,11 @@ function nexus_assets() {
 		null
 	);
 	wp_enqueue_style( 'nexus-site', $uri . '/assets/css/site.css', array( 'nexus-fonts' ), NEXUS_THEME_VERSION );
-	wp_enqueue_script( 'nexus-site', $uri . '/assets/js/site.js', array(), NEXUS_THEME_VERSION, array( 'strategy' => 'defer', 'in_footer' => true ) );
+	// GSAP and ScrollTrigger drive the scroll choreography; the page is fully
+	// readable without them, so a blocked CDN degrades to static content.
+	wp_enqueue_script( 'gsap', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js', array(), '3.12.5', array( 'strategy' => 'defer', 'in_footer' => true ) );
+	wp_enqueue_script( 'gsap-scrolltrigger', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js', array( 'gsap' ), '3.12.5', array( 'strategy' => 'defer', 'in_footer' => true ) );
+	wp_enqueue_script( 'nexus-site', $uri . '/assets/js/site.js', array( 'gsap', 'gsap-scrolltrigger' ), NEXUS_THEME_VERSION, array( 'strategy' => 'defer', 'in_footer' => true ) );
 }
 add_action( 'wp_enqueue_scripts', 'nexus_assets' );
 
